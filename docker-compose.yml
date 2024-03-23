@@ -1,0 +1,50 @@
+version: '3.7'
+
+services:
+  app:
+    image: app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    environment:
+      MONGODB_URI: mongodb+srv://codesamurai:codesamurai@cluster0.iwnqdkt.mongodb.net/codesamurai?retryWrites=true&w=majority
+      PORT: 5000
+      JWT_SECRET: secret
+      TOKEN_SECRET: secret
+      EMAIL: your email
+      PASSWORD: your password
+  db:
+    image: mongo:latest
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: codesamurai
+      MONGO_INITDB_ROOT_PASSWORD: codesamurai
+      MONGO_INITDB_DATABASE: codesamurai
+  
+  react-app:
+    image: react-app
+    build:
+      context: .
+      dockerfile: Dockerfile.react
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    depends_on:
+      - app
+    environment:
+      REACT_APP_API_URL: http://localhost:5000
+
+
+
+      
