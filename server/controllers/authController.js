@@ -13,8 +13,6 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-
-
 const createUser = async (req, res) => {
     try {
         const { name, email, password, role } = req.body;
@@ -39,7 +37,7 @@ const login = async (req, res) => {
         if (!validPass) return res.status(400).json({ message: 'Invalid password' });
 
         const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
-        res.header('Authorization', token).json({ token });
+        res.header('Authorization', token).json({ token, user });
     }
     catch (err) {
         res.status(400).json({ message: err.message });
