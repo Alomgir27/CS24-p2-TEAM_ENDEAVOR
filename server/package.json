@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "clean:database": "node cleanDatabase.js"
+    "clean:database": "node cleanDatabase.js",
+    "seed:database": "node seedDatabase.js"
   },
   "author": "",
   "license": "ISC",

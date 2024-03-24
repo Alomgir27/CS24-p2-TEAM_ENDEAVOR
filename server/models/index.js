@@ -15,7 +15,7 @@ const userSchema = new Schema({
     type: String,
     required: false
   },
-  roles: {
+  role: {
         type: String,
         required: true,
         enum: ['System Admin', 'STS Manager', 'Landfill Manager', 'Unassigned'],
