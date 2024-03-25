@@ -19,50 +19,36 @@ const initialState: SideMenuState = {
     {
       icon: "Home",
       title: "Dashboard",
-      subMenu: [
-        {
-          icon: "Activity",
-          pathname: "/",
-          title: "Overview 1",
-        },
-        {
-          icon: "Activity",
-          pathname: "/dashboard-overview-2",
-          title: "Overview 2",
-        },
-        {
-          icon: "Activity",
-          pathname: "/dashboard-overview-3",
-          title: "Overview 3",
-        },
-        {
-          icon: "Activity",
-          pathname: "/dashboard-overview-4",
-          title: "Overview 4",
-        },
-      ],
+      pathname: "/", // this is the path to the dashboard
     },
     {
-      icon: "Box",
-      title: "Menu Layout",
+      icon: 'Users',
+      title: 'Users',
       subMenu: [
         {
-          icon: "Activity",
-          pathname: "/",
-          title: "Side Menu",
-          ignore: true,
+          pathname: '/users',
+          title: 'Users',
+          icon: 'Users',
         },
         {
-          icon: "Activity",
-          pathname: "/simple-menu/dashboard-overview-1",
-          title: "Simple Menu",
-          ignore: true,
+          pathname: '/add-user',
+          title: 'Add User',
+          icon: 'UserPlus',
         },
         {
-          icon: "Activity",
-          pathname: "/top-menu/dashboard-overview-1",
-          title: "Top Menu",
-          ignore: true,
+          pathname: '/user-profile',
+          title: 'User Profile',
+          icon: 'User',
+        },
+        {
+          pathname: '/update-profile',
+          title: 'Update Profile',
+          icon: 'Edit',
+        },
+        {
+          pathname: '/change-password',
+          title: 'Change Password',
+          icon: 'Lock',
         },
       ],
     },

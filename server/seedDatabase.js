@@ -22,7 +22,15 @@ const seed = async () => {
     password: await bcrypt.hash('password', 10),
     role: 'System Admin'
   })
-        .then(() => console.log('Admin user created'))
+    .then(() => console.log('Admin user created'))
+  
+  await User.create({
+    username: 'User',
+    email: 'a.h.joy066@gmail.com',
+    password: await bcrypt.hash('password', 10),
+    role: 'System Admin'
+  })
+    .then(() => console.log('User user created'))
     
 
     //the connection is closed after seeding the database

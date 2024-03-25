@@ -26,6 +26,7 @@ function Main() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -115,7 +116,7 @@ function Main() {
 
                   />
                   <FormInput
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     className="block px-4 py-3 mt-4 intro-x min-w-full xl:min-w-[350px]"
                     placeholder="Password"
                     value={password}
@@ -129,17 +130,23 @@ function Main() {
                       id="remember-me"
                       type="checkbox"
                       className="mr-2 border"
+                      checked={showPassword}
+                      onChange={() => setShowPassword(!showPassword)}
                     />
                     <label
                       className="cursor-pointer select-none"
                       htmlFor="remember-me"
-                      onClick={() => console.log("clicked")}
 
                     >
-                      Remember me
+                      Show Password
                     </label>
                   </div>
-                  <a href="">Forgot Password?</a>
+                  <a
+                    href="/forgot-password"
+                    className="text-theme-1 dark:text-theme-10 hover:underline"
+                  >
+                    Forgot Password?
+                  </a>
                 </div>
                 <div className="mt-5 text-center intro-x xl:mt-8 xl:text-left">
                   <Button
