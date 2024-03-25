@@ -72,6 +72,9 @@ import Validation from "../pages/Validation";
 import Chart from "../pages/Chart";
 import Slider from "../pages/Slider";
 import ImageZoom from "../pages/ImageZoom";
+
+import AddUser from '../pages/AddUser';
+
 //do basic imports
 import { useEffect } from "react";
 import { useState } from "react";
@@ -105,6 +108,12 @@ function Router() {
       path: "/",
       element: <SideMenu />,
       children: [
+        {
+          path: '/add-user',
+          element: <AddUser />
+        },
+
+        
         {
           path: "/",
           element: <DashboardOverview1 />,
