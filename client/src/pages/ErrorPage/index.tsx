@@ -2,13 +2,14 @@ import DarkModeSwitcher from "../../components/DarkModeSwitcher";
 import MainColorSwitcher from "../../components/MainColorSwitcher";
 import errorIllustration from "../../assets/images/error-illustration.svg";
 import Button from "../../base-components/Button";
+import { Link } from "react-router-dom";
 
 function Main() {
   return (
     <>
       <div className="py-2">
-        <DarkModeSwitcher />
-        <MainColorSwitcher />
+        {/* <DarkModeSwitcher /> */}
+        {/* <MainColorSwitcher /> */}
         <div className="container">
           {/* BEGIN: Error Page */}
           <div className="flex flex-col items-center justify-center h-screen text-center error-page lg:flex-row lg:text-left">
@@ -27,9 +28,12 @@ function Main() {
               <div className="mt-3 text-lg intro-x">
                 You may have mistyped the address or the page may have moved.
               </div>
-              <Button className="px-4 py-3 mt-10 text-white border-white intro-x dark:border-darkmode-400 dark:text-slate-200">
-                Back to Home
-              </Button>
+              <Link to="/">
+                <Button className="px-4 py-3 mt-10 text-white border-white intro-x dark:border-darkmode-400 dark:text-slate-200">
+                  Back to Home
+                </Button>
+              </Link>
+
             </div>
           </div>
           {/* END: Error Page */}
