@@ -3,8 +3,10 @@ import MainColorSwitcher from "../../components/MainColorSwitcher";
 import errorIllustration from "../../assets/images/error-illustration.svg";
 import Button from "../../base-components/Button";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 function Main() {
+  const navigate = useNavigate();
   return (
     <>
       <div className="py-2">
