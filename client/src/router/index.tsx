@@ -4,8 +4,6 @@ import SimpleMenu from "../layouts/SimpleMenu";
 import TopMenu from "../layouts/TopMenu";
 import DashboardOverview1 from "../pages/DashboardOverview1";
 import DashboardOverview2 from "../pages/DashboardOverview2";
-import DashboardOverview3 from "../pages/DashboardOverview3";
-import DashboardOverview4 from "../pages/DashboardOverview4";
 import Categories from "../pages/Categories";
 import AddProduct from "../pages/AddProduct";
 import ProductList from "../pages/ProductList";
@@ -24,7 +22,7 @@ import Calendar from "../pages/Calendar";
 import CrudDataList from "../pages/CrudDataList";
 import CrudForm from "../pages/CrudForm";
 import UsersLayout1 from "../pages/UsersLayout1";
-import UsersLayout2 from "../pages/UsersLayout2";
+import Users from "../pages/Users";
 import UsersLayout3 from "../pages/UsersLayout3";
 import ProfileOverview1 from "../pages/ProfileOverview1";
 import ProfileOverview2 from "../pages/ProfileOverview2";
@@ -184,8 +182,8 @@ function Router() {
           element: <UsersLayout1 />,
         },
         {
-          path: "users-layout-2",
-          element: <UsersLayout2 />,
+          path: "users",
+          element: <Users />,
         },
         {
           path: "users-layout-3",

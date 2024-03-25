@@ -2,7 +2,7 @@ export interface IUser {
     email: string;
     password: string;
     username: string;
-    roles: string;
+    role: string;
     details: any;
 }
 

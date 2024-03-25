@@ -1,3 +1,4 @@
+
 const { User, Role } = require('../models');
 
 const getUsers = async (req, res) => {
@@ -70,8 +71,8 @@ const updateRoles = async (req, res) => {
     try {
         const { userId } = req.params;
         if (!userId) return res.status(400).json({ message: 'User ID is required' });
-        const { roles } = req.body;
-        const user = await User.findByIdAndUpdate(userId, { roles }, { new: true });
+        const { role } = req.body;
+        const user = await User.findByIdAndUpdate(userId, { role }, { new: true });
         res.status(200).json({ user });
     }
     catch (err) {
