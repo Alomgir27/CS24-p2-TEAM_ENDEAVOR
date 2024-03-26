@@ -76,7 +76,6 @@ import Chart from "../pages/Chart";
 import Slider from "../pages/Slider";
 import ImageZoom from "../pages/ImageZoom";
 
-import AddUser from '../pages/AddUser';
 import Roles from '../pages/Roles';
 import AddRole from '../pages/AddRole';
 import Permissions from '../pages/Permissions';
