@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   FormCheck,
   FormInput,
@@ -10,36 +10,13 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import clsx from 'clsx';
+import { IPermission } from '../../types';
+import { getPermissions } from '../../services/permissionService';
 
-interface Permission {
-  id: string;
-  name: string;
-  description: string;
-}
+
 
 const index = () => {
-  const [permissions, setPermissions] = useState<Permission[]>([
-    {
-      id: '1',
-      name: 'Create',
-      description: 'Create permission',
-    },
-    {
-      id: '2',
-      name: 'Read',
-      description: 'Read permission',
-    },
-    {
-      id: '3',
-      name: 'Update',
-      description: 'Update permission',
-    },
-    {
-      id: '4',
-      name: 'Delete',
-      description: 'Delete permission',
-    },
-  ]);
+  const [permissions, setPermissions] = useState<IPermission[]>([]);
 
   const schema = yup
     .object({
@@ -48,9 +25,22 @@ const index = () => {
     })
     .required();
 
-  const [selectedPermissions, setSelectedPermissions] = useState<Permission[]>(
+  const [selectedPermissions, setSelectedPermissions] = useState<IPermission[]>(
     []
   );
+
+  useEffect(() => {
+    const fetchPermissions = async () => {
+      try {
+        const res = await getPermissions();
+        const { permissions } = res.data;
+        setPermissions(permissions);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchPermissions();
+  }, []);
 
   const {
     register,
@@ -61,6 +51,9 @@ const index = () => {
     mode: 'onChange',
     resolver: yupResolver(schema),
   });
+
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
   const onSubmit = async (data) => {
     const name = data.name || '';
@@ -133,7 +126,7 @@ const index = () => {
                       <FormCheck.Input
                         id={`checkbox-switch-${permissionKey}`}
                         type='checkbox'
-                        value={permission.id}
+                        value={permission._id}
                         onChange={(e) => {
                           if (e.target.checked) {
                             setSelectedPermissions([
@@ -144,7 +137,7 @@ const index = () => {
                             setSelectedPermissions(
                               selectedPermissions.filter(
                                 (selectedPermission) =>
-                                  selectedPermission.id !== permission.id
+                                  selectedPermission._id !== permission._id
                               )
                             );
                           }

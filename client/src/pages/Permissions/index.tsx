@@ -1,46 +1,49 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import Button from '../../base-components/Button';
 import { FormInput } from '../../base-components/Form';
 import Lucide from '../../base-components/Lucide';
 import { useNavigate } from 'react-router-dom';
 import { Dialog, Menu } from '../../base-components/Headless';
+import { IPermission } from '../../types';
 
-interface Permission {
-  id: string;
-  name: string;
-  description: string;
-}
+import {
+  deletePermission,
+  getPermissions,
+} from '../../services/permissionService';
 
 const index = () => {
   const [deleteConfirmationModal, setDeleteConfirmationModal] = useState(false);
-  const deleteButtonRef = useRef(null);
 
   const navigate = useNavigate();
   const [search, setSearch] = useState('');
 
-  const [permissions, setPermissions] = useState<Permission[]>([
-    {
-      id: '1',
-      name: 'Create',
-      description: 'Create permission',
-    },
-    {
-      id: '2',
-      name: 'Read',
-      description: 'Read permission',
-    },
-    {
-      id: '3',
-      name: 'Update',
-      description: 'Update permission',
-    },
-    {
-      id: '4',
-      name: 'Delete',
-      description: 'Delete permission',
-    },
-  ]);
+  const [refresh, setRefresh] = useState(false);
+  const [permissions, setPermissions] = useState<IPermission[]>([]);
+
+  const [targetPermission, setTargetPermission] = useState<IPermission | null>(
+    null
+  );
+  const onDelete = async () => {
+    if (!targetPermission) return;
+    await deletePermission(targetPermission?._id);
+    setRefresh(!refresh);
+
+    setDeleteConfirmationModal(false);
+  };
+
+  useEffect(() => {
+    const fetchPermissions = async () => {
+      try {
+        const res = await getPermissions();
+        const { permissions } = res.data;
+        setPermissions(permissions);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchPermissions();
+  }, [refresh]);
 
   return (
     <>
@@ -85,7 +88,7 @@ const index = () => {
                   <div className='ml-4 truncate'>
                     <div className='font-medium text-lg'>{permission.name}</div>
                     <div className='text-slate-500'>
-                      {permission.description}
+                      {permission.details as string}
                     </div>
                   </div>
                 </div>
@@ -98,6 +101,7 @@ const index = () => {
                     className='p-2 shadow-md'
                     onClick={() => {
                       setDeleteConfirmationModal(true);
+                      setTargetPermission(permission);
                     }}
                   >
                     Delete
@@ -113,7 +117,6 @@ const index = () => {
           onClose={() => {
             setDeleteConfirmationModal(false);
           }}
-          initialFocus={deleteButtonRef}
         >
           <Dialog.Panel>
             <div className='p-5 text-center'>
@@ -142,7 +145,7 @@ const index = () => {
                 variant='danger'
                 type='button'
                 className='w-24'
-                ref={deleteButtonRef}
+                onClick={onDelete}
               >
                 Delete
               </Button>

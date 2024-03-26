@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import Button from '../../base-components/Button';
 import { FormInput } from '../../base-components/Form';
@@ -6,100 +6,47 @@ import Lucide from '../../base-components/Lucide';
 import { useNavigate } from 'react-router-dom';
 import { Dialog, Menu } from '../../base-components/Headless';
 
-interface Permission {
-  id: string;
-  name: string;
-  description: string;
-}
-
-interface Role {
-  id: string;
-  name: string;
-  permissions: Permission[];
-  description: string;
-}
+import { useSelector } from "react-redux";
+import { RootState } from "../../stores/store";
+import { IPermission, IRole } from '../../types';
+import { get } from 'lodash';
+import { getRoles } from '../../services/roleService';
 
 const index = () => {
   const [deleteConfirmationModal, setDeleteConfirmationModal] = useState(false);
 
+  const navigate = useNavigate();
+  const [search, setSearch] = useState('');
+  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+  const [roles, setRoles] = useState<IRole[]>([]);
+  const [permissions, setPermissions] = useState<IPermission[]>([]);
+  
   const onDelete = () => {
     console.log('delete');
     setDeleteConfirmationModal(false);
   };
 
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/login");
+    }
+  }, [isAuthenticated]);
 
-  const navigate = useNavigate();
-  const [search, setSearch] = useState('');
+  useEffect(() => {
+    const fetchRoles = async () => {
+      try {
+        const res = await getRoles();
+        const { roles } = res.data;
+        setRoles(roles);
 
-  const [permissions, setPermissions] = useState<Permission[]>([
-    {
-      id: '1',
-      name: 'Create',
-      description: 'Create permission',
-    },
-    {
-      id: '2',
-      name: 'Read',
-      description: 'Read permission',
-    },
-    {
-      id: '3',
-      name: 'Update',
-      description: 'Update permission',
-    },
-    {
-      id: '4',
-      name: 'Delete',
-      description: 'Delete permission',
-    },
-  ]);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchRoles();
+  }, []);
 
-  const [roles, setRoles] = useState<Role[]>([
-    {
-      id: '1',
-      name: 'Admin',
-      description: 'Admin role',
-      permissions: [
-        {
-          id: '1',
-          name: 'Create',
-          description: 'Create permission',
-        },
-        {
-          id: '2',
-          name: 'Read',
-          description: 'Read permission',
-        },
-        {
-          id: '3',
-          name: 'Update',
-          description: 'Update permission',
-        },
-        {
-          id: '4',
-          name: 'Delete',
-          description: 'Delete permission',
-        },
-      ],
-    },
-    {
-      id: '2',
-      name: 'User',
-      description: 'User role',
-      permissions: [
-        {
-          id: '1',
-          name: 'Create',
-          description: 'Create permission',
-        },
-        {
-          id: '2',
-          name: 'Read',
-          description: 'Read permission',
-        },
-      ],
-    },
-  ]);
+  
 
   return (
     <>
@@ -143,12 +90,12 @@ const index = () => {
                   </div>
                   <div className='ml-4 truncate'>
                     <div className='font-medium text-lg'>{role.name}</div>
-                    <div className='text-slate-500'>{role.description}</div>
+                    <div className='text-slate-500'>{role.details as string}</div>
                   </div>
                 </div>
 
                 {/* show persmissions */}
-                <div className='mt-5'>
+                {/* <div className='mt-5'>
                   <h3>Permissions</h3>
                   {permissions.map((permission, permissionKey) => (
                     <div key={permissionKey} className='flex items-center mt-2'>
@@ -173,7 +120,7 @@ const index = () => {
                   ))}
 
                   
-                </div>
+                </div> */}
 
                 <div className='flex items-center justify-between mt-5'>
                   <Button variant='secondary' className='p-2 shadow-md'>
