@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
-import {
-  FormInput,
-  FormLabel,
-  FormTextarea,
-} from '../../base-components/Form';
+import { FormInput, FormLabel, FormTextarea } from '../../base-components/Form';
 import Button from '../../base-components/Button';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import clsx from 'clsx';
+import { createPermission } from '../../services/permissionService';
+import Alert from '../../base-components/Alert';
 
 const index = () => {
-
   const schema = yup
     .object({
       name: yup.string().required().min(2),
@@ -23,12 +20,15 @@ const index = () => {
     register,
     trigger,
     formState: { errors },
+    reset,
     handleSubmit,
   } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schema),
   });
 
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
   const onSubmit = async (data) => {
     const name = data.name || '';
@@ -36,8 +36,26 @@ const index = () => {
 
     console.log(name, description);
 
-    //TODO: Add API call to create permission
-  }
+    try {
+      const response = await createPermission({ name, description });
+
+      console.log(response);
+      if (response.status === 201) {
+        setSuccess('Permission created successfully');
+        reset();
+      } else {
+        setError('Something went wrong');
+      }
+    } catch (error) {
+      setError(
+        (error &&
+          error?.response &&
+          error.response?.data &&
+          error.response.data?.message) ||
+          'Something went wrong'
+      );
+    }
+  };
 
   return (
     <>
@@ -69,7 +87,6 @@ const index = () => {
                       errors.name.message}
                   </div>
                 )}
-
               </div>
 
               <div className='mt-3'>
@@ -80,11 +97,12 @@ const index = () => {
                   id='permission-description'
                   placeholder='Enter description'
                   {...register('description')}
-                  
-                  className={ 'h-28' + clsx('input', {
-                    'border-red-500': errors.description,
-                  })}
-
+                  className={
+                    'h-28' +
+                    clsx('input', {
+                      'border-red-500': errors.description,
+                    })
+                  }
                 ></FormTextarea>
 
                 {errors.description && (
@@ -94,6 +112,18 @@ const index = () => {
                   </div>
                 )}
               </div>
+
+              {success && (
+                <Alert variant='success' className='mt-3'>
+                  {success}
+                </Alert>
+              )}
+
+              {error && (
+                <Alert variant='danger' className='mt-3'>
+                  {error}
+                </Alert>
+              )}
 
               <Button variant='primary' type='submit' className='mt-3'>
                 Submit

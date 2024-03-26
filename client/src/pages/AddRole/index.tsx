@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   FormCheck,
   FormInput,
@@ -10,36 +10,13 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import clsx from 'clsx';
-
-interface Permission {
-  id: string;
-  name: string;
-  description: string;
-}
+import { IPermission } from '../../types';
+import { getPermissions } from '../../services/permissionService';
+import { createRole } from '../../services/roleService';
+import Alert from '../../base-components/Alert';
 
 const index = () => {
-  const [permissions, setPermissions] = useState<Permission[]>([
-    {
-      id: '1',
-      name: 'Create',
-      description: 'Create permission',
-    },
-    {
-      id: '2',
-      name: 'Read',
-      description: 'Read permission',
-    },
-    {
-      id: '3',
-      name: 'Update',
-      description: 'Update permission',
-    },
-    {
-      id: '4',
-      name: 'Delete',
-      description: 'Delete permission',
-    },
-  ]);
+  const [permissions, setPermissions] = useState<IPermission[]>([]);
 
   const schema = yup
     .object({
@@ -48,27 +25,63 @@ const index = () => {
     })
     .required();
 
-  const [selectedPermissions, setSelectedPermissions] = useState<Permission[]>(
+  const [selectedPermissions, setSelectedPermissions] = useState<IPermission[]>(
     []
   );
+
+  useEffect(() => {
+    const fetchPermissions = async () => {
+      try {
+        const res = await getPermissions();
+        const { permissions } = res.data;
+        setPermissions(permissions);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchPermissions();
+  }, []);
 
   const {
     register,
     trigger,
     formState: { errors },
     handleSubmit,
+    reset,
   } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schema),
   });
 
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+
   const onSubmit = async (data) => {
     const name = data.name || '';
     const description = data.description || '';
 
-    console.log(name);
-    console.log(description);
-    console.log(selectedPermissions);
+    try {
+      const response = await createRole({
+        name,
+        description,
+        permissions: selectedPermissions.map((permission) => permission.name),
+      });
+
+      if (response.status == 201) {
+        setSuccess('Role created successfully');
+        reset();
+      } else {
+        setError('Something went wrong');
+      }
+    } catch (error) {
+      setError(
+        (error &&
+          error?.response &&
+          error.response?.data &&
+          error.response.data?.message) ||
+          'Something went wrong'
+      );
+    }
   };
 
   return (
@@ -129,11 +142,11 @@ const index = () => {
                 <label>Add permissions</label>
                 <div className='flex flex-col mt-2 sm:flex-row'>
                   {permissions.map((permission, permissionKey) => (
-                    <FormCheck className='mr-4'>
+                    <FormCheck className='mr-4 mt-3' key={permissionKey}>
                       <FormCheck.Input
                         id={`checkbox-switch-${permissionKey}`}
                         type='checkbox'
-                        value={permission.id}
+                        value={permission._id}
                         onChange={(e) => {
                           if (e.target.checked) {
                             setSelectedPermissions([
@@ -144,7 +157,7 @@ const index = () => {
                             setSelectedPermissions(
                               selectedPermissions.filter(
                                 (selectedPermission) =>
-                                  selectedPermission.id !== permission.id
+                                  selectedPermission._id !== permission._id
                               )
                             );
                           }
@@ -160,7 +173,19 @@ const index = () => {
                 </div>
               </div>
 
-              <Button variant='primary' type='submit' className='mt-3'>
+              {success && (
+                <Alert variant='success' className='mt-3'>
+                  {success}
+                </Alert>
+              )}
+
+              {error && (
+                <Alert variant='danger' className='mt-3'>
+                  {error}
+                </Alert>
+              )}
+
+              <Button variant='primary' type='submit' className='mt-4'>
                 Submit
               </Button>
             </div>
