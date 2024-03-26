@@ -48,6 +48,9 @@ import UpdateProfile from "../pages/UpdateProfile";
 import ChangePassword from "../pages/ChangePassword";
 import ForgotPassword from "../pages/ForgotPassword";
 import ResetPassword from "../pages/ResetPassword";
+import Profile from "../pages/Profile";
+import AddUser from "../pages/AddUser";
+
 import RegularTable from "../pages/RegularTable";
 import Tabulator from "../pages/Tabulator";
 import Modal from "../pages/Modal";
@@ -184,6 +187,14 @@ function Router() {
         {
           path: "users",
           element: <Users />,
+        },
+        {
+          path: "profile/:id",
+          element: <Profile />,
+        },
+        {
+          path: "/users/add",
+          element: <AddUser />,
         },
         {
           path: "users-layout-3",

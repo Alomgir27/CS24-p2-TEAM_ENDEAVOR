@@ -10,18 +10,24 @@ import clsx from "clsx";
 import TopBar from "../../components/TopBar";
 import MobileMenu from "../../components/MobileMenu";
 import SideMenuTooltip from "../../components/SideMenuTooltip";
+import { useSelector } from "react-redux";
+import { RootState } from "../../stores/store";
+
 
 function Main() {
   const location = useLocation();
   const [formattedMenu, setFormattedMenu] = useState<
     Array<FormattedMenu | "divider">
-  >([]);
+    >([]);
+  const { user } = useSelector((state: RootState) => state.auth);
   const sideMenuStore = useAppSelector(selectSideMenu);
   const sideMenu = () => nestedMenu(sideMenuStore, location);
 
   useEffect(() => {
     setFormattedMenu(sideMenu());
   }, [sideMenuStore, location.pathname]);
+
+ 
 
   return (
     <div className="py-5 md:py-0 -mx-3 px-3 sm:-mx-8 sm:px-8 bg-black/[0.15] dark:bg-transparent">
@@ -88,7 +94,7 @@ function Main() {
                           { hidden: !menu.activeDropdown },
                         ])}
                       >
-                        {menu.subMenu.map((subMenu, subMenuKey) => (
+                        {menu.subMenu.filter((subMenu) => user?.role === "System Admin" || (subMenu.pathname !== "/users" && subMenu.pathname !== "/users/add")).map((subMenu, subMenuKey) => (
                           <li key={subMenuKey}>
                             <Menu
                               className={clsx({

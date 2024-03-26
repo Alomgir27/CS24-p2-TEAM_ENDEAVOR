@@ -11,7 +11,7 @@ interface AuthState {
 
 const initialState: AuthState = {
     isAuthenticated: localStorage.getItem("token") ? true : false,
-    user: null,
+    user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") as string) : null,
     token: localStorage.getItem("token"),
 };
 
@@ -39,5 +39,6 @@ export const authSlice = createSlice({
 export const { login, logout } = authSlice.actions;
 
 export const selectIsAuthenticated = (state: { auth: AuthState }) => state.auth.isAuthenticated;
+export const selectUser = (state: { auth: AuthState }) => state.auth.user;
 
 export default authSlice.reducer;

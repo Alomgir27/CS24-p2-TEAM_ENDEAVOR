@@ -1,4 +1,5 @@
 export interface IUser {
+    _id: string;
     email: string;
     password: string;
     username: string;
@@ -7,6 +8,7 @@ export interface IUser {
 }
 
 export interface IVehicle {
+    _id: string;
     vehicleNumber: string;
     type: string;
     capacity: string;
@@ -14,6 +16,7 @@ export interface IVehicle {
 }
 
 export interface ISts {
+    _id: string;
     wardNumber: string;
     capacity: string;
     gpsCoordinates: {
@@ -25,6 +28,7 @@ export interface ISts {
 }
 
 export interface IWasteEntry {
+    _id: string;
     stsId: string;
     vehicleId: string;
     volume: number;
@@ -34,6 +38,7 @@ export interface IWasteEntry {
 }
 
 export interface ILandfillEntry {
+    _id: string;
     landfill: string;
     vehicleId: string;
     volume: number;
@@ -43,6 +48,7 @@ export interface ILandfillEntry {
 }
 
 export interface IOilAllocation {
+    _id: string;
     vehicleId: string;
     volume: number;
     destination: string;
@@ -52,6 +58,7 @@ export interface IOilAllocation {
 }
 
 export interface IDashboard {
+    _id: string;
     vehicleId: string;
     stsId: string;
     landfill: string;
@@ -59,6 +66,7 @@ export interface IDashboard {
 }
 
 export interface IRoute {
+    _id: string;
     vehicleId: string;
     stsId: string;
     landfill: string;
@@ -66,12 +74,14 @@ export interface IRoute {
 }
 
 export interface IRole {
+    _id: string;
     name: string;
     permissions: [string];
     details: any;
 }
 
 export interface IPermission {
+    _id: string;
     name: string;
     details: any;
 }

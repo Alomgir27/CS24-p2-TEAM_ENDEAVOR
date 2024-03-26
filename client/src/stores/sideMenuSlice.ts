@@ -2,6 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 import { icons } from "../base-components/Lucide";
 
+
+
+
+
 export interface Menu {
   icon: keyof typeof icons;
   title: string;
@@ -14,6 +18,9 @@ export interface SideMenuState {
   menu: Array<Menu | "divider">;
 }
 
+
+
+
 const initialState: SideMenuState = {
   menu: [
     {
@@ -24,33 +31,26 @@ const initialState: SideMenuState = {
     {
       icon: 'Users',
       title: 'Users',
-      subMenu: [
-        {
-          pathname: '/users',
-          title: 'Users',
-          icon: 'Users',
-        },
-        {
-          pathname: '/add-user',
-          title: 'Add User',
-          icon: 'UserPlus',
-        },
-        {
-          pathname: '/user-profile',
-          title: 'User Profile',
-          icon: 'User',
-        },
-        {
-          pathname: '/update-profile',
-          title: 'Update Profile',
-          icon: 'Edit',
-        },
-        {
-          pathname: '/change-password',
-          title: 'Change Password',
-          icon: 'Lock',
-        },
-      ],
+      subMenu: [{
+        icon: "Users",
+        pathname: "/users",
+        title: "Users",
+      },
+      {
+        icon: "UserPlus",
+        pathname: "/users/add",
+        title: "Add User",
+      },
+      {
+        icon: "Edit",
+        pathname: "/update-profile",
+        title: "Update Profile",
+      },
+      {
+        icon: "Lock",
+        pathname: "/change-password",
+        title: "Change Password",
+      }]
     },
     {
       icon: "ShoppingBag",

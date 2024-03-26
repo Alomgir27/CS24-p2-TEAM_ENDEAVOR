@@ -15,13 +15,6 @@ import { RootState } from "../../stores/store";
 import { IUser } from "../../types";
 import { getUsers } from "../../services/userService";
 
-export interface IUser {
-  email: string;
-  password: string;
-  username: string;
-  role: string;
-  details: any;
-}
 
 
 function Main() {
@@ -96,7 +89,7 @@ function Main() {
           >
             <div className="intro-y box">
               <div className="p-5">
-                <div className="flex items-center">
+                <div className="flex items-center cursor-pointer" onClick={() => navigate(`/profile/${user._id}`)}>
                   <div className="w-10 h-10 image-fit">
                     <Lucide icon="User" className="w-10 h-10" />
                   </div>

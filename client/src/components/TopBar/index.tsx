@@ -8,10 +8,15 @@ import _ from "lodash";
 import clsx from "clsx";
 import { Transition } from "@headlessui/react";
 import { logout } from "../../stores/authSlice";
+import { logout as logoutService } from "../../services/authService";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 
 
 function Main() {
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
   const [searchDropdown, setSearchDropdown] = useState(false);
   const dispatch = useDispatch();
   const showSearchDropdown = () => {
@@ -176,33 +181,38 @@ function Main() {
         {/* BEGIN: Account Menu */}
         <Menu>
           <Menu.Button className="block w-8 h-8 overflow-hidden rounded-full shadow-lg image-fit zoom-in intro-x">
-            <img
-              alt="image"
-              src={fakerData[9].photos[0]}
-            />
+            <div className="justify-center flex items-center w-8 h-8 rounded-full bg-primary/20 dark:bg-darkmode-400">
+              <Lucide icon="User" className="w-4 h-4 dark:text-slate-500" />
+            </div>
           </Menu.Button>
           <Menu.Items className="w-56 mt-px text-white bg-primary">
             <Menu.Header className="font-normal">
-              <div className="font-medium">{fakerData[0].users[0].name}</div>
+              <div className="font-medium">{user?.username}</div>
               <div className="text-xs text-white/70 mt-0.5 dark:text-slate-500">
-                {fakerData[0].jobs[0]}
+                {user?.role}
               </div>
             </Menu.Header>
             <Menu.Divider className="bg-white/[0.08]" />
-            <Menu.Item className="hover:bg-white/5">
+            <Menu.Item className="hover:bg-white/5" onClick={() => navigate(`/profile/${user._id}`)}>
               <Lucide icon="User" className="w-4 h-4 mr-2" /> Profile
             </Menu.Item>
-            <Menu.Item className="hover:bg-white/5">
+          {user?.role === "System Admin" && (
+            <Menu.Item className="hover:bg-white/5" onClick={() => navigate("/users/add")}>
               <Lucide icon="Edit" className="w-4 h-4 mr-2" /> Add Account
             </Menu.Item>
-            <Menu.Item className="hover:bg-white/5">
-              <Lucide icon="Lock" className="w-4 h-4 mr-2" /> Reset Password
+          )}
+            <Menu.Item className="hover:bg-white/5" onClick={() => navigate("/change-password")}>
+              <Lucide icon="Lock" className="w-4 h-4 mr-2" /> Change Password
             </Menu.Item>
             <Menu.Item className="hover:bg-white/5">
               <Lucide icon="HelpCircle" className="w-4 h-4 mr-2" /> Help
             </Menu.Item>
             <Menu.Divider className="bg-white/[0.08]" />
-            <Menu.Item className="hover:bg-white/5" onClick={() => dispatch(logout())}>
+            <Menu.Item className="hover:bg-white/5" onClick={() => {
+              dispatch(logout());
+              logoutService();
+            }
+            }>
               <Lucide icon="ToggleRight" className="w-4 h-4 mr-2" /> Logout
             </Menu.Item>
           </Menu.Items>

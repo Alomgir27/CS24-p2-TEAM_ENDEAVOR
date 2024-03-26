@@ -14,7 +14,13 @@ import { login as loginService } from "../../services/authService";
 //types
 import { RootState } from "../../stores/store";
 import { IUser } from "../../types";
+import { set } from "lodash";
 //components
+import Notification from "../../base-components/Notification";
+import { NotificationElement } from "../../base-components/Notification";
+import { useRef } from "react";
+import _ from "lodash";
+
 
 
 function Main() {
@@ -28,12 +34,9 @@ function Main() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate("/");
-    }
-  }, [isAuthenticated]);
+  const notificationRef = useRef<NotificationElement>(null);
+  const [notification, setNotification] = useState<string | null>(null);
+  const [type, setType] = useState<"success" | "error" | "warning" | "info">("success");
 
   const handleLogin = async () => {
     setLoading(true);
@@ -42,10 +45,27 @@ function Main() {
       const { user, token } = res.data;
       console.log(user, token);
       dispatch(login({ user, token }));
-      navigate("/");
+      setEmail("");
+      setPassword("");
+      setError(null);
+      setNotification("Login successful. Redirecting...");
+      setType("success");
+      notificationRef.current?.showToast();
+      setTimeout(() => {
+        setNotification(null);
+        notificationRef.current?.hideToast();
+        navigate("/");
+      }, 3000);
     } catch (error) {
       console.error(error);
       setError(error.response.data.message);
+      setNotification(error.response.data.message);
+      setType("error");
+      notificationRef.current?.showToast();
+      setTimeout(() => {
+        setNotification(null);
+        notificationRef.current?.hideToast();
+      }, 3000);
     } finally {
       setLoading(false);
     }
@@ -161,6 +181,20 @@ function Main() {
               </div>
             </div>
             {/* END: Login Form */}
+            <Notification
+              getRef={(el) => {
+                notificationRef.current = el;
+              }}
+              className="flex"
+            >
+              <AlertCircle
+                className={`w-6 h-6 text-${type === "success" ? "green" : "red"}-500`}
+              />
+              <div className="ml-4 mr-4">
+                <div className="font-medium">{_.startCase(type)}</div>
+                <div className="mt-1 text-slate-500">{notification}</div>
+              </div>
+            </Notification>
           </div>
         </div>
       </div>
