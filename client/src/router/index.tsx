@@ -95,7 +95,6 @@ function Router() {
   const { isAuthenticated } = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location.pathname);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -115,8 +114,11 @@ function Router() {
       path: "/",
       element: <SideMenu />,
       children: [
+        {
+          path: "/dashboard",
+          element: <DashboardOverview1 />,
 
-        // ----------------------
+        },
         {
           path: '/add-user',
           element: <AddUser />
@@ -138,10 +140,6 @@ function Router() {
           path: '/add-permission',
           element: <AddPermission />
         },
-
-        // ----------------------
-
-        
         {
           path: "/",
           element: <DashboardOverview1 />,

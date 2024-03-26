@@ -54,8 +54,9 @@ function Main() {
       setTimeout(() => {
         setNotification(null);
         notificationRef.current?.hideToast();
-        navigate("/");
-      }, 3000);
+        navigate("/dashboard");
+        window.location.reload();
+      }, 1000);
     } catch (error) {
       console.error(error);
       setError(error.response.data.message);
