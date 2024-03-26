@@ -31,7 +31,7 @@ export const getUser = async (userId: string) => {
 
 export const createUser = async ({ username, email, password, role }: { username: string; email: string; password: string; role: string }) => {
     return await apiWithToken.post('users', {
-        username,
+        name: username,
         email,
         password,
         role,

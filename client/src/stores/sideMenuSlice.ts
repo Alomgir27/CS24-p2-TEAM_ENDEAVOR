@@ -31,6 +31,7 @@ const initialState: SideMenuState = {
     {
       icon: 'Users',
       title: 'Users',
+<<<<<<< HEAD
       subMenu: [{
         icon: "Users",
         pathname: "/users",
@@ -51,6 +52,55 @@ const initialState: SideMenuState = {
         pathname: "/change-password",
         title: "Change Password",
       }]
+=======
+      subMenu: [
+        {
+          pathname: '/users',
+          title: 'Users',
+          icon: 'Users',
+        },
+        {
+          pathname: '/add-user',
+          title: 'Add User',
+          icon: 'UserPlus',
+        },
+        {
+          pathname: '/user-profile',
+          title: 'User Profile',
+          icon: 'User',
+        },
+        {
+          pathname: '/update-profile',
+          title: 'Update Profile',
+          icon: 'Edit',
+        },
+        {
+          pathname: '/change-password',
+          title: 'Change Password',
+          icon: 'Lock',
+        },
+        {
+          pathname: '/roles',
+          title: 'Roles',
+          icon: 'UserCheck',
+        },
+        {
+          pathname: '/add-role',
+          title: 'Add role',
+          icon: 'UserPlus',
+        },
+        {
+          pathname: '/permissions',
+          title: 'Permissions',
+          icon: 'Shield',
+        },
+        {
+          pathname: '/add-permission',
+          title: 'Add Permission',
+          icon: 'ShieldCheck',
+        },
+      ],
+>>>>>>> 17db034d0812fa11d2a014a7469d825e4739537d
     },
     {
       icon: "ShoppingBag",

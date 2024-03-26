@@ -75,6 +75,14 @@ import Validation from "../pages/Validation";
 import Chart from "../pages/Chart";
 import Slider from "../pages/Slider";
 import ImageZoom from "../pages/ImageZoom";
+
+import AddUser from '../pages/AddUser';
+import Roles from '../pages/Roles';
+import AddRole from '../pages/AddRole';
+import Permissions from '../pages/Permissions';
+import AddPermission from '../pages/AddPermission';
+
+
 //do basic imports
 import { useEffect } from "react";
 import { useState } from "react";
@@ -108,6 +116,33 @@ function Router() {
       path: "/",
       element: <SideMenu />,
       children: [
+
+        // ----------------------
+        {
+          path: '/add-user',
+          element: <AddUser />
+        },
+        {
+          path: '/roles',
+          element: <Roles />
+        },
+        {
+          path: '/add-role',
+          element: <AddRole />
+        },
+
+        {
+          path: '/permissions',
+          element: <Permissions />
+        },
+        {
+          path: '/add-permission',
+          element: <AddPermission />
+        },
+
+        // ----------------------
+
+        
         {
           path: "/",
           element: <DashboardOverview1 />,
