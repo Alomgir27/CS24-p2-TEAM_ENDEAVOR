@@ -44,12 +44,12 @@ import FaqLayout3 from "../pages/FaqLayout3";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import ErrorPage from "../pages/ErrorPage";
-import UpdateProfile from "../pages/UpdateProfile";
 import ChangePassword from "../pages/ChangePassword";
 import ForgotPassword from "../pages/ForgotPassword";
 import ResetPassword from "../pages/ResetPassword";
 import Profile from "../pages/Profile";
 import AddUser from "../pages/AddUser";
+import UserUpdate from "../pages/UserUpdate";
 
 import RegularTable from "../pages/RegularTable";
 import Tabulator from "../pages/Tabulator";
@@ -117,7 +117,6 @@ function Router() {
         {
           path: "/dashboard",
           element: <DashboardOverview1 />,
-
         },
         {
           path: '/add-user',
@@ -229,6 +228,10 @@ function Router() {
           element: <AddUser />,
         },
         {
+          path: "/users/:userId/edit",
+          element: <UserUpdate />,
+        },
+        {
           path: "users-layout-3",
           element: <UsersLayout3 />,
         },
@@ -295,10 +298,6 @@ function Router() {
         {
           path: "faq-layout-3",
           element: <FaqLayout3 />,
-        },
-        {
-          path: "update-profile",
-          element: <UpdateProfile />,
         },
         {
           path: "change-password",

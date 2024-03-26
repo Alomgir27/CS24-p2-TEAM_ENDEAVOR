@@ -31,17 +31,18 @@ export const getUser = async (userId: string) => {
 
 export const createUser = async ({ username, email, password, role }: { username: string; email: string; password: string; role: string }) => {
     return await apiWithToken.post('users', {
-        name: username,
+        username,
         email,
         password,
         role,
     });
 };
 
-export const updateUser = async ({ userId, username, email, role }: { userId: string; username: string; email: string; role: string }) => {
+export const updateUser = async ({ userId, username, email, password, role }: { userId: string; username: string; email: string; password: string; role: string }) => {
     return await apiWithToken.put(`users/${userId}`, {
         username,
         email,
+        password,
         role,
     });
 };

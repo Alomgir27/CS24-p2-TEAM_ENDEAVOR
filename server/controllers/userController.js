@@ -24,7 +24,7 @@ const getUser = async (req, res) => {
     }
 }
 
-const createUser = async (req, res) => {    
+const createUser = async (req, res) => {
     try {
         const { username, email, password, role } = req.body;
         if (!username || !email || !password || !role) return res.status(400).json({ message: 'All fields are required' });
@@ -43,6 +43,11 @@ const updateUser = async (req, res) => {
         const { userId } = req.params;
         if (!userId) return res.status(400).json({ message: 'User ID is required' });
         const { username, email, password, role } = req.body;
+        if (password) {
+            const hashedPassword = await bcrypt.hash(password, 10);
+            const user = await User.findByIdAndUpdate(userId, { username, email, password: hashedPassword, role }, { new: true });
+            return res.status(200).json({ user });
+        }
         const user = await User.findByIdAndUpdate(userId, { username, email, password, role }, { new: true });
         res.status(200).json({ user });
     }

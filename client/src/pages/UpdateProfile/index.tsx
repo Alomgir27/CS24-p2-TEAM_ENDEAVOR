@@ -39,7 +39,8 @@ function Main() {
     "success"
   );
   const notificationRef = useRef<NotificationElement>(null);
-  const [roles] = useState(["System Admin", "Admin", "User"]);
+  const [password, setPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
   
   useEffect(() => {
     if (!user) {
@@ -54,16 +55,25 @@ function Main() {
       notificationRef.current?.showToast();
       return;
     }
+    if (!_.isEmpty(password) && password !== confirmNewPassword) {
+      setNotification("Password and Confirm Password do not match.");
+      setType("error");
+      notificationRef.current?.showToast();
+      return;
+    }
     setLoading(true);
     try {
       // simulate a request
-      const res = await updateUser({ userId: user._id, username, email, role });
-      console.log(res);
+      const res = await updateUser({ userId: user._id, username, email, password, role });
+      console.log(res.data);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
       // simulate a response
       setNotification("Profile has been updated successfully.");
       setType("success");
       notificationRef.current?.showToast();
       setLoading(false);
+      navigate(`/user/${user._id}`);
+      window.location.reload();
     } catch (error) {
       console.error(error);
       setNotification(error.response.data.message);
@@ -91,23 +101,31 @@ function Main() {
           disabled
         />
         <FormLabel>Role</FormLabel>
-        <FormSelect
+        <FormInput
+          type="text"
           value={role}
           onChange={(e) => setRole(e.target.value)}
-        >
-          {roles.map((role) => (
-            <option key={role} value={role}>
-              {role}
-            </option>
-          ))}
-        </FormSelect>
+          disabled
+        />
+        <FormLabel>Password</FormLabel>
+        <FormInput
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <FormLabel>Confirm Password</FormLabel>
+        <FormInput
+          type="password"
+          value={confirmNewPassword}
+          onChange={(e) => setConfirmNewPassword(e.target.value)}
+        />
         <Button
           onClick={handleUpdateProfile}
           disabled={loading}
           variant="primary"
           elevated
         >
-          Update Profile
+          {loading ? "Loading..." : "Update Profile"}
         </Button>
       </div>
       <Notification getRef={(el) => {

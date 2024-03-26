@@ -13,7 +13,11 @@ import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import { RootState } from "../../stores/store";
 import { IUser } from "../../types";
-import { getUsers } from "../../services/userService";
+import { getUsers, deleteUser } from "../../services/userService";
+import Notification from "../../base-components/Notification";
+import { NotificationElement } from "../../base-components/Notification";
+import { useRef } from "react";
+
 
 
 
@@ -22,7 +26,11 @@ function Main() {
   const [users, setUsers] = useState<IUser[]>([]);
   const [userStore, setUserStore] = useState<IUser[]>([]);
   const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+  const thisUser = useSelector((state: RootState) => state.auth.user);
   const [search, setSearch] = useState("");
+  const [notification, setNotification] = useState<String | null>(null);
+  const [notificationType, setNotificationType] = useState<"success" | "error" | "warning" | "info">("success");
+  const notificationRef = useRef<NotificationElement | null>(null);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -55,6 +63,25 @@ function Main() {
       setUsers(userStore);
     }
   }, [search, userStore]);
+
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteUser(id);
+      const newUsers = users.filter((user) => user._id !== id);
+      setUsers(newUsers);
+      setNotification("User deleted successfully");
+      setNotificationType("success");
+      notificationRef.current?.showToast();
+      setTimeout(() => {
+        setNotification(null);
+        notificationRef.current?.hideToast();
+      }, 3000);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  
 
 
   return (
@@ -99,12 +126,16 @@ function Main() {
                   </div>
                 </div>
                 <div className="flex items-center justify-between mt-5">
-                  <Button variant="secondary" className="p-2 shadow-md">
-                    Edit
-                  </Button>
-                  <Button variant="danger" className="p-2 shadow-md">
-                    Delete
-                  </Button>
+                  {(user._id === thisUser?._id || thisUser?.role === 'System Admin') && (
+                    <Button variant="secondary" className="p-2 shadow-md" onClick={() => navigate(`/users/${user._id}/edit`)}>
+                      Edit
+                    </Button>
+                  )}
+                  {thisUser?.role === 'System Admin' && (
+                    <Button variant="danger" className="p-2 shadow-md" onClick={() => handleDelete(user._id)}>
+                      Delete
+                    </Button>
+                  )}
                 </div>
               </div>
             </div>
