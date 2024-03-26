@@ -12,8 +12,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import clsx from 'clsx';
 import { IPermission } from '../../types';
 import { getPermissions } from '../../services/permissionService';
-
-
+import { createRole } from '../../services/roleService';
+import Alert from '../../base-components/Alert';
 
 const index = () => {
   const [permissions, setPermissions] = useState<IPermission[]>([]);
@@ -47,6 +47,7 @@ const index = () => {
     trigger,
     formState: { errors },
     handleSubmit,
+    reset,
   } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schema),
@@ -59,9 +60,28 @@ const index = () => {
     const name = data.name || '';
     const description = data.description || '';
 
-    console.log(name);
-    console.log(description);
-    console.log(selectedPermissions);
+    try {
+      const response = await createRole({
+        name,
+        description,
+        permissions: selectedPermissions.map((permission) => permission.name),
+      });
+
+      if (response.status == 201) {
+        setSuccess('Role created successfully');
+        reset();
+      } else {
+        setError('Something went wrong');
+      }
+    } catch (error) {
+      setError(
+        (error &&
+          error?.response &&
+          error.response?.data &&
+          error.response.data?.message) ||
+          'Something went wrong'
+      );
+    }
   };
 
   return (
@@ -122,7 +142,7 @@ const index = () => {
                 <label>Add permissions</label>
                 <div className='flex flex-col mt-2 sm:flex-row'>
                   {permissions.map((permission, permissionKey) => (
-                    <FormCheck className='mr-4'>
+                    <FormCheck className='mr-4 mt-3' key={permissionKey}>
                       <FormCheck.Input
                         id={`checkbox-switch-${permissionKey}`}
                         type='checkbox'
@@ -153,7 +173,19 @@ const index = () => {
                 </div>
               </div>
 
-              <Button variant='primary' type='submit' className='mt-3'>
+              {success && (
+                <Alert variant='success' className='mt-3'>
+                  {success}
+                </Alert>
+              )}
+
+              {error && (
+                <Alert variant='danger' className='mt-3'>
+                  {error}
+                </Alert>
+              )}
+
+              <Button variant='primary' type='submit' className='mt-4'>
                 Submit
               </Button>
             </div>

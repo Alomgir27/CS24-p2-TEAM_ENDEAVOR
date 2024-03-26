@@ -11,6 +11,7 @@ import { RootState } from "../../stores/store";
 import { IPermission, IRole } from '../../types';
 import { get } from 'lodash';
 import { getRoles } from '../../services/roleService';
+import { getPermissions } from '../../services/permissionService';
 
 const index = () => {
   const [deleteConfirmationModal, setDeleteConfirmationModal] = useState(false);
@@ -46,6 +47,18 @@ const index = () => {
     fetchRoles();
   }, []);
 
+  useEffect(() => {
+    const fetchPermissions = async () => {
+      try {
+        const res = await getPermissions();
+        const { permissions } = res.data;
+        setPermissions(permissions);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchPermissions();
+  }, []);
   
 
   return (
@@ -95,14 +108,14 @@ const index = () => {
                 </div>
 
                 {/* show persmissions */}
-                {/* <div className='mt-5'>
+                <div className='mt-5'>
                   <h3>Permissions</h3>
                   {permissions.map((permission, permissionKey) => (
                     <div key={permissionKey} className='flex items-center mt-2'>
                       
                     
                       {role.permissions.find(
-                        (rolePermission) => rolePermission.id === permission.id
+                        (rolePermission) => rolePermission === permission.name
                       ) ? (
                         <Lucide
                           icon='Check'
@@ -120,7 +133,7 @@ const index = () => {
                   ))}
 
                   
-                </div> */}
+                </div>
 
                 <div className='flex items-center justify-between mt-5'>
                   <Button variant='secondary' className='p-2 shadow-md'>
