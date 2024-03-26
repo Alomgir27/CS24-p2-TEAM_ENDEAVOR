@@ -64,6 +64,7 @@
     "@types/lodash": "^4.14.184",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
+    "@types/react-google-recaptcha": "^2.1.9",
     "@types/react-transition-group": "^4.4.5",
     "@types/tabulator-tables": "^5.32.1",
     "@types/toastify-js": "^1.11.1",

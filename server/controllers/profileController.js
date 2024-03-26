@@ -14,8 +14,8 @@ const getProfile = async (req, res) => {
 const updateProfile = async (req, res) => {
     try {
         const { _id } = req.user;
-        const { name, email } = req.body;
-        const user = await User.findByIdAndUpdate(_id, { name, email }, { new: true });
+        const { username, email } = req.body;
+        const user = await User.findByIdAndUpdate(_id, { username, email }, { new: true });
         res.status(200).json({ user });
     }
     catch (err) {

@@ -1,10 +1,9 @@
-import _ from "lodash";
+import _, { set } from "lodash";
 import fakerData from "../../utils/faker";
 import Button from "../../base-components/Button";
 import Pagination from "../../base-components/Pagination";
 import { FormInput, FormSelect } from "../../base-components/Form";
 import Lucide from "../../base-components/Lucide";
-import { Menu } from "../../base-components/Headless";
 
 //do basic imports
 import { useState } from "react";
@@ -17,6 +16,7 @@ import { getUsers, deleteUser } from "../../services/userService";
 import Notification from "../../base-components/Notification";
 import { NotificationElement } from "../../base-components/Notification";
 import { useRef } from "react";
+import { Dialog } from "../../base-components/Headless";
 
 
 
@@ -31,6 +31,9 @@ function Main() {
   const [notification, setNotification] = useState<String | null>(null);
   const [notificationType, setNotificationType] = useState<"success" | "error" | "warning" | "info">("success");
   const notificationRef = useRef<NotificationElement | null>(null);
+  const [sortByName, setSortByName] = useState<"asc" | "desc" | null>(null);
+  const [deleteConfirmationModal, setDeleteConfirmationModal] = useState(false);
+  const [deleteId, setDeleteId] = useState<string | null>(null);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -64,22 +67,39 @@ function Main() {
     }
   }, [search, userStore]);
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async () => {
     try {
-      await deleteUser(id);
-      const newUsers = users.filter((user) => user._id !== id);
+      await deleteUser(deleteId!);
+      const newUsers = userStore.filter((user) => user._id !== deleteId);
+      setUserStore(newUsers);
       setUsers(newUsers);
       setNotification("User deleted successfully");
       setNotificationType("success");
       notificationRef.current?.showToast();
       setTimeout(() => {
         setNotification(null);
+        setDeleteConfirmationModal(false);
+        setDeleteId(null);
         notificationRef.current?.hideToast();
       }, 3000);
     } catch (error) {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    if (sortByName === "asc") {
+      const sortedUsers = _.orderBy(users, ["username"], ["asc"]);
+      setUsers(sortedUsers);
+    } else if (sortByName === "desc") {
+      const sortedUsers = _.orderBy(users, ["username"], ["desc"]);
+      setUsers(sortedUsers);
+    } else {
+      setUsers(userStore);
+    }
+  }, [sortByName, userStore, users]);
+
+
 
   
 
@@ -107,6 +127,18 @@ function Main() {
               />
             </div>
           </div>
+          <div className="flex items-center text-slate-500 ml-4">
+              <div className="text-slate-500 mr-2">Sort by name:</div>
+              <FormSelect
+                className="w-36"
+                value={sortByName}
+                onChange={(e) => setSortByName(e.target.value as "asc" | "desc" | null)}
+              >
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+              </FormSelect>
+             
+            </div>
         </div>
       
         {users.map((user, userKey) => (
@@ -132,7 +164,11 @@ function Main() {
                     </Button>
                   )}
                   {thisUser?.role === 'System Admin' && (
-                    <Button variant="danger" className="p-2 shadow-md" onClick={() => handleDelete(user._id)}>
+                    <Button variant="danger" className="p-2 shadow-md" onClick={() => {
+                      setDeleteConfirmationModal(true);
+                      setDeleteId(user._id);
+                    }
+                    }>
                       Delete
                     </Button>
                   )}
@@ -142,6 +178,53 @@ function Main() {
           </div>
         ))}
       </div>
+      <Dialog
+          open={deleteConfirmationModal}
+          onClose={() => {
+            setDeleteConfirmationModal(false);
+          }}
+          
+        >
+          <Dialog.Panel>
+            <div className='p-5 text-center'>
+              <Lucide
+                icon='XCircle'
+                className='w-16 h-16 mx-auto mt-3 text-danger'
+              />
+              <div className='mt-5 text-3xl'>Are you sure?</div>
+              <div className='mt-2 text-slate-500'>
+                Do you really want to delete these records? <br />
+                This process cannot be undone.
+              </div>
+            </div>
+            <div className='px-5 pb-8 text-center'>
+              <Button
+                variant='outline-secondary'
+                type='button'
+                onClick={() => {
+                  setDeleteConfirmationModal(false);
+                }}
+                className='w-24 mr-1'
+              >
+                Cancel
+              </Button>
+              <Button
+                variant='danger'
+                type='button'
+                className='w-24'
+              onClick={() => {
+                setDeleteConfirmationModal(false);
+                handleDelete();
+              }}
+              >
+                Delete
+              </Button>
+            </div>
+          </Dialog.Panel>
+      </Dialog>
+      <Notification getRef={(r) => (notificationRef.current = r)} type={notificationType}>
+        {notification}
+      </Notification>
     </>
   );
 }

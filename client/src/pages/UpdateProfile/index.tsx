@@ -17,7 +17,7 @@ import { Menu } from "../../base-components/Headless";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
-import { updateUser } from "../../services/userService";
+import { updateProfile } from "../../services/userService";
 import { RootState } from "../../stores/store";
 import { IUser } from "../../types";
 import { useRef } from "react";
@@ -39,8 +39,6 @@ function Main() {
     "success"
   );
   const notificationRef = useRef<NotificationElement>(null);
-  const [password, setPassword] = useState("");
-  const [confirmNewPassword, setConfirmNewPassword] = useState("");
   
   useEffect(() => {
     if (!user) {
@@ -55,16 +53,14 @@ function Main() {
       notificationRef.current?.showToast();
       return;
     }
-    if (!_.isEmpty(password) && password !== confirmNewPassword) {
-      setNotification("Password and Confirm Password do not match.");
-      setType("error");
-      notificationRef.current?.showToast();
-      return;
-    }
+   
     setLoading(true);
     try {
       // simulate a request
-      const res = await updateUser({ userId: user._id, username, email, password, role });
+      const res = await updateProfile({
+        username,
+        email
+      });
       console.log(res.data);
       localStorage.setItem("user", JSON.stringify(res.data.user));
       // simulate a response
@@ -72,7 +68,7 @@ function Main() {
       setType("success");
       notificationRef.current?.showToast();
       setLoading(false);
-      navigate(`/user/${user._id}`);
+      navigate(`/profile/${user._id}`);
       window.location.reload();
     } catch (error) {
       console.error(error);
@@ -106,19 +102,7 @@ function Main() {
           value={role}
           onChange={(e) => setRole(e.target.value)}
           disabled
-        />
-        <FormLabel>Password</FormLabel>
-        <FormInput
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <FormLabel>Confirm Password</FormLabel>
-        <FormInput
-          type="password"
-          value={confirmNewPassword}
-          onChange={(e) => setConfirmNewPassword(e.target.value)}
-        />
+        />       
         <Button
           onClick={handleUpdateProfile}
           disabled={loading}

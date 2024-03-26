@@ -50,6 +50,7 @@ import ResetPassword from "../pages/ResetPassword";
 import Profile from "../pages/Profile";
 import AddUser from "../pages/AddUser";
 import UserUpdate from "../pages/UserUpdate";
+import UpdateProfile from "../pages/UpdateProfile";
 
 import RegularTable from "../pages/RegularTable";
 import Tabulator from "../pages/Tabulator";
@@ -302,6 +303,10 @@ function Router() {
         {
           path: "faq-layout-3",
           element: <FaqLayout3 />,
+        },
+        {
+          path: "update-profile",
+          element: <UpdateProfile />,
         },
         {
           path: "change-password",

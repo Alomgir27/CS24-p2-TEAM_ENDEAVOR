@@ -20,8 +20,11 @@ import { NotificationElement } from '../../base-components/Notification';
 import { useRef } from 'react';
 import { useEffect } from 'react';
 import Lucide from '../../base-components/Lucide';
-import _, { set } from 'lodash';
+import _ from 'lodash';
 import { useNavigate } from 'react-router';
+import { getRoles } from '../../services/roleService';
+import { IRole } from '../../types';
+
 
 interface FormData {
   username: string;
@@ -53,7 +56,8 @@ const index = () => {
     resolver: yupResolver(schema),
   });
 
-    const [role, setRole] = useState('');
+  const [role, setRole] = useState('Unassigned');
+    const [roles, setRoles] = useState<IRole[]>([]);
     const [notification, setNotification] = useState<string | null>(null);
     const [type, setType] = useState<'success' | 'error' | 'warning' | 'info'>(
         'success'
@@ -89,7 +93,21 @@ const index = () => {
         } finally {
             setLoading(false);
         }
-    }
+  }
+  
+  useEffect(() => {
+    const fetchRoles = async () => {
+        try {
+            const res = await getRoles();
+            const { roles } = res.data;
+          setRoles(roles);
+          console.log(roles);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    fetchRoles();
+  }, []);
     
 
         
@@ -190,14 +208,15 @@ const index = () => {
                   aria-label='.form-select-lg example'
                   className='sm:mt-2 sm:mr-2'
                   value={role}
-                    onChange={(e) => setRole(e.target.value)}
-                    required
+                  onChange={(e) => setRole(e.target.value)}
+                  required
                 >
-                    <option value=''>Select Role</option>
-                    <option value='System Admin'>System Admin</option>
-                    <option value='STS Manager'>STS Manager</option>
-                    <option value='Landfill Manager'>Landfill Manager</option>
-                    <option value='Unassigned'>Unassigned</option>
+                  <option value='Unassigned'>Unassigned</option>
+                  {roles.map((role) => (
+                    <option key={role._id} value={role.name}>
+                      {role.name}
+                    </option>
+                  ))}
                   
                 </FormSelect>
               </div>

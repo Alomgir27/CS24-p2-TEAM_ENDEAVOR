@@ -18,8 +18,8 @@ const userSchema = new Schema({
   role: {
         type: String,
         required: true,
-        enum: ['System Admin', 'STS Manager', 'Landfill Manager', 'Unassigned'],
-        default: 'Unassigned'
+      // enum: ['System Admin', 'STS Manager', 'Landfill Manager', 'Unassigned'],
+        // default: 'Unassigned'
   },
     details: {
         type: Schema.Types.Mixed,

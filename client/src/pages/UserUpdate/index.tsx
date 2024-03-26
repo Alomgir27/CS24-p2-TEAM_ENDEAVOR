@@ -25,6 +25,9 @@ import Notification from "../../base-components/Notification";
 import { NotificationElement } from "../../base-components/Notification";
 import { getUser } from "../../services/userService";
 import { useParams } from "react-router";
+import { getRoles } from "../../services/roleService";
+import { IRole } from "../../types";
+
 
 
 
@@ -44,6 +47,8 @@ function Main() {
     );
     const notificationRef = useRef<NotificationElement>(null);
     const { userId } = useParams();
+    const [roles, setRoles] = useState<IRole[]>([]);
+    const thisUser = useSelector((state: RootState) => state.auth.user);
     
 
     const handleUpdateProfile = async () => {
@@ -94,6 +99,20 @@ function Main() {
         });
     }, [userId]);
 
+    useEffect(() => {
+        const fetchRoles = async () => {
+        try {
+            const res = await getRoles();
+            const { roles } = res.data;
+            setRoles(roles);
+            console.log(roles);
+        } catch (error) {
+            console.error(error);
+        }
+        };
+        fetchRoles();
+    }, []);
+
     return (
         <div className="flex flex-col items-center justify-center space-y-4 h-screen bg-gray-100">
         <h1 className="text-3xl font-bold">Update User Information</h1>
@@ -111,13 +130,28 @@ function Main() {
             onChange={(e) => setEmail(e.target.value)}
             disabled
             />
-            <FormLabel>Role</FormLabel>
-            <FormInput
-            type="text"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-            disabled
-                />
+                <FormLabel>Role</FormLabel>
+                {thisUser.role === "System Admin" ? (
+                    <FormSelect
+                        value={role}
+                        onChange={(e) => setRole(e.target.value)}
+                    >
+                        <option value="">Select Role</option>
+                        {roles.map((role) => (
+                            <option key={role._id} value={role.name}>
+                                {role.name}
+                            </option>
+                        ))}
+                        <option value="Unassigned">Unassigned</option>
+                    </FormSelect>
+                ) : (
+                    <FormInput
+                        type="text"
+                        value={role}
+                        onChange={(e) => setRole(e.target.value)}
+                        disabled
+                    />
+                )}
             <FormLabel>Password</FormLabel>
             <FormInput
                 type="password"

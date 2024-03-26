@@ -42,6 +42,11 @@ const initialState: SideMenuState = {
         title: "Add User",
       },
       {
+        pathname: '/update-profile',
+        title: 'Update profile',
+        icon: 'UserCheck',
+      },
+      {
         icon: "Lock",
         pathname: "/change-password",
         title: "Change Password",

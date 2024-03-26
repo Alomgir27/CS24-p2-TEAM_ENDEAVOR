@@ -47,6 +47,13 @@ export const updateUser = async ({ userId, username, email, password, role }: { 
     });
 };
 
+export const updateProfile = async ({ username, email }: { username: string; email: string; }) => {
+    return await apiWithToken.put(`profile`, {
+        username,
+        email,
+    });
+}
+
 export const deleteUser = async (userId: string) => {
     return await apiWithToken.delete(`users/${userId}`);
 };
