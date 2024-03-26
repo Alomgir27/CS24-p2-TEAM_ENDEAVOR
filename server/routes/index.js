@@ -40,6 +40,7 @@ router.put('/profile', isAuthenticated, profileController.updateProfile);
 // Role-Based Access Control (RBAC) Endpoints
 router.post('/rbac/roles', isAuthenticated, rbacController.createRole);
 router.get('/rbac/roles', isAuthenticated, rbacController.getRoles);
+router.get('/rbac/roles/:roleId', isAuthenticated, rbacController.getRole);
 router.put('/rbac/roles/:roleId', isAuthenticated, rbacController.updateRole);
 router.delete('/rbac/roles/:roleId', isAuthenticated, rbacController.deleteRole);
 router.post('/rbac/permissions', isAuthenticated, rbacController.createPermission);

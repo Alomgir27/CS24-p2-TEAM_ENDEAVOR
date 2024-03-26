@@ -42,6 +42,9 @@ const index = () => {
       console.log(response);
       if (response.status === 201) {
         setSuccess('Permission created successfully');
+        setTimeout(() => {
+          setSuccess('');
+        }, 3000);
         reset();
       } else {
         setError('Something went wrong');

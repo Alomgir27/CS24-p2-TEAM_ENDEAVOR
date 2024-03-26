@@ -9,9 +9,11 @@ import { Dialog, Menu } from '../../base-components/Headless';
 import { useSelector } from "react-redux";
 import { RootState } from "../../stores/store";
 import { IPermission, IRole } from '../../types';
-import { get } from 'lodash';
 import { getRoles } from '../../services/roleService';
 import { getPermissions } from '../../services/permissionService';
+import { deleteRole } from '../../services/roleService';
+import Notification from '../../base-components/Notification';
+import { NotificationElement } from '../../base-components/Notification';
 
 const index = () => {
   const [deleteConfirmationModal, setDeleteConfirmationModal] = useState(false);
@@ -20,12 +22,36 @@ const index = () => {
   const [search, setSearch] = useState('');
   const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
   const [roles, setRoles] = useState<IRole[]>([]);
+  const [storeRoles, setStoreRoles] = useState<IRole[]>([]);
   const [permissions, setPermissions] = useState<IPermission[]>([]);
+  const notificationRef = useRef<NotificationElement | null>(null);
+  const [notification, setNotification] = useState<string | null>(null);
+  const [notificationType, setNotificationType] = useState<'success' | 'error' | 'warning' | 'info'>('success');
+  const [deleteId, setDeleteId] = useState<string | null>(null);
+
+  
   
   const onDelete = () => {
     console.log('delete');
+    if (!deleteId) return;
+    deleteRole(deleteId)
+      .then(() => {
+        setNotification('Role deleted successfully');
+        setNotificationType('success');
+        notificationRef.current?.showToast();
+        setRoles(roles.filter((role) => role._id !== deleteId));
+      })
+      .catch((error) => {
+        setNotification(error.response.data.message);
+        setNotificationType('error');
+        notificationRef.current?.showToast();
+      });
     setDeleteConfirmationModal(false);
-  };
+    setDeleteId(null);
+    setTimeout(() => {
+      setNotification(null);
+    }, 5000);
+  }
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -39,7 +65,8 @@ const index = () => {
         const res = await getRoles();
         const { roles } = res.data;
         setRoles(roles);
-
+        setStoreRoles(roles);
+        console.log(roles);
       } catch (error) {
         console.error(error);
       }
@@ -53,12 +80,24 @@ const index = () => {
         const res = await getPermissions();
         const { permissions } = res.data;
         setPermissions(permissions);
+        console.log(permissions, 'permissions');
       } catch (error) {
         console.error(error);
       }
     };
     fetchPermissions();
   }, []);
+
+  useEffect(() => {
+    if (search) {
+      const filteredRoles = storeRoles.filter((role) =>
+        role.name.toLowerCase().includes(search.toLowerCase())
+      );
+      setRoles(filteredRoles);
+    } else {
+      setRoles(storeRoles);
+    }
+  }, [search, storeRoles]);
   
 
   return (
@@ -69,7 +108,7 @@ const index = () => {
           <Button
             variant='primary'
             className='mr-2 shadow-md'
-            onClick={() => navigate('/add-permission')}
+            onClick={() => navigate('/add-role')}
           >
             Add Role
           </Button>
@@ -103,7 +142,7 @@ const index = () => {
                   </div>
                   <div className='ml-4 truncate'>
                     <div className='font-medium text-lg'>{role.name}</div>
-                    <div className='text-slate-500'>{role.details as string}</div>
+                    <div className='text-slate-500'>{role.details?.description}</div>
                   </div>
                 </div>
 
@@ -114,8 +153,7 @@ const index = () => {
                     <div key={permissionKey} className='flex items-center mt-2'>
                       
                     
-                      {role.permissions.find(
-                        (rolePermission) => rolePermission === permission.name
+                      {role.permissions.find((p) => p?._id === permission._id
                       ) ? (
                         <Lucide
                           icon='Check'
@@ -136,7 +174,7 @@ const index = () => {
                 </div>
 
                 <div className='flex items-center justify-between mt-5'>
-                  <Button variant='secondary' className='p-2 shadow-md'>
+                  <Button variant='secondary' className='p-2 shadow-md' onClick={() => navigate(`/roles/${role._id}/edit`)}>
                     Edit
                   </Button>
                   <Button
@@ -144,6 +182,7 @@ const index = () => {
                     className='p-2 shadow-md'
                     onClick={() => {
                       setDeleteConfirmationModal(true);
+                      setDeleteId(role._id);
                     }}
                   >
                     Delete
@@ -153,6 +192,10 @@ const index = () => {
             </div>
           </div>
         ))}
+
+        <Notification getRef={(r) => (notificationRef.current = r)} type={notificationType}>
+          {notification}
+        </Notification>
 
         <Dialog
           open={deleteConfirmationModal}

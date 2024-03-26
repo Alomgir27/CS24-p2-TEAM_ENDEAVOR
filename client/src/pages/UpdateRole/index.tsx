@@ -12,14 +12,19 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import clsx from 'clsx';
 import { IPermission } from '../../types';
 import { getPermissions } from '../../services/permissionService';
-import { createRole } from '../../services/roleService';
+import { updateRole, getRole } from '../../services/roleService';
 import Alert from '../../base-components/Alert';
 import { useNavigate } from 'react-router-dom';
+
+import { useParams } from 'react-router-dom';
+
+
 
 const index = () => {
   const [permissions, setPermissions] = useState<IPermission[]>([]);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+    const navigate = useNavigate();
+    const { id } = useParams();
 
   const schema = yup
     .object({
@@ -59,20 +64,21 @@ const index = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data : any) => {
     const name = data.name || '';
     const description = data.description || '';
     setLoading(true);
 
     try {
-      const response = await createRole({
+      const response = await updateRole(id as string, {
         name,
         description,
         permissions: selectedPermissions.map((permission) => permission._id),
       });
+        console.log(name, description, selectedPermissions.map((permission) => permission._id));
 
-      if (response.status == 201) {
-        setSuccess('Role created successfully');
+      if (response.status == 200) {
+        setSuccess('Role updated successfully');
         setTimeout(() => {
           setSuccess('');
           navigate('/roles')
@@ -91,12 +97,25 @@ const index = () => {
       );
     }
     setLoading(false);
-  };
+    };
+    
+    useEffect(() => {
+        getRole(id as string).then((res) => {
+            console.log(res.data);
+            const { role } = res.data;
+            reset({
+                name: role.name,
+                description: role.details?.description,
+            });
+            setSelectedPermissions(role.permissions);
+
+        });
+    }, [id]);
 
   return (
     <>
       <div className='flex items-center mt-8 intro-y'>
-        <h2 className='mr-auto text-lg font-medium'>Add new role</h2>
+        <h2 className='mr-auto text-lg font-medium'>Update role</h2>
       </div>
       <div className='grid grid-cols-12 gap-6 mt-5'>
         <div className='col-span-12 intro-y lg:col-span-6 intro-y box'>
@@ -132,7 +151,7 @@ const index = () => {
                   placeholder='Enter description'
                   {...register('description')}
                   className={
-                    'h-28' +
+                    'min-h-60 resize-none' +
                     clsx('input', {
                       'border-red-500': errors.description,
                     })
@@ -152,25 +171,27 @@ const index = () => {
                 <div className='flex flex-col mt-2 sm:flex-row'>
                   {permissions.map((permission, permissionKey) => (
                     <FormCheck className='mr-4 mt-3' key={permissionKey}>
-                      <FormCheck.Input
-                        id={`checkbox-switch-${permissionKey}`}
-                        type='checkbox'
-                        value={permission._id}
-                        onChange={(e) => {
-                          if (e.target.checked) {
-                            setSelectedPermissions([
-                              ...selectedPermissions,
-                              permission,
-                            ]);
-                          } else {
-                            setSelectedPermissions(
-                              selectedPermissions.filter(
-                                (selectedPermission) =>
-                                  selectedPermission._id !== permission._id
-                              )
-                            );
-                          }
-                        }}
+                          <FormCheck.Input
+                            type='checkbox'
+                            id={`checkbox-switch-${permissionKey}`}
+                            checked={selectedPermissions.some(
+                              (p) => p._id === permission._id
+                            )}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setSelectedPermissions([
+                                  ...selectedPermissions,
+                                  permission,
+                                ]);
+                              } else {
+                                setSelectedPermissions(
+                                  selectedPermissions.filter(
+                                    (p) => p._id !== permission._id
+                                  )
+                                );
+                              }
+                            }}
+                       
                       />
                       <FormCheck.Label
                         htmlFor={`checkbox-switch-${permissionKey}`}
@@ -180,7 +201,7 @@ const index = () => {
                     </FormCheck>
                   ))}
                 </div>
-              </div>
+                          </div>
 
               {success && (
                 <Alert variant='success' className='mt-3'>
@@ -195,7 +216,7 @@ const index = () => {
               )}
 
               <Button variant='primary' type='submit' className='mt-4' disabled={selectedPermissions.length === 0 || loading}>
-                {loading ? 'Creating...' : 'Create Role'}
+                {loading ? 'Loading...' : 'Update'}
               </Button>
             </div>
           </form>

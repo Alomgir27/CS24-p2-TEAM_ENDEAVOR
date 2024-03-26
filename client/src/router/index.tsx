@@ -78,6 +78,7 @@ import ImageZoom from "../pages/ImageZoom";
 
 import Roles from '../pages/Roles';
 import AddRole from '../pages/AddRole';
+import UpdateRole from '../pages/UpdateRole';
 import Permissions from '../pages/Permissions';
 import AddPermission from '../pages/AddPermission';
 
@@ -130,7 +131,10 @@ function Router() {
           path: '/add-role',
           element: <AddRole />
         },
-
+        {
+          path: '/roles/:id/edit',
+          element: <UpdateRole />
+        },
         {
           path: '/permissions',
           element: <Permissions />

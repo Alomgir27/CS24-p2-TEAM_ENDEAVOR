@@ -2,9 +2,9 @@ const { Role, Permission } = require('../models');
 
 const createRole = async (req, res) => {
     try {
-        const { name } = req.body;
+        const { name, description, permissions } = req.body;
         if (!name) return res.status(400).json({ message: 'Role name is required' });
-        const role = await Role.create({ name });
+        const role = await Role.create({ name, details: { description }, permissions });
         res.status(201).json({ role });
     } catch (err) {
         res.status(400).json({ message: err.message });
@@ -13,18 +13,29 @@ const createRole = async (req, res) => {
 
 const getRoles = async (req, res) => {
     try {
-        const roles = await Role.find();
+        const roles = await Role.find().populate('permissions');
         res.status(200).json({ roles });
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
 }
 
+const getRole = async (req, res) => {
+    try {
+        const { roleId } = req.params;
+        const role = await Role.findById(roleId).populate('permissions');
+        res.status(200).json({ role });
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+}
+
+
 const updateRole = async (req, res) => {
     try {
         const { roleId } = req.params;
-        const { name } = req.body;
-        const role = await Role.findByIdAndUpdate(roleId, { name }, { new: true });
+        const { name, description, permissions } = req.body;
+        const role = await Role.findByIdAndUpdate(roleId, { name, details: { description }, permissions }, { new: true });
         res.status(200).json({ role });
     }
     catch (err) {
@@ -45,9 +56,9 @@ const deleteRole = async (req, res) => {
 
 const createPermission = async (req, res) => {
     try {
-        const { name } = req.body;
+        const { name, description } = req.body;
         if (!name) return res.status(400).json({ message: 'Permission name is required' });
-        const permission = await Permission.create({ name });
+        const permission = await Permission.create({ name, details: { description } });
         res.status(201).json({ permission });
     } catch (err) {
         res.status(400).json({ message: err.message });
@@ -113,6 +124,7 @@ const assignRoles = async (req, res) => {
 module.exports = {
     createRole,
     getRoles,
+    getRole,
     updateRole,
     deleteRole,
     createPermission,

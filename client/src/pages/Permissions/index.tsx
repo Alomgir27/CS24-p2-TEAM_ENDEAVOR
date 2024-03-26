@@ -28,7 +28,6 @@ const index = () => {
     if (!targetPermission) return;
     await deletePermission(targetPermission?._id);
     setRefresh(!refresh);
-
     setDeleteConfirmationModal(false);
   };
 
@@ -88,14 +87,16 @@ const index = () => {
                   <div className='ml-4 truncate'>
                     <div className='font-medium text-lg'>{permission.name}</div>
                     <div className='text-slate-500'>
-                      {permission.details as string}
+                      {permission.details?.description}
                     </div>
                   </div>
                 </div>
                 <div className='flex items-center justify-between mt-5'>
-                  <Button variant='secondary' className='p-2 shadow-md'>
+                  {/* <Button variant='secondary' className='p-2 shadow-md'>
                     Edit
-                  </Button>
+                  </Button> */}
+                  <div className='flex items-center'>
+                  </div>
                   <Button
                     variant='danger'
                     className='p-2 shadow-md'
