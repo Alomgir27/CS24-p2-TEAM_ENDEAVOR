@@ -50,6 +50,26 @@ const initialState: SideMenuState = {
           title: 'Change Password',
           icon: 'Lock',
         },
+        {
+          pathname: '/roles',
+          title: 'Roles',
+          icon: 'UserCheck',
+        },
+        {
+          pathname: '/add-role',
+          title: 'Add role',
+          icon: 'UserPlus',
+        },
+        {
+          pathname: '/permissions',
+          title: 'Permissions',
+          icon: 'Shield',
+        },
+        {
+          pathname: '/add-permission',
+          title: 'Add Permission',
+          icon: 'ShieldCheck',
+        },
       ],
     },
     {
