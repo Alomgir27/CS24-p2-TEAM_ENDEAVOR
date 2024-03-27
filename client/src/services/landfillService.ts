@@ -30,6 +30,10 @@ export const getLandfills = async() => {
     return await apiWithToken.get('landfills');
 }
 
+export const getAllLandfills = async () => {
+    return await apiWithToken.get('all-landfills');
+}
+
 export const getLandfillManagers = async () => {
     return await apiWithToken.get('landfill-managers');
 }

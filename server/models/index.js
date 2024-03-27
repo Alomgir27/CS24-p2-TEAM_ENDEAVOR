@@ -18,31 +18,12 @@ const userSchema = new Schema({
   role: {
         type: String,
         required: true,
-      // enum: ['System Admin', 'STS Manager', 'Landfill Manager', 'Unassigned'],
-        // default: 'Unassigned'
   },
     details: {
         type: Schema.Types.Mixed,
         required: false
     }
 }, { timestamps: true });
-
-
-
-// Data Entry Views: 
-// System admin can add vehicles (trucks) with these mandatory attributes. You can store additional attributes as you feel necessary.
-// Vehicle Registration Number
-// Type: Open Truck, Dump Truck, Compactor, Container Carrier
-// Capacity: 3 ton, 5 ton, 7 ton. 
-// Fuel cost per kilometer - fully loaded,
-// Fuel cost per kilometer - unloaded.
-// System admin can create STS with ward number, capacity in Tonnes and GPS coordinates. 
-// System admin can assign one or more STS managers for each STS.
-// System admin can assign one or more trucks to each STS, A truck can only be used by one STS. A single STS can have many trucks.
-// STS managers can add entry of vehicles leaving the STS with STS ID, vehicle number, weight of waste, time of arrival and time of departure.
-// System admin can create Landfill sites, with capacity, operational timespan, GPS coordinates, etc.
-// System admin can assign one or more Landfill Managers for each Landfill site.
-// Landfill managers can add entry of truck dumping with weight of waste, time of arrival and time of departure.
 
 
 
@@ -68,6 +49,11 @@ const vehicleSchema = new Schema({
     fuelCostUnloaded: {
         type: Number,
         required: true
+    },
+    isAllocated: {
+        type: Boolean,
+        required: false,
+        default: false
     },
     details: {
         type: Schema.Types.Mixed,

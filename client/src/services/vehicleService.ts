@@ -116,6 +116,7 @@ export const getSTS = async() => {
     return await apiWithToken.get('sts');
 }
 
+
 export const getLandfillEntries = async() => {
     return await apiWithToken.get('landfill-entries');
 }

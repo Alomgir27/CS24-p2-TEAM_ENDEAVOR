@@ -88,6 +88,7 @@ import AddSTS from '../pages/AddSTS';
 import AddSTSEntry from '../pages/AddSTSEntry';
 import AddLandFill from '../pages/AddLandFill';
 import AddLandFillEntry from '../pages/AddLandFillEntry';
+import OptimizeRoute from '../pages/OptimizeRoute';
 
 //do basic imports
 import { useEffect } from "react";
@@ -336,6 +337,10 @@ function Router() {
         {
           path: "landfill/add-entry",
           element: <AddLandFillEntry />,
+        },
+        {
+          path: 'optimize-route',
+          element: <OptimizeRoute />
         },
         {
           path: "regular-table",

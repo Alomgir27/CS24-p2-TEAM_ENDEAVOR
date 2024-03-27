@@ -112,6 +112,8 @@ const Index = () => {
                     setMessage('');
                     notificationRef.current?.hideToast();
                     reset();
+                    setStsId('');
+                    setVehicleId('');
                 }, 3000);
                 reset();
             } else {

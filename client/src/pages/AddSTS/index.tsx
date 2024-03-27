@@ -95,6 +95,9 @@ const index = () => {
                     setMessage('');
                     notificationRef.current?.hideToast();
                     reset();
+                    setGpsCoordinate([23.8103, 90.4125]);
+                    setStsManager([]);
+                    setVehicleEntries([]);
                 }, 3000);
             } else {
                 setMessage('Something went wrong');
@@ -118,7 +121,7 @@ const index = () => {
         for (let i = 0; i < 2; i++) {
             result += characters.charAt(Math.floor(Math.random() * charactersLength));
         }
-        console.log(result);
+        console.log(result)
         reset({ wardNumber: result });
     }, []);
 

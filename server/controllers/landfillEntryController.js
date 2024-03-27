@@ -23,6 +23,15 @@ const getLandfills = async (req, res) => {
     }
 }
 
+const getAllLandfills = async (req, res) => {
+    try {
+        const landfills = await Landfill.find().populate('landfillManager');
+        res.status(200).json({ landfills });
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+}
+
 const createLandfillEntry = async (req, res) => {
     try {
         const { landfillId, volume, timeOfArrival, timeOfDeparture, details } = req.body;
@@ -37,5 +46,6 @@ const createLandfillEntry = async (req, res) => {
 module.exports = {
     createLandfill,
     getLandfills,
-    createLandfillEntry
+    createLandfillEntry,
+    getAllLandfills
 };

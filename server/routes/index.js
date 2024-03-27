@@ -61,6 +61,7 @@ router.put('/sts/:stsId/assign-manager', isAuthenticated, stsController.assignMa
 router.post('/sts-entries', isAuthenticated, stsController.addStsEntry);
 router.post('/landfill', isAuthenticated, landfillEntryController.createLandfill);
 router.get('/landfills', isAuthenticated, landfillEntryController.getLandfills);
+router.get('/all-landfills', isAuthenticated, landfillEntryController.getAllLandfills);
 router.post('/landfill-entries', isAuthenticated, landfillEntryController.createLandfillEntry);
 
 
