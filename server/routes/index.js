@@ -55,9 +55,13 @@ router.put('/rbac/users/:userId/roles', isAuthenticated, rbacController.assignRo
 router.post('/vehicles', isAuthenticated, vehicleController.createVehicle);
 router.get('/vehicles', isAuthenticated, vehicleController.getVehicles);
 router.post('/sts', isAuthenticated, stsController.createSTS);
+router.get('/sts', isAuthenticated, stsController.getSTS);
 router.put('/sts/:stsId/assign-manager', isAuthenticated, stsController.assignManager);
-router.post('/sts/:stsId/vehicles', isAuthenticated, stsController.addVehicleEntry);
+router.post('/sts-entries', isAuthenticated, stsController.addStsEntry);
+router.post('/landfill', isAuthenticated, landfillEntryController.createLandfill);
+router.get('/landfill', isAuthenticated, landfillEntryController.getLandfills);
 router.post('/landfill-entries', isAuthenticated, landfillEntryController.createLandfillEntry);
+
 
 // Automatic Billing Endpoints
 router.post('/calculate-oil-allocation', isAuthenticated, oilAllocationController.calculateOilAllocation);

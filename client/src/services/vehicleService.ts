@@ -57,9 +57,28 @@ export const assignManager = async(stsId: string, manager: string) => {
     });
 }
 
-export const addVehicleEntry = async(stsId: string, vehicle: string) => {
-    return await apiWithToken.post(`sts/${stsId}/vehicles`, {
-        vehicle
+export const addStsEntry = async({
+    stsId,
+    vehicleId,
+    volume,
+    timeOfArrival,
+    timeOfDeparture,
+    details
+}: {
+    stsId: string;
+    vehicleId: string;
+    volume: number;
+    timeOfArrival: string;
+    timeOfDeparture: string;
+    details: string;
+}) => {
+    return await apiWithToken.post('sts-entries', {
+        stsId,
+        vehicleId,
+        volume,
+        timeOfArrival,
+        timeOfDeparture,
+        details
     });
 }
 
@@ -87,6 +106,7 @@ export const createLandfillEntry = async({
         details
     });
 }
+
 
 export const getVehicles = async() => {
     return await apiWithToken.get('vehicles');

@@ -85,7 +85,7 @@ import AddPermission from '../pages/AddPermission';
 
 import AddVehicle from '../pages/AddVehicle';
 import AddSTS from '../pages/AddSTS';
-
+import AddSTSEntry from '../pages/AddSTSEntry';
 
 //do basic imports
 import { useEffect } from "react";
@@ -322,6 +322,10 @@ function Router() {
         {
           path: "sts/add",
           element: <AddSTS />,
+        },
+        {
+          path: "sts/add-entry",
+          element: <AddSTSEntry />,
         },
         {
           path: "regular-table",

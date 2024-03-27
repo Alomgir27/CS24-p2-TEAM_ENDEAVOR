@@ -84,6 +84,11 @@ const initialState: SideMenuState = {
       icon: 'Truck',
     },
     {
+      pathname: '/sts/add-entry',
+      title: 'Add STS Entry',
+      icon: 'Plus',
+    },
+    {
       icon: "ShoppingBag",
       title: "E-Commerce",
       subMenu: [

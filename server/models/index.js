@@ -147,6 +147,44 @@ const stsEntrySchema = new Schema({
 
 
 
+const landfillSchema = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    capacity: {
+        type: Number,
+        required: true
+    },
+    operationalTimespan: {
+        type: String,
+        required: true
+    },
+    gpsCoordinates: {
+        type: {
+            type: String,
+            enum: ['Point', 'Polygon'],
+            default: 'Point',
+            required: true
+        },
+        coordinates: {
+            type: [Number], // [longitude, latitude]
+            required: true
+        }
+    },
+    landfillManager: {
+        type: [Schema.Types.ObjectId],
+        ref: 'User',
+        required: false
+    },
+    details: {
+        type: Schema.Types.Mixed,
+        required: false
+    }
+}, { timestamps: true });
+
+
+
 const landfillEntrySchema = new Schema({
     landfill: {
         type: String,
@@ -288,6 +326,7 @@ const Route = mongoose.model('Route', routeSchema);
 const Role = mongoose.model('Role', roleSchema);
 const Permission = mongoose.model('Permission', permissionSchema);
 const StsEntry = mongoose.model('stsEntry', stsEntrySchema);
+const Landfill = mongoose.model('Landfill', landfillSchema);
 
 stsSchema.index({ location: "2dsphere" });
 
@@ -302,5 +341,6 @@ module.exports = {
     Route,
     StsEntry,
     Role,
-    Permission
+    Permission,
+    Landfill
 };
