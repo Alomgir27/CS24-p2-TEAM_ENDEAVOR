@@ -32,6 +32,7 @@ router.put('/users/:userId', isAuthenticated, userController.updateUser);
 router.delete('/users/:userId', isAuthenticated, userController.deleteUser);
 router.get('/users/roles', isAuthenticated, userController.getRoles);
 router.put('/users/:userId/roles', isAuthenticated, userController.updateRoles);
+router.get('/managers', isAuthenticated, userController.getManagers);
 
 // Profile Management Endpoints
 router.get('/profile', isAuthenticated, profileController.getProfile);
@@ -52,6 +53,7 @@ router.put('/rbac/users/:userId/roles', isAuthenticated, rbacController.assignRo
 
 // Data Entry Interface Endpoints
 router.post('/vehicles', isAuthenticated, vehicleController.createVehicle);
+router.get('/vehicles', isAuthenticated, vehicleController.getVehicles);
 router.post('/sts', isAuthenticated, stsController.createSTS);
 router.put('/sts/:stsId/assign-manager', isAuthenticated, stsController.assignManager);
 router.post('/sts/:stsId/vehicles', isAuthenticated, stsController.addVehicleEntry);

@@ -11,6 +11,7 @@ function FormSelect(props: FormSelectProps) {
   const { formSelectSize, ...computedProps } = props;
   return (
     <select
+      {...props}
       {...computedProps}
       className={twMerge([
         "disabled:bg-slate-100 disabled:cursor-not-allowed disabled:dark:bg-darkmode-800/50",

@@ -83,6 +83,9 @@ import UpdateRole from '../pages/UpdateRole';
 import Permissions from '../pages/Permissions';
 import AddPermission from '../pages/AddPermission';
 
+import AddVehicle from '../pages/AddVehicle';
+import AddSTS from '../pages/AddSTS';
+
 
 //do basic imports
 import { useEffect } from "react";
@@ -311,6 +314,14 @@ function Router() {
         {
           path: "change-password",
           element: <ChangePassword />,
+        },
+        {
+          path: "/vehicle/add",
+          element: <AddVehicle />,
+        },
+        {
+          path: "sts/add",
+          element: <AddSTS />,
         },
         {
           path: "regular-table",

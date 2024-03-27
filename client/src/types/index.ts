@@ -12,6 +12,17 @@ export interface IVehicle {
     vehicleNumber: string;
     type: string;
     capacity: string;
+    fuelCostLoaded: number;
+    fuelCostUnloaded: number;
+    details: any;
+}
+
+export interface IManager {
+    _id: string;
+    username: string;
+    email: string;
+    phone: string;
+    role: string;
     details: any;
 }
 
@@ -24,6 +35,7 @@ export interface ISts {
         coordinates: [number];
     };
     stsManager: string;
+    vehicleEntries: IVehicle[];
     details: any;
 }
 

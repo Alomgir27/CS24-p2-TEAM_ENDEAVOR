@@ -74,6 +74,16 @@ const initialState: SideMenuState = {
       ],
     },
     {
+      pathname: '/vehicle/add',
+      title: 'Add Vehicle',
+      icon: 'Truck',
+    },
+    {
+      pathname: '/sts/add',
+      title: 'Add STS',
+      icon: 'Truck',
+    },
+    {
       icon: "ShoppingBag",
       title: "E-Commerce",
       subMenu: [

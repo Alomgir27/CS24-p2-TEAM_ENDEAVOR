@@ -90,6 +90,15 @@ const updateRoles = async (req, res) => {
     }
 }
 
+const getManagers = async (req, res) => {
+    try {
+        const managers = await User.find({ role: 'STS Manager' });
+        res.status(200).json({ managers });
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+}
+
 module.exports = {
     getUsers,
     getUser,
@@ -97,5 +106,6 @@ module.exports = {
     updateUser,
     deleteUser,
     getRoles,
-    updateRoles
+    updateRoles,
+    getManagers
 };
