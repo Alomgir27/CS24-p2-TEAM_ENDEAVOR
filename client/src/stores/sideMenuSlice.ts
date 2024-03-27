@@ -89,6 +89,11 @@ const initialState: SideMenuState = {
       icon: 'Plus',
     },
     {
+      pathname: 'landfill/add',
+      title: 'Add Landfill',
+      icon: 'Recycle',
+    },
+    {
       icon: "ShoppingBag",
       title: "E-Commerce",
       subMenu: [

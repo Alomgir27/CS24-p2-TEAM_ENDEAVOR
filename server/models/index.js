@@ -157,7 +157,7 @@ const landfillSchema = new Schema({
         required: true
     },
     operationalTimespan: {
-        type: String,
+        type: Schema.Types.Mixed,
         required: true
     },
     gpsCoordinates: {

@@ -32,7 +32,8 @@ router.put('/users/:userId', isAuthenticated, userController.updateUser);
 router.delete('/users/:userId', isAuthenticated, userController.deleteUser);
 router.get('/users/roles', isAuthenticated, userController.getRoles);
 router.put('/users/:userId/roles', isAuthenticated, userController.updateRoles);
-router.get('/managers', isAuthenticated, userController.getManagers);
+router.get('/managers', isAuthenticated, userController.getSTSManagers);
+router.get('/landfill-managers', isAuthenticated, userController.getLandfillManagers);
 
 // Profile Management Endpoints
 router.get('/profile', isAuthenticated, profileController.getProfile);

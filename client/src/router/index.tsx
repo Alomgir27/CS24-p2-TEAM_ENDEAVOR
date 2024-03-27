@@ -86,6 +86,7 @@ import AddPermission from '../pages/AddPermission';
 import AddVehicle from '../pages/AddVehicle';
 import AddSTS from '../pages/AddSTS';
 import AddSTSEntry from '../pages/AddSTSEntry';
+import AddLandFill from '../pages/AddLandFill';
 
 //do basic imports
 import { useEffect } from "react";
@@ -326,6 +327,10 @@ function Router() {
         {
           path: "sts/add-entry",
           element: <AddSTSEntry />,
+        },
+        {
+          path: "landfill/add",
+          element: <AddLandFill />,
         },
         {
           path: "regular-table",

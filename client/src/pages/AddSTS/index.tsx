@@ -30,62 +30,6 @@ import TomSelect from '../../base-components/TomSelect';
 
 
 
-
-// Data Entry Views:
-// System admin can add vehicles (trucks) with these mandatory attributes. You can store additional attributes as you feel necessary.
-// Vehicle Registration Number
-// Type: Open Truck, Dump Truck, Compactor, Container Carrier
-// Capacity: 3 ton, 5 ton, 7 ton.
-// Fuel cost per kilometer - fully loaded,
-// Fuel cost per kilometer - unloaded.
-// System admin can create STS with ward number, capacity in Tonnes and GPS coordinates.
-// System admin can assign one or more STS managers for each STS.
-// System admin can assign one or more trucks to each STS, A truck can only be used by one STS. A single STS can have many trucks.
-// STS managers can add entry of vehicles leaving the STS with STS ID, vehicle number, weight of waste, time of arrival and time of departure.
-// System admin can create Landfill sites, with capacity, operational timespan, GPS coordinates, etc.
-// System admin can assign one or more Landfill Managers for each Landfill site.
-// Landfill managers can add entry of truck dumping with weight of waste, time of arrival and time of departure.
-
-
-
-// const stsSchema = new Schema({
-//     wardNumber: {
-//         type: String,
-//         required: true
-//     },
-//     capacity: {
-//         type: String,
-//         required: true
-//     },
-//     gpsCoordinates: {
-//         type: {
-//             type: String,
-//             enum: ['Point', 'Polygon'],
-//             default: 'Point',
-//             required: true
-//         },
-//         coordinates: {
-//             type: [Number], // [longitude, latitude]
-//             required: true
-//         }
-//     },
-//     stsManager: {
-//         type: [Schema.Types.ObjectId],
-//         ref: 'User',
-//         required: false
-//     },
-//     vehicleEntries: {
-//         type: [Schema.Types.ObjectId],
-//         ref: 'Vehicle',
-//         required: false
-//     },
-//     details: {
-//         type: Schema.Types.Mixed,
-//         required: false
-//     }
-// }, { timestamps: true });
-
-
 const index = () => {
     const schema = yup
         .object({
@@ -229,7 +173,7 @@ const index = () => {
                             id="stsManager"
                             value={stsManager}
                             onChange={setStsManager}
-                            className="w-full"
+                            className="w-full bg-stone-50 dark:bg-darkmode-800"
                             multiple
                             required
                             placeholder="Select STS Manager"
@@ -249,7 +193,7 @@ const index = () => {
                             id="vehicleEntries"
                             value={vehicleEntries}
                             onChange={setVehicleEntries}
-                            className="w-full"
+                            className="w-full bg-stone-50 dark:bg-darkmode-800"
                             multiple
                             required
                             placeholder="Select Vehicle Entries"

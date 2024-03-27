@@ -90,9 +90,18 @@ const updateRoles = async (req, res) => {
     }
 }
 
-const getManagers = async (req, res) => {
+const getSTSManagers = async (req, res) => {
     try {
         const managers = await User.find({ role: 'STS Manager' });
+        res.status(200).json({ managers });
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+}
+
+const getLandfillManagers = async (req, res) => {
+    try {
+        const managers = await User.find({ role: 'Landfill Manager' });
         res.status(200).json({ managers });
     } catch (err) {
         res.status(400).json({ message: err.message });
@@ -107,5 +116,6 @@ module.exports = {
     deleteUser,
     getRoles,
     updateRoles,
-    getManagers
+    getSTSManagers,
+    getLandfillManagers
 };
