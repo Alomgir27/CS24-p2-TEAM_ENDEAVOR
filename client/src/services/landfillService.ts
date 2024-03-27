@@ -75,14 +75,12 @@ export const deleteLandfill = async(landfillId: string) => {
 
 export const addLandfillEntry = async({
     landfillId,
-    vehicleId,
     volume,
     timeOfArrival,
     timeOfDeparture,
     details
 }: {
     landfillId: string;
-    vehicleId: string;
     volume: number;
     timeOfArrival: string;
     timeOfDeparture: string;
@@ -90,10 +88,10 @@ export const addLandfillEntry = async({
 }) => {
     return await apiWithToken.post('landfill-entries', {
         landfillId,
-        vehicleId,
         volume,
         timeOfArrival,
         timeOfDeparture,
         details
     });
 }
+

@@ -87,6 +87,7 @@ import AddVehicle from '../pages/AddVehicle';
 import AddSTS from '../pages/AddSTS';
 import AddSTSEntry from '../pages/AddSTSEntry';
 import AddLandFill from '../pages/AddLandFill';
+import AddLandFillEntry from '../pages/AddLandFillEntry';
 
 //do basic imports
 import { useEffect } from "react";
@@ -331,6 +332,10 @@ function Router() {
         {
           path: "landfill/add",
           element: <AddLandFill />,
+        },
+        {
+          path: "landfill/add-entry",
+          element: <AddLandFillEntry />,
         },
         {
           path: "regular-table",

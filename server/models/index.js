@@ -187,13 +187,8 @@ const landfillSchema = new Schema({
 
 const landfillEntrySchema = new Schema({
     landfill: {
-        type: String,
-        required: true
-    },
-    vehicleId: {
         type: Schema.Types.ObjectId,
-        ref: 'Vehicle',
-        required: true
+        ref: 'Landfill',
     },
     volume: {
         type: Number,
