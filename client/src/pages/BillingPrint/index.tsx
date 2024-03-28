@@ -126,7 +126,10 @@ function Main() {
                     </Table.Th>
                 <Table.Th className="text-right border-b-2 dark:border-darkmode-400 whitespace-nowrap">
                   Cost
-                </Table.Th>
+                    </Table.Th>
+                    <Table.Th className="text-right border-b-2 dark:border-darkmode-400 whitespace-nowrap">
+                      Weight of Waste
+                    </Table.Th>
                 <Table.Th className="text-right border-b-2 dark:border-darkmode-400 whitespace-nowrap">
                   Number of Trips
                 </Table.Th>
@@ -148,7 +151,10 @@ function Main() {
                 </Table.Td>
                 <Table.Td className="w-32 text-right border-b dark:border-darkmode-400">
                   {route.cost}
-                </Table.Td>
+                    </Table.Td>
+                    <Table.Td className="w-32 text-right border-b dark:border-darkmode-400">
+                      {route.stsEntryId?.volume}
+                    </Table.Td>
                 <Table.Td className="w-32 text-right border-b dark:border-darkmode-400">
                   {route.numberOfTrips}
                 </Table.Td>

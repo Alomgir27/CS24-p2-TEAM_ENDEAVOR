@@ -90,6 +90,7 @@ const Index = () => {
                             <th className="border px-4 py-2">Vehicle</th>
                             <th className='border px-4 py-2'>Vehicle Type</th>
                             <th className="border px-4 py-2">Distance</th>
+                            <th className="border px-4 py-2">Weight of Waste</th>
                             <th className="border px-4 py-2">Fuel Cost</th>
                             <th className="border px-4 py-2">Number of Trips</th>
                             <th className="border px-4 py-2">Arrival Time</th>
@@ -106,6 +107,7 @@ const Index = () => {
                                 <td className="border px-4 py-2">{route?.stsEntryId?.vehicleId?.vehicleNumber}</td>
                                 <td className="border px-4 py-2">{route?.stsEntryId?.vehicleId?.type}</td>
                                 <td className="border px-4 py-2">{route?.distance}</td>
+                                <td className="border px-4 py-2">{route?.stsEntryId?.volume}</td>
                                 <td className="border px-4 py-2">{route?.cost}</td>
                                 <td className="border px-4 py-2">{route?.numberOfTrips}</td>
                                 <td className="border px-4 py-2">{new Date(route.stsEntryId?.timeOfArrival).toLocaleString()}</td>
