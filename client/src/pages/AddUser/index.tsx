@@ -132,7 +132,7 @@ const index = () => {
                   placeholder='Enter username'
                   {...register('username')}
                   className={clsx({
-                    'border-danger': errors.username,
+                    'border-danger': errors?.username,
                   })}
                 />
 

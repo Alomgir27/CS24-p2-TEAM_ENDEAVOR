@@ -128,7 +128,7 @@ const Index = () => {
                     >
                         {landfillManagers.map((manager) => (
                             <option key={manager._id} value={manager._id}>
-                                {manager.username}
+                                {manager?.username}
                             </option>
                         ))}
                     </TomSelect>
