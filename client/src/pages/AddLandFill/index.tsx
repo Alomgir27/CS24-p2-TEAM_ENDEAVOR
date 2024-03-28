@@ -136,8 +136,8 @@ const Index = () => {
         
                 <FormLabel>Operational Timespan</FormLabel>
                 <FormInput
-                    type="datetime-local"
-                    placeholder="Operational Timespan"
+                    type="number"
+                    placeholder="Operational Timespan in hours"
                     id="operationalTimespan"
                     {...register('operationalTimespan')}
                 />

@@ -14,6 +14,7 @@ export interface IVehicle {
     capacity: string;
     fuelCostLoaded: number;
     fuelCostUnloaded: number;
+    isAllocated: boolean;
     details: any;
 }
 
@@ -76,12 +77,14 @@ export interface IDashboard {
     landfill: string;
     details: any;
 }
-
+;
 export interface IRoute {
     _id: string;
-    vehicleId: string;
-    stsId: string;
-    landfill: string;
+    stsEntryId: string | ISts;
+    landfillId: string | ILandfillEntry;
+    distance: number;
+    cost: number;
+    numberOfTrips: number;
     details: any;
 }
 

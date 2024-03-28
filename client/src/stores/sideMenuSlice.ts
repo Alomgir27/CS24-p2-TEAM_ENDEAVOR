@@ -99,6 +99,16 @@ const initialState: SideMenuState = {
       icon: 'Plus',
     },
     {
+      pathname: 'route/optimize',
+      title: 'Optimize Route',
+      icon: 'Map',
+    },
+    {
+      pathname: '/billing',
+      title: 'Billing',
+      icon: 'DollarSign',
+    },
+    {
       icon: "ShoppingBag",
       title: "E-Commerce",
       subMenu: [

@@ -64,6 +64,7 @@ const index = () => {
         getVehicles().then((response) => {
             if (response.status === 200) {
                 setVehicles(response.data.vehicles);
+                console.log(response.data.vehicles);
             }
         });
     }, []);
@@ -202,7 +203,7 @@ const index = () => {
                             placeholder="Select Vehicle Entries"
                         >
                             {vehicles.map((vehicle) => (
-                                <option key={vehicle._id} value={vehicle._id}>
+                                <option key={vehicle._id} value={vehicle._id} disabled={vehicle.isAllocated}>
                                     {vehicle.vehicleNumber}
                                 </option>
                             ))}

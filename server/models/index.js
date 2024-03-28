@@ -125,6 +125,11 @@ const stsEntrySchema = new Schema({
         type: Date,
         required: true
     },
+    isAllocated: {
+        type: Boolean,
+        required: false,
+        default: false
+    },
     details: {
         type: Schema.Types.Mixed,
         required: false
@@ -246,20 +251,27 @@ const dashboardSchema = new Schema({
 
 
 
-
 const routeSchema = new Schema({
-    vehicleId: {
+    stsEntryId: {
         type: Schema.Types.ObjectId,
-        ref: 'Vehicle',
+        ref: 'stsEntry',
         required: true
     },
-    stsId: {
+    landfillId: {
         type: Schema.Types.ObjectId,
-        ref: 'STS',
+        ref: 'Landfill',
         required: true
     },
-    landfill: {
-        type: String,
+    distance: {
+        type: Number,
+        required: true
+    },
+    cost: {
+        type: Number,
+        required: true
+    },
+    numberOfTrips: {
+        type: Number,
         required: true
     },
     details: {
@@ -267,6 +279,7 @@ const routeSchema = new Schema({
         required: false
     }
 }, { timestamps: true });
+
 
 
 

@@ -98,6 +98,15 @@ const Index = () => {
         const timeOfDeparture = data.timeOfDeparture || '';
         const details = data.details || '';
 
+        //if volume is greater than vehicle capacity then show error
+        let vehicleData = vehicles.filter((vehicle: any) => vehicle._id === vehicleId).map((vehicle: any) => vehicle);
+        if (volume > parseInt(vehicleData[0]?.capacity)) {
+            setMessage('Volume should be less than vehicle capacity');
+            setType('error');
+            notificationRef.current?.showToast();
+            return;
+        }
+
         console.log(stsId, vehicleId, volume, timeOfArrival, timeOfDeparture, details);
         setLoading(true);
 
@@ -186,7 +195,11 @@ const Index = () => {
                 </>
             )}
 
-                <FormLabel className='mt-5'>Volume</FormLabel>
+                <FormLabel className='mt-5'>Volume (Weight of waste) {' '}
+                 Capacity: {' '}
+                    {vehicles && vehicles.filter((vehicle: any) => vehicle._id === vehicleId).map((vehicle: any) => (
+                        <span key={vehicle._id}>{vehicle.capacity}s max</span>
+                ))}</FormLabel>
                 <FormInput
                     id='volume'
                     type='number'

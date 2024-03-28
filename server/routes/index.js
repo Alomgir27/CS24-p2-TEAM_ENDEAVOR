@@ -57,6 +57,7 @@ router.post('/vehicles', isAuthenticated, vehicleController.createVehicle);
 router.get('/vehicles', isAuthenticated, vehicleController.getVehicles);
 router.post('/sts', isAuthenticated, stsController.createSTS);
 router.get('/sts', isAuthenticated, stsController.getSTS);
+router.get('/sts-entries', isAuthenticated, stsController.getStsEntries);
 router.put('/sts/:stsId/assign-manager', isAuthenticated, stsController.assignManager);
 router.post('/sts-entries', isAuthenticated, stsController.addStsEntry);
 router.post('/landfill', isAuthenticated, landfillEntryController.createLandfill);
@@ -69,7 +70,9 @@ router.post('/landfill-entries', isAuthenticated, landfillEntryController.create
 router.post('/calculate-oil-allocation', isAuthenticated, oilAllocationController.calculateOilAllocation);
 
 // Waste Collection and Transfer Tracking Endpoints
-router.post('/optimize-routes', isAuthenticated, routeController.optimizeRoutes);
+router.post('/optimize-routes', isAuthenticated, routeController.createOptimizeRoutes);
+router.get('/routes', isAuthenticated, routeController.getRoutes);
+router.get('/route/:routeId', isAuthenticated, routeController.getRoute);
 
 // Dashboard Overview Endpoints
 router.get('/dashboard', isAuthenticated, dashboardController.getDashboard);

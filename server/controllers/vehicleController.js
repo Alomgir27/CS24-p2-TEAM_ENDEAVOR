@@ -13,7 +13,7 @@ const createVehicle = async (req, res) => {
 
 const getVehicles = async (req, res) => {
     try {
-        const vehicles = await Vehicle.find({ isAllocated: false });
+        const vehicles = await Vehicle.find();
         res.status(200).json({ vehicles });
     } catch (err) {
         res.status(400).json({ message: err.message });

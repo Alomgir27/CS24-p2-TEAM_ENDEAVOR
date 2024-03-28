@@ -35,7 +35,7 @@ import BlogLayout2 from "../pages/BlogLayout2";
 import BlogLayout3 from "../pages/BlogLayout3";
 import PricingLayout1 from "../pages/PricingLayout1";
 import PricingLayout2 from "../pages/PricingLayout2";
-import InvoiceLayout1 from "../pages/InvoiceLayout1";
+import InvoiceLayout1 from "../pages/BillingPrint";
 import InvoiceLayout2 from "../pages/InvoiceLayout2";
 import FaqLayout1 from "../pages/FaqLayout1";
 import FaqLayout2 from "../pages/FaqLayout2";
@@ -88,7 +88,9 @@ import AddSTS from '../pages/AddSTS';
 import AddSTSEntry from '../pages/AddSTSEntry';
 import AddLandFill from '../pages/AddLandFill';
 import AddLandFillEntry from '../pages/AddLandFillEntry';
-import OptimizeRoute from '../pages/OptimizeRoute';
+import OptimizeRouteViewAndSelect from '../pages/OptimizeRouteViewAndSelect';
+import BillingView from '../pages/BillingView';
+import BillingPrint from '../pages/BillingPrint';
 
 //do basic imports
 import { useEffect } from "react";
@@ -339,8 +341,16 @@ function Router() {
           element: <AddLandFillEntry />,
         },
         {
-          path: 'optimize-route',
-          element: <OptimizeRoute />
+          path: "route/optimize",
+          element: <OptimizeRouteViewAndSelect />,
+        },
+        {
+          path: "billing",
+          element: <BillingView />,
+        },
+        {
+          path: "billing/:id",
+          element: <BillingPrint />,
         },
         {
           path: "regular-table",
