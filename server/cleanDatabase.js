@@ -4,7 +4,7 @@ const {
   User,
   Vehicle,
   STS,
-  WasteEntry,
+  StsEntry,
   LandfillEntry,
   OilAllocation,
   Dashboard,
@@ -28,8 +28,8 @@ const clean = async () => {
   await STS.deleteMany()
     .then(() => console.log('STS collection cleared'))
     .catch(err => console.error(err));
-  await WasteEntry.deleteMany()
-    .then(() => console.log('WasteEntry collection cleared'))
+  await StsEntry.deleteMany()
+    .then(() => console.log('StsEntry collection cleared'))
     .catch(err => console.error(err));
   await LandfillEntry.deleteMany()
     .then(() => console.log('LandfillEntry collection cleared'))
