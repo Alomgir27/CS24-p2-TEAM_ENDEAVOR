@@ -63,12 +63,10 @@ function Main() {
       setNotification("Login successful. Redirecting...");
       setType("success");
       notificationRef.current?.showToast();
-      setTimeout(() => {
-        setNotification(null);
-        notificationRef.current?.hideToast();
-        navigate("/dashboard");
-        window.location.reload();
-      }, 1000);
+      setNotification(null);
+      notificationRef.current?.hideToast();
+      navigate("/dashboard");
+      window.location.reload();
     } catch (error) {
       console.error(error);
       setError(error.response.data.message);

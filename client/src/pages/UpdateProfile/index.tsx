@@ -30,9 +30,9 @@ import { NotificationElement } from "../../base-components/Notification";
 function Main() {
   const navigate = useNavigate();
   const { user } = useSelector((state: RootState) => state.auth);
-  const [username, setUsername] = useState(user.username);
-  const [email, setEmail] = useState(user.email);
-  const [role, setRole] = useState(user.role);
+  const [username, setUsername] = useState(user?.username);
+  const [email, setEmail] = useState(user?.email);
+  const [role, setRole] = useState(user?.role);
   const [loading, setLoading] = useState(false);
   const [notification, setNotification] = useState<string | null>(null);
   const [type, setType] = useState<"success" | "error" | "warning" | "info">(
