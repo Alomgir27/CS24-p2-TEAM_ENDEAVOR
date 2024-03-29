@@ -112,6 +112,37 @@ export const getVehicles = async() => {
     return await apiWithToken.get('vehicles');
 }
 
+export const deleteVehicle = async(vehicleId: string) => {
+    return await apiWithToken.delete(`vehicles/${vehicleId}`);
+}
+
+export const updateVehicle = async({
+    vehicleId,
+    vehicleNumber,
+    type,
+    capacity,
+    fuelCostLoaded,
+    fuelCostUnloaded,
+    details
+}: {
+    vehicleId: string;
+    vehicleNumber: string;
+    type: string;
+    capacity: string;
+    fuelCostLoaded: number;
+    fuelCostUnloaded: number;
+    details: string;
+}) => {
+    return await apiWithToken.put(`vehicles/${vehicleId}`, {
+        vehicleNumber,
+        type,
+        capacity,
+        fuelCostLoaded,
+        fuelCostUnloaded,
+        details
+    });
+}
+
 export const getSTS = async() => {
     return await apiWithToken.get('sts');
 }

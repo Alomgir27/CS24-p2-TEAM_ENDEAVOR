@@ -84,6 +84,8 @@ import Permissions from '../pages/Permissions';
 import AddPermission from '../pages/AddPermission';
 
 import AddVehicle from '../pages/AddVehicle';
+import Vehicles from '../pages/Vehicles';
+import UpdateVehicle from '../pages/UpdateVehicle';
 import AddSTS from '../pages/AddSTS';
 import AddSTSEntry from '../pages/AddSTSEntry';
 import AddLandFill from '../pages/AddLandFill';
@@ -320,10 +322,20 @@ function Router() {
           path: "change-password",
           element: <ChangePassword />,
         },
+        // == Vehicle Management Start
         {
           path: "/vehicle/add",
           element: <AddVehicle />,
         },
+        {
+          path: "/vehicles",
+          element: <Vehicles />,
+        },
+        {
+          path: "vehicle/:id/edit",
+          element: <UpdateVehicle />,
+        },
+        // == Vehicle Management End
         {
           path: "sts/add",
           element: <AddSTS />,
