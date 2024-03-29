@@ -28,9 +28,11 @@ const login = async (req, res) => {
     try {
         const { email, password } = req.body;
         if (!email || !password) return res.status(400).json({ message: 'All fields are required' });
+        //authenticate user and role should not be Unassigned
         const user = await User.findOne({
             email
         });
+        if(user && user.role === 'Unassigned') return res.status(400).json({ message: 'This user is not assigned a role' });
         if (!user) return res.status(400).json({ message: 'User not found' });
 
         const validPass = await bcrypt.compare(password, user.password);
@@ -101,7 +103,7 @@ const confirmResetPassword = async (req, res) => {
 const changePassword = async (req, res) => {
     try {
         const { oldPassword, newPassword } = req.body;
-        if(!oldPassword || !newPassword) return res.status(400).json({ message: 'All fields are required' });
+        if (!oldPassword || !newPassword) return res.status(400).json({ message: 'All fields are required' });
         const user = await User.findById(req.user._id);
         const validPass = await bcrypt.compare(oldPassword, user.password);
         if (!validPass) return res.status(400).json({ message: 'Invalid password' });

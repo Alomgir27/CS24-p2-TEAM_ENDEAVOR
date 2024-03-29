@@ -11,9 +11,9 @@ const seed = async () => {
     .catch(err => console.error(err));
 
   //clear the database before running the tests to avoid duplicates and conflicts
-  await User.deleteMany()
-    .then(() => console.log('Users collection cleared'))
-    .catch(err => console.error(err));
+  // await User.deleteMany()
+  //   .then(() => console.log('Users collection cleared'))
+  //   .catch(err => console.error(err));
 
   //password is hashed before saving to the database
   await User.create({

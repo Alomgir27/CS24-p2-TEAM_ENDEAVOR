@@ -1,4 +1,7 @@
+
 const { User, Role } = require('../models');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const getUsers = async (req, res) => {
     try {
@@ -23,9 +26,12 @@ const getUser = async (req, res) => {
 
 const createUser = async (req, res) => {
     try {
-        const { name, email, password, role } = req.body;
-        if(!name || !email || !password || !role) return res.status(400).json({ message: 'All fields are required' });
-        const user = await User.create({ name, email, password, role });
+        const { username, email, password, role } = req.body;
+        if (!username || !email || !password || !role) return res.status(400).json({ message: 'All fields are required' });
+        const userExists = await User.findOne({ email });
+        if (userExists) return res.status(400).json({ message: 'User already exists' });
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const user = await User.create({ username, email, password: hashedPassword, role });
         res.status(201).json({ user });
     } catch (err) {
         res.status(400).json({ message: err.message });
@@ -36,8 +42,13 @@ const updateUser = async (req, res) => {
     try {
         const { userId } = req.params;
         if (!userId) return res.status(400).json({ message: 'User ID is required' });
-        const { name, email, password, role } = req.body;
-        const user = await User.findByIdAndUpdate(userId, { name, email, password, role }, { new: true });
+        const { username, email, password, role } = req.body;
+        if (password) {
+            const hashedPassword = await bcrypt.hash(password, 10);
+            const user = await User.findByIdAndUpdate(userId, { username, email, password: hashedPassword, role }, { new: true });
+            return res.status(200).json({ user });
+        }
+        const user = await User.findByIdAndUpdate(userId, { username, email, password, role }, { new: true });
         res.status(200).json({ user });
     }
     catch (err) {
@@ -70,11 +81,29 @@ const updateRoles = async (req, res) => {
     try {
         const { userId } = req.params;
         if (!userId) return res.status(400).json({ message: 'User ID is required' });
-        const { roles } = req.body;
-        const user = await User.findByIdAndUpdate(userId, { roles }, { new: true });
+        const { role } = req.body;
+        const user = await User.findByIdAndUpdate(userId, { role }, { new: true });
         res.status(200).json({ user });
     }
     catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+}
+
+const getSTSManagers = async (req, res) => {
+    try {
+        const managers = await User.find({ role: 'STS Manager' });
+        res.status(200).json({ managers });
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+}
+
+const getLandfillManagers = async (req, res) => {
+    try {
+        const managers = await User.find({ role: 'Landfill Manager' });
+        res.status(200).json({ managers });
+    } catch (err) {
         res.status(400).json({ message: err.message });
     }
 }
@@ -86,5 +115,7 @@ module.exports = {
     updateUser,
     deleteUser,
     getRoles,
-    updateRoles
+    updateRoles,
+    getSTSManagers,
+    getLandfillManagers
 };

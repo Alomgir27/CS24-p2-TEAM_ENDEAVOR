@@ -2,6 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 import { icons } from "../base-components/Lucide";
 
+
+
+
+
 export interface Menu {
   icon: keyof typeof icons;
   title: string;
@@ -14,6 +18,9 @@ export interface SideMenuState {
   menu: Array<Menu | "divider">;
 }
 
+
+
+
 const initialState: SideMenuState = {
   menu: [
     {
@@ -24,33 +31,82 @@ const initialState: SideMenuState = {
     {
       icon: 'Users',
       title: 'Users',
-      subMenu: [
+      subMenu: [{
+        icon: "Users",
+        pathname: "/users",
+        title: "Users",
+      },
+      {
+        icon: "UserPlus",
+        pathname: "/users/add",
+        title: "Add User",
+      },
+      {
+        pathname: '/update-profile',
+        title: 'Update profile',
+        icon: 'UserCheck',
+      },
+      {
+        icon: "Lock",
+        pathname: "/change-password",
+        title: "Change Password",
+      },
         {
-          pathname: '/users',
-          title: 'Users',
-          icon: 'Users',
+          pathname: '/roles',
+          title: 'Roles',
+          icon: 'UserCheck',
         },
         {
-          pathname: '/add-user',
-          title: 'Add User',
+          pathname: '/add-role',
+          title: 'Add role',
           icon: 'UserPlus',
         },
         {
-          pathname: '/user-profile',
-          title: 'User Profile',
-          icon: 'User',
+          pathname: '/permissions',
+          title: 'Permissions',
+          icon: 'Shield',
         },
         {
-          pathname: '/update-profile',
-          title: 'Update Profile',
-          icon: 'Edit',
-        },
-        {
-          pathname: '/change-password',
-          title: 'Change Password',
-          icon: 'Lock',
+          pathname: '/add-permission',
+          title: 'Add Permission',
+          icon: 'ShieldCheck',
         },
       ],
+    },
+    {
+      pathname: '/vehicle/add',
+      title: 'Add Vehicle',
+      icon: 'Truck',
+    },
+    {
+      pathname: '/sts/add',
+      title: 'Add STS',
+      icon: 'Truck',
+    },
+    {
+      pathname: '/sts/add-entry',
+      title: 'Add STS Entry',
+      icon: 'Plus',
+    },
+    {
+      pathname: 'landfill/add',
+      title: 'Add Landfill',
+      icon: 'Recycle',
+    },
+    {
+      pathname: '/landfill/add-entry',
+      title: 'Add Landfill Entry',
+      icon: 'Plus',
+    },
+    {
+      pathname: 'route/optimize',
+      title: 'Optimize Route',
+      icon: 'Map',
+    },
+    {
+      pathname: '/billing',
+      title: 'Billing',
+      icon: 'DollarSign',
     },
     {
       icon: "ShoppingBag",

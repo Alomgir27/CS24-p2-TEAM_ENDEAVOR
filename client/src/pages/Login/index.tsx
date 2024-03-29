@@ -5,6 +5,7 @@ import Button from "../../base-components/Button";
 import clsx from "clsx";
 import { AlertCircle } from "lucide-react";
 //do basic imports
+import ReCAPTCHA from "react-google-recaptcha";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
@@ -14,7 +15,13 @@ import { login as loginService } from "../../services/authService";
 //types
 import { RootState } from "../../stores/store";
 import { IUser } from "../../types";
+import { set } from "lodash";
 //components
+import Notification from "../../base-components/Notification";
+import { NotificationElement } from "../../base-components/Notification";
+import { useRef } from "react";
+import _ from "lodash";
+
 
 
 function Main() {
@@ -28,27 +35,57 @@ function Main() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate("/");
-    }
-  }, [isAuthenticated]);
+  const notificationRef = useRef<NotificationElement>(null);
+  const [notification, setNotification] = useState<string | null>(null);
+  const [type, setType] = useState<"success" | "error" | "warning" | "info">("success");
 
   const handleLogin = async () => {
+    if(!captcha){
+      setNotification("Please complete the captcha");
+      setType("error");
+      notificationRef.current?.showToast();
+      setTimeout(() => {
+        setNotification(null);
+        notificationRef.current?.hideToast();
+      }, 3000);
+      return;
+    }
+
     setLoading(true);
     try {
       const res = await loginService({ email, password });
       const { user, token } = res.data;
       console.log(user, token);
       dispatch(login({ user, token }));
-      navigate("/");
+      setEmail("");
+      setPassword("");
+      setError(null);
+      setNotification("Login successful. Redirecting...");
+      setType("success");
+      notificationRef.current?.showToast();
+      setNotification(null);
+      notificationRef.current?.hideToast();
+      navigate("/dashboard");
+      window.location.reload();
     } catch (error) {
       console.error(error);
       setError(error.response.data.message);
+      setNotification(error.response.data.message);
+      setType("error");
+      notificationRef.current?.showToast();
+      setTimeout(() => {
+        setNotification(null);
+        notificationRef.current?.hideToast();
+      }, 3000);
     } finally {
       setLoading(false);
     }
+  };
+
+  const [captcha, setCaptcha] = useState<string>("");
+
+  const onChange = (value: string | null) => {
+    setCaptcha(value || "");
   };
 
 
@@ -148,6 +185,14 @@ function Main() {
                     Forgot Password?
                   </a>
                 </div>
+
+                <div className="mt-5">
+                  <ReCAPTCHA
+                    sitekey="6Ldvq6UpAAAAAHMGEpmVWYS24qFB47uSefGNMS8D"
+                    onChange={onChange}
+                  />
+                </div>
+
                 <div className="mt-5 text-center intro-x xl:mt-8 xl:text-left">
                   <Button
                     variant="primary"
@@ -161,6 +206,20 @@ function Main() {
               </div>
             </div>
             {/* END: Login Form */}
+            <Notification
+              getRef={(el) => {
+                notificationRef.current = el;
+              }}
+              className="flex"
+            >
+              <AlertCircle
+                className={`w-6 h-6 text-${type === "success" ? "green" : "red"}-500`}
+              />
+              <div className="ml-4 mr-4">
+                <div className="font-medium">{_.startCase(type)}</div>
+                <div className="mt-1 text-slate-500">{notification}</div>
+              </div>
+            </Notification>
           </div>
         </div>
       </div>

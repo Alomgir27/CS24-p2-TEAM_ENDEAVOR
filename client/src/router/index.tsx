@@ -4,8 +4,6 @@ import SimpleMenu from "../layouts/SimpleMenu";
 import TopMenu from "../layouts/TopMenu";
 import DashboardOverview1 from "../pages/DashboardOverview1";
 import DashboardOverview2 from "../pages/DashboardOverview2";
-import DashboardOverview3 from "../pages/DashboardOverview3";
-import DashboardOverview4 from "../pages/DashboardOverview4";
 import Categories from "../pages/Categories";
 import AddProduct from "../pages/AddProduct";
 import ProductList from "../pages/ProductList";
@@ -24,7 +22,7 @@ import Calendar from "../pages/Calendar";
 import CrudDataList from "../pages/CrudDataList";
 import CrudForm from "../pages/CrudForm";
 import UsersLayout1 from "../pages/UsersLayout1";
-import UsersLayout2 from "../pages/UsersLayout2";
+import Users from "../pages/Users";
 import UsersLayout3 from "../pages/UsersLayout3";
 import ProfileOverview1 from "../pages/ProfileOverview1";
 import ProfileOverview2 from "../pages/ProfileOverview2";
@@ -37,7 +35,7 @@ import BlogLayout2 from "../pages/BlogLayout2";
 import BlogLayout3 from "../pages/BlogLayout3";
 import PricingLayout1 from "../pages/PricingLayout1";
 import PricingLayout2 from "../pages/PricingLayout2";
-import InvoiceLayout1 from "../pages/InvoiceLayout1";
+import InvoiceLayout1 from "../pages/BillingPrint";
 import InvoiceLayout2 from "../pages/InvoiceLayout2";
 import FaqLayout1 from "../pages/FaqLayout1";
 import FaqLayout2 from "../pages/FaqLayout2";
@@ -46,10 +44,14 @@ import FaqLayout3 from "../pages/FaqLayout3";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import ErrorPage from "../pages/ErrorPage";
-import UpdateProfile from "../pages/UpdateProfile";
 import ChangePassword from "../pages/ChangePassword";
 import ForgotPassword from "../pages/ForgotPassword";
 import ResetPassword from "../pages/ResetPassword";
+import Profile from "../pages/Profile";
+import AddUser from "../pages/AddUser";
+import UserUpdate from "../pages/UserUpdate";
+import UpdateProfile from "../pages/UpdateProfile";
+
 import RegularTable from "../pages/RegularTable";
 import Tabulator from "../pages/Tabulator";
 import Modal from "../pages/Modal";
@@ -74,6 +76,22 @@ import Validation from "../pages/Validation";
 import Chart from "../pages/Chart";
 import Slider from "../pages/Slider";
 import ImageZoom from "../pages/ImageZoom";
+
+import Roles from '../pages/Roles';
+import AddRole from '../pages/AddRole';
+import UpdateRole from '../pages/UpdateRole';
+import Permissions from '../pages/Permissions';
+import AddPermission from '../pages/AddPermission';
+
+import AddVehicle from '../pages/AddVehicle';
+import AddSTS from '../pages/AddSTS';
+import AddSTSEntry from '../pages/AddSTSEntry';
+import AddLandFill from '../pages/AddLandFill';
+import AddLandFillEntry from '../pages/AddLandFillEntry';
+import OptimizeRouteViewAndSelect from '../pages/OptimizeRouteViewAndSelect';
+import BillingView from '../pages/BillingView';
+import BillingPrint from '../pages/BillingPrint';
+
 //do basic imports
 import { useEffect } from "react";
 import { useState } from "react";
@@ -87,7 +105,6 @@ function Router() {
   const { isAuthenticated } = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location.pathname);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -107,6 +124,34 @@ function Router() {
       path: "/",
       element: <SideMenu />,
       children: [
+        {
+          path: "/dashboard",
+          element: <DashboardOverview1 />,
+        },
+        {
+          path: '/add-user',
+          element: <AddUser />
+        },
+        {
+          path: '/roles',
+          element: <Roles />
+        },
+        {
+          path: '/add-role',
+          element: <AddRole />
+        },
+        {
+          path: '/roles/:id/edit',
+          element: <UpdateRole />
+        },
+        {
+          path: '/permissions',
+          element: <Permissions />
+        },
+        {
+          path: '/add-permission',
+          element: <AddPermission />
+        },
         {
           path: "/",
           element: <DashboardOverview1 />,
@@ -184,8 +229,20 @@ function Router() {
           element: <UsersLayout1 />,
         },
         {
-          path: "users-layout-2",
-          element: <UsersLayout2 />,
+          path: "users",
+          element: <Users />,
+        },
+        {
+          path: "profile/:id",
+          element: <Profile />,
+        },
+        {
+          path: "/users/add",
+          element: <AddUser />,
+        },
+        {
+          path: "/users/:userId/edit",
+          element: <UserUpdate />,
         },
         {
           path: "users-layout-3",
@@ -262,6 +319,38 @@ function Router() {
         {
           path: "change-password",
           element: <ChangePassword />,
+        },
+        {
+          path: "/vehicle/add",
+          element: <AddVehicle />,
+        },
+        {
+          path: "sts/add",
+          element: <AddSTS />,
+        },
+        {
+          path: "sts/add-entry",
+          element: <AddSTSEntry />,
+        },
+        {
+          path: "landfill/add",
+          element: <AddLandFill />,
+        },
+        {
+          path: "landfill/add-entry",
+          element: <AddLandFillEntry />,
+        },
+        {
+          path: "route/optimize",
+          element: <OptimizeRouteViewAndSelect />,
+        },
+        {
+          path: "billing",
+          element: <BillingView />,
+        },
+        {
+          path: "billing/:id",
+          element: <BillingPrint />,
         },
         {
           path: "regular-table",

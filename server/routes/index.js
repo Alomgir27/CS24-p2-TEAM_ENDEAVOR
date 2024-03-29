@@ -32,6 +32,8 @@ router.put('/users/:userId', isAuthenticated, userController.updateUser);
 router.delete('/users/:userId', isAuthenticated, userController.deleteUser);
 router.get('/users/roles', isAuthenticated, userController.getRoles);
 router.put('/users/:userId/roles', isAuthenticated, userController.updateRoles);
+router.get('/managers', isAuthenticated, userController.getSTSManagers);
+router.get('/landfill-managers', isAuthenticated, userController.getLandfillManagers);
 
 // Profile Management Endpoints
 router.get('/profile', isAuthenticated, profileController.getProfile);
@@ -40,6 +42,7 @@ router.put('/profile', isAuthenticated, profileController.updateProfile);
 // Role-Based Access Control (RBAC) Endpoints
 router.post('/rbac/roles', isAuthenticated, rbacController.createRole);
 router.get('/rbac/roles', isAuthenticated, rbacController.getRoles);
+router.get('/rbac/roles/:roleId', isAuthenticated, rbacController.getRole);
 router.put('/rbac/roles/:roleId', isAuthenticated, rbacController.updateRole);
 router.delete('/rbac/roles/:roleId', isAuthenticated, rbacController.deleteRole);
 router.post('/rbac/permissions', isAuthenticated, rbacController.createPermission);
@@ -51,16 +54,25 @@ router.put('/rbac/users/:userId/roles', isAuthenticated, rbacController.assignRo
 
 // Data Entry Interface Endpoints
 router.post('/vehicles', isAuthenticated, vehicleController.createVehicle);
+router.get('/vehicles', isAuthenticated, vehicleController.getVehicles);
 router.post('/sts', isAuthenticated, stsController.createSTS);
+router.get('/sts', isAuthenticated, stsController.getSTS);
+router.get('/sts-entries', isAuthenticated, stsController.getStsEntries);
 router.put('/sts/:stsId/assign-manager', isAuthenticated, stsController.assignManager);
-router.post('/sts/:stsId/vehicles', isAuthenticated, stsController.addVehicleEntry);
+router.post('/sts-entries', isAuthenticated, stsController.addStsEntry);
+router.post('/landfill', isAuthenticated, landfillEntryController.createLandfill);
+router.get('/landfills', isAuthenticated, landfillEntryController.getLandfills);
+router.get('/all-landfills', isAuthenticated, landfillEntryController.getAllLandfills);
 router.post('/landfill-entries', isAuthenticated, landfillEntryController.createLandfillEntry);
+
 
 // Automatic Billing Endpoints
 router.post('/calculate-oil-allocation', isAuthenticated, oilAllocationController.calculateOilAllocation);
 
 // Waste Collection and Transfer Tracking Endpoints
-router.post('/optimize-routes', isAuthenticated, routeController.optimizeRoutes);
+router.post('/optimize-routes', isAuthenticated, routeController.createOptimizeRoutes);
+router.get('/routes', isAuthenticated, routeController.getRoutes);
+router.get('/route/:routeId', isAuthenticated, routeController.getRoute);
 
 // Dashboard Overview Endpoints
 router.get('/dashboard', isAuthenticated, dashboardController.getDashboard);

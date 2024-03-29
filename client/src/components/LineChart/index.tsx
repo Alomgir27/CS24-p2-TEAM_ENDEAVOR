@@ -9,11 +9,15 @@ import { useMemo } from "react";
 interface MainProps extends React.ComponentPropsWithoutRef<"canvas"> {
   width: number;
   height: number;
+  labelHorizontal: string;
+  labelVertical: string;
+  showData: any;
 }
 
 function Main(props: MainProps) {
   const colorScheme = useAppSelector(selectColorScheme);
   const darkMode = useAppSelector(selectDarkMode);
+  const { showData, labelHorizontal, labelVertical } = props;
 
   const data: ChartData = useMemo(() => {
     return {
@@ -33,8 +37,21 @@ function Main(props: MainProps) {
       ],
       datasets: [
         {
-          label: "Html Template",
-          data: [0, 200, 250, 200, 500, 450, 850, 1050, 950, 1100, 900, 1200],
+          label: labelHorizontal || "React Template",
+          data: showData || [
+            0,
+            100,
+            200,
+            300,
+            400,
+            500,
+            600,
+            700,
+            800,
+            900,
+            1000,
+            1100,
+          ],
           borderWidth: 2,
           borderColor: colorScheme ? getColor("primary") : "",
           backgroundColor: "transparent",
@@ -42,7 +59,7 @@ function Main(props: MainProps) {
           tension: 0.4,
         },
         {
-          label: "VueJs Template",
+          label: labelVertical || "React Template",
           data: [0, 300, 400, 560, 320, 600, 720, 850, 690, 805, 1200, 1010],
           borderWidth: 2,
           borderDash: [2, 2],
@@ -55,7 +72,7 @@ function Main(props: MainProps) {
         },
       ],
     };
-  }, [colorScheme, darkMode]);
+  }, [colorScheme, darkMode, showData, labelHorizontal, labelVertical]);
 
   const options: ChartOptions = useMemo(() => {
     return {
@@ -87,7 +104,7 @@ function Main(props: MainProps) {
             },
             color: getColor("slate.500", 0.8),
             callback: function (value) {
-              return "$" + value;
+              return "৳" + value;
             },
           },
           grid: {
