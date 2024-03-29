@@ -12,6 +12,7 @@ import MobileMenu from "../../components/MobileMenu";
 import SideMenuTooltip from "../../components/SideMenuTooltip";
 import { useSelector } from "react-redux";
 import { RootState } from "../../stores/store";
+import { useCallback } from "react";
 
 
 function Main() {
@@ -27,6 +28,21 @@ function Main() {
     setFormattedMenu(sideMenu());
   }, [sideMenuStore, location.pathname]);
 
+  //all menu items for system admin
+  const STYTEM_ADMIN_MENU = ['Users Management', 'Users', 'Add User', 'Update profile', 'Change Password', 'Roles', 'Add role', 'Permissions', 'Add Permission', 'Add Vehicle', 'Add STS', 'Add STS Entry', 'Add Landfill', 'Add Landfill Entry', 'Optimize Route', 'Billing', 'Fleet Optimize and Vehicle Deployment', 'Dashboard', 'divider'];
+  const STSMANAGER_MENU = ['Users Management', 'Update profile', 'Change Password', 'Add STS Entry', 'Optimize Route', 'Billing', 'Fleet Optimize and Vehicle Deployment', 'Dashboard', 'divider'];
+  const LANDFILLMANAGER_MENU = ['Users Management', 'Update profile', 'Change Password', 'Add Landfill Entry', 'Dashboard', 'divider'];
+
+  const filteredMenu = useCallback(() => {
+    if (user?.role === "STS Manager") {
+      return STSMANAGER_MENU;
+    } else if (user?.role === "Landfill Manager") {
+      return LANDFILLMANAGER_MENU;
+    } else {
+      return STYTEM_ADMIN_MENU;
+    }
+  }
+    , [user?.role]);
  
 
   return (
@@ -51,7 +67,7 @@ function Main() {
           <Divider type="div" className="my-6"></Divider>
           <ul>
             {/* BEGIN: First Child */}
-            {formattedMenu.map((menu, menuKey) =>
+            {formattedMenu.filter((menu) => filteredMenu().includes(menu.title)).map((menu, menuKey) =>
               menu == "divider" ? (
                 <Divider
                   type="li"
@@ -94,7 +110,7 @@ function Main() {
                           { hidden: !menu.activeDropdown },
                         ])}
                       >
-                        {menu.subMenu.filter((subMenu) => user?.role === "System Admin" || (subMenu.pathname !== "/users" && subMenu.pathname !== "/users/add")).map((subMenu, subMenuKey) => (
+                          {menu.subMenu.filter((subMenu) => filteredMenu().includes(subMenu.title)). map((subMenu, subMenuKey) => (
                           <li key={subMenuKey}>
                             <Menu
                               className={clsx({

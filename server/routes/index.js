@@ -9,7 +9,6 @@ const rbacController = require('../controllers/rbacController');
 const vehicleController = require('../controllers/vehicleController');
 const stsController = require('../controllers/stsController');
 const landfillEntryController = require('../controllers/landfillEntryController');
-const oilAllocationController = require('../controllers/oilAllocationController');
 const routeController = require('../controllers/routeController');
 const dashboardController = require('../controllers/dashboardController');
 
@@ -67,8 +66,6 @@ router.get('/landfill-entries', isAuthenticated, landfillEntryController.getLand
 router.post('/landfill-entries', isAuthenticated, landfillEntryController.createLandfillEntry);
 
 
-// Automatic Billing Endpoints
-router.post('/calculate-oil-allocation', isAuthenticated, oilAllocationController.calculateOilAllocation);
 
 // Waste Collection and Transfer Tracking Endpoints
 router.post('/optimize-routes', isAuthenticated, routeController.createOptimizeRoutes);

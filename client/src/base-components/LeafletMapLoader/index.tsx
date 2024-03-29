@@ -11,6 +11,10 @@ export type Init = (
 interface LeafletMapLoaderProps extends React.ComponentPropsWithoutRef<"div"> {
   init: Init;
   darkMode?: boolean;
+  locations: {
+    lat: number;
+    lng: number;
+  }[];
 }
 
 function LeafletMapLoader(props: LeafletMapLoaderProps) {
@@ -23,6 +27,7 @@ function LeafletMapLoader(props: LeafletMapLoaderProps) {
       }
     });
   }, [props.init]);
+
 
   return (
     <div

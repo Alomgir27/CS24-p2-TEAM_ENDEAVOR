@@ -199,33 +199,7 @@ const landfillEntrySchema = new Schema({
     }
 }, { timestamps: true });
 
-const oilAllocationSchema = new Schema({
-    vehicleId: {
-        type: Schema.Types.ObjectId,
-        ref: 'Vehicle',
-        required: true
-    },
-    volume: {
-        type: Number,
-        required: true
-    },
-    destination: {
-        type: String,
-        required: true
-    },
-    timeOfArrival: {
-        type: Date,
-        required: true
-    },
-    timeOfDeparture: {
-        type: Date,
-        required: true
-    },
-    details: {
-        type: Schema.Types.Mixed,
-        required: false
-    }
-}, { timestamps: true });
+
 
 
 const dashboardSchema = new Schema({
@@ -392,7 +366,6 @@ const User = mongoose.model('User', userSchema);
 const Vehicle = mongoose.model('Vehicle', vehicleSchema);
 const STS = mongoose.model('STS', stsSchema);
 const LandfillEntry = mongoose.model('LandfillEntry', landfillEntrySchema);
-const OilAllocation = mongoose.model('OilAllocation', oilAllocationSchema);
 const Dashboard = mongoose.model('Dashboard', dashboardSchema);
 const Route = mongoose.model('Route', routeSchema);
 const Role = mongoose.model('Role', roleSchema);
@@ -411,7 +384,6 @@ module.exports = {
     Vehicle,
     STS,
     LandfillEntry,
-    OilAllocation,
     Dashboard,
     Route,
     StsEntry,
