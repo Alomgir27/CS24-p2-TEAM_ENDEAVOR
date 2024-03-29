@@ -23,21 +23,8 @@ const initialState: SideMenuState = {
       pathname: '/', // this is the path to the dashboard
     },
     {
-      icon: 'Truck',
-      title: 'Vehicles',
-      subMenu: [
-        {
-          pathname: '/vehicle/add',
-          title: 'Add Vehicle',
-          icon: 'Plus',
-        },
-        {
-          pathname: '/vehicles',
-          title: 'Vehicles',
-          icon: 'Truck',
-        },
-      ],
       title: 'Users Management',
+      icon: 'Users',
       subMenu: [{
         icon: "Users",
         pathname: "/users",
@@ -81,9 +68,20 @@ const initialState: SideMenuState = {
       ],
     },
     {
-      pathname: '/vehicle/add',
-      title: 'Add Vehicle',
       icon: 'Truck',
+      title: 'Vehicles',
+      subMenu: [
+        {
+          pathname: '/vehicle/add',
+          title: 'Add Vehicle',
+          icon: 'Plus',
+        },
+        {
+          pathname: '/vehicles',
+          title: 'Vehicles',
+          icon: 'Truck',
+        },
+      ],
     },
     {
       pathname: '/sts/add',

@@ -29,7 +29,7 @@ function Main() {
   }, [sideMenuStore, location.pathname]);
 
   //all menu items for system admin
-  const STYTEM_ADMIN_MENU = ['Users Management', 'Users', 'Add User', 'Update profile', 'Change Password', 'Roles', 'Add role', 'Permissions', 'Add Permission', 'Add Vehicle', 'Add STS', 'Add STS Entry', 'Add Landfill', 'Add Landfill Entry', 'Optimize Route', 'Billing', 'Fleet Optimize and Vehicle Deployment', 'Dashboard', 'divider'];
+  const STYTEM_ADMIN_MENU = ['Users Management', 'Users', 'Vehicles', 'Add User', 'Update profile', 'Change Password', 'Roles', 'Add role', 'Permissions', 'Add Permission', 'Add Vehicle', 'Add STS', 'Add STS Entry', 'Add Landfill', 'Add Landfill Entry', 'Optimize Route', 'Billing', 'Fleet Optimize and Vehicle Deployment', 'Dashboard', 'divider'];
   const STSMANAGER_MENU = ['Users Management', 'Update profile', 'Change Password', 'Add STS Entry', 'Optimize Route', 'Billing', 'Fleet Optimize and Vehicle Deployment', 'Dashboard', 'divider'];
   const LANDFILLMANAGER_MENU = ['Users Management', 'Update profile', 'Change Password', 'Add Landfill Entry', 'Dashboard', 'divider'];
 
