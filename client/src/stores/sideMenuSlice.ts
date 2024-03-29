@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from "./store";
-import { icons } from "../base-components/Lucide";
+import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from './store';
+import { icons } from '../base-components/Lucide';
 
 
 export interface Menu {
@@ -12,21 +12,31 @@ export interface Menu {
 }
 
 export interface SideMenuState {
-  menu: Array<Menu | "divider">;
+  menu: Array<Menu | 'divider'>;
 }
-
-
-
 
 const initialState: SideMenuState = {
   menu: [
     {
-      icon: "Home",
-      title: "Dashboard",
-      pathname: "/", // this is the path to the dashboard
+      icon: 'Home',
+      title: 'Dashboard',
+      pathname: '/', // this is the path to the dashboard
     },
     {
-      icon: 'Users',
+      icon: 'Truck',
+      title: 'Vehicles',
+      subMenu: [
+        {
+          pathname: '/vehicle/add',
+          title: 'Add Vehicle',
+          icon: 'Plus',
+        },
+        {
+          pathname: '/vehicles',
+          title: 'Vehicles',
+          icon: 'Truck',
+        },
+      ],
       title: 'Users Management',
       subMenu: [{
         icon: "Users",
@@ -114,7 +124,7 @@ const initialState: SideMenuState = {
 }
 
 export const sideMenuSlice = createSlice({
-  name: "sideMenu",
+  name: 'sideMenu',
   initialState,
   reducers: {},
 });

@@ -51,14 +51,21 @@ router.delete('/rbac/permissions/:permissionId', isAuthenticated, rbacController
 router.put('/rbac/roles/:roleId/permissions', isAuthenticated, rbacController.assignPermissions);
 router.put('/rbac/users/:userId/roles', isAuthenticated, rbacController.assignRoles);
 
-// Data Entry Interface Endpoints
+// Vehicle Management Endpoints
 router.post('/vehicles', isAuthenticated, vehicleController.createVehicle);
 router.get('/vehicles', isAuthenticated, vehicleController.getVehicles);
+router.get('/vehicles/:vehicleId', isAuthenticated, vehicleController.getVehicle);
+router.put('/vehicles/:vehicleId', isAuthenticated, vehicleController.updateVehicle);
+router.delete('/vehicles/:vehicleId', isAuthenticated, vehicleController.deleteVehicle);
+
+// STS Entry Endpoints
 router.post('/sts', isAuthenticated, stsController.createSTS);
 router.get('/sts', isAuthenticated, stsController.getSTS);
 router.get('/sts-entries', isAuthenticated, stsController.getStsEntries);
 router.put('/sts/:stsId/assign-manager', isAuthenticated, stsController.assignManager);
 router.post('/sts-entries', isAuthenticated, stsController.addStsEntry);
+
+// Landfill Entry Endpoints
 router.post('/landfill', isAuthenticated, landfillEntryController.createLandfill);
 router.get('/landfills', isAuthenticated, landfillEntryController.getLandfills);
 router.get('/all-landfills', isAuthenticated, landfillEntryController.getAllLandfills);

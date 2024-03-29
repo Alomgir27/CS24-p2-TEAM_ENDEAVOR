@@ -22,7 +22,44 @@ const getVehicles = async (req, res) => {
     }
 }
 
+const getVehicle = async (req, res) => {
+    try {
+        const { vehicleId } = req.params;
+        const vehicle = await Vehicle.findById(vehicleId);
+        if (!vehicle) return res.status(404).json({ message: 'Vehicle not found' });
+        res.status(200).json({ vehicle });
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+}
+
+const updateVehicle = async (req, res) => {
+    try {
+        const { vehicleId } = req.params;
+        const { vehicleNumber, type, capacity, fuelCostLoaded, fuelCostUnloaded, details } = req.body;
+        const vehicle = await Vehicle.findByIdAndUpdate(vehicleId, { vehicleNumber, type, capacity, fuelCostLoaded, fuelCostUnloaded, details }, { new: true });
+        if (!vehicle) return res.status(404).json({ message: 'Vehicle not found' });
+        res.status(200).json({ vehicle });
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+}
+
+const deleteVehicle = async (req, res) => {
+    try {
+        const { vehicleId } = req.params;
+        const vehicle = await Vehicle.findByIdAndDelete(vehicleId);
+        if (!vehicle) return res.status(404).json({ message: 'Vehicle not found' });
+        res.status(200).json({ message: 'Vehicle deleted successfully' });
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+}
+
 module.exports = {
     createVehicle,
-    getVehicles
+    getVehicles,
+    getVehicle,
+    updateVehicle,
+    deleteVehicle,
 };
