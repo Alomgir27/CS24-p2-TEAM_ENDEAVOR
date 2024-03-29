@@ -159,10 +159,10 @@ function Main() {
                   {route.numberOfTrips}
                 </Table.Td>
                 <Table.Td className="w-32 font-medium text-right border-b dark:border-darkmode-400">
-                  {new Date(route.stsEntryId?.timeOfArrival).toLocaleString()}
+                  {route.stsEntryId?.timeOfArrival}
                 </Table.Td>
                 <Table.Td className="w-32 font-medium text-right border-b dark:border-darkmode-400">
-                  {new Date(route.stsEntryId?.timeOfDeparture).toLocaleString()}
+                  {route.stsEntryId?.timeOfDeparture}
                 </Table.Td>
                 <Table.Td className="w-32 font-medium text-right border-b dark:border-darkmode-400">
                   {route.details}

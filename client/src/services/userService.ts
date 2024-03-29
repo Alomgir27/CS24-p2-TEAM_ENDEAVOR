@@ -6,8 +6,7 @@ export const apiWithToken = axios.create({
     baseURL: API_URL,
     timeout: 10000,
     headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `${localStorage.getItem('token')}`
+        'Content-Type': 'application/json'
     },
 });
 
@@ -15,9 +14,25 @@ export const apiWithTokenAndFormData = axios.create({
     baseURL: API_URL,
     timeout: 10000,
     headers: {
-        'Content-Type': 'multipart/form-data',
-        'Authorization': `${localStorage.getItem('token')}`
+        'Content-Type': 'multipart/form-data'
     },
+});
+
+// Add an interceptor to dynamically set the Authorization header before each request
+apiWithToken.interceptors.request.use(config => {
+    const token = localStorage.getItem('token');
+    if (token) {
+        config.headers['Authorization'] = token;
+    }
+    return config;
+});
+
+apiWithTokenAndFormData.interceptors.request.use(config => {
+    const token = localStorage.getItem('token');
+    if (token) {
+        config.headers['Authorization'] = token;
+    }
+    return config;
 });
 
 

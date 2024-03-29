@@ -62,6 +62,7 @@ const Index = () => {
         const fetchLandfillManagers = async () => {
             const { data } = await getLandfillManagers();
             setLandfillManagers(data.managers);
+            console.log(data.managers);
         };
 
         fetchLandfillManagers();
@@ -106,7 +107,7 @@ const Index = () => {
                 />
                 <FormHelp>{errors.name?.message as string}</FormHelp>
         
-                <FormLabel>Capacity</FormLabel>
+                <FormLabel>Capacity (in tons)</FormLabel>
                 <FormInput
                     type="number"
                     placeholder="Capacity"
@@ -122,8 +123,6 @@ const Index = () => {
                         value={landfillManager}
                         onChange={setLandfillManager}
                         className="w-full bg-stone-50 dark:bg-darkmode-800"
-                        multiple
-                        required
                         placeholder="Select Landfill Manager"
                     >
                         {landfillManagers.map((manager) => (

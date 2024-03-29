@@ -3,7 +3,6 @@ import Lucide from "../../base-components/Lucide";
 import Breadcrumb from "../../base-components/Breadcrumb";
 import { FormInput } from "../../base-components/Form";
 import { Menu, Popover } from "../../base-components/Headless";
-import fakerData from "../../utils/faker";
 import _ from "lodash";
 import clsx from "clsx";
 import { Transition } from "@headlessui/react";
@@ -74,7 +73,7 @@ function Main() {
                     <div className="flex items-center justify-center w-8 h-8 rounded-full bg-success/20 dark:bg-success/10 text-success">
                       <Lucide icon="Inbox" className="w-4 h-4" />
                     </div>
-                    <div className="ml-3">Mail Settings</div>
+                    <div className="ml-3">Mail Server</div>
                   </a>
                   <a href="" className="flex items-center mt-2">
                     <div className="flex items-center justify-center w-8 h-8 rounded-full bg-pending/10 text-pending">
@@ -86,47 +85,15 @@ function Main() {
                     <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 dark:bg-primary/20 text-primary/80">
                       <Lucide icon="CreditCard" className="w-4 h-4" />
                     </div>
-                    <div className="ml-3">Transactions Report</div>
+                    <div className="ml-3">Billing</div>
                   </a>
                 </div>
                 <div className="mb-2 font-medium">Users</div>
                 <div className="mb-5">
-                  {_.take(fakerData, 4).map((faker, fakerKey) => (
-                    <a
-                      key={fakerKey}
-                      href=""
-                      className="flex items-center mt-2"
-                    >
-                      <div className="w-8 h-8 image-fit">
-                        <img
-                          alt="image"
-                          className="rounded-full"
-                          src={faker.photos[0]}
-                        />
-                      </div>
-                      <div className="ml-3">{faker.users[0].name}</div>
-                      <div className="w-48 ml-auto text-xs text-right truncate text-slate-500">
-                        {faker.users[0].email}
-                      </div>
-                    </a>
-                  ))}
+               
                 </div>
-                <div className="mb-2 font-medium">Products</div>
-                {_.take(fakerData, 4).map((faker, fakerKey) => (
-                  <a key={fakerKey} href="" className="flex items-center mt-2">
-                    <div className="w-8 h-8 image-fit">
-                      <img
-                        alt="image"
-                        className="rounded-full"
-                        src={faker.images[0]}
-                      />
-                    </div>
-                    <div className="ml-3">{faker.products[0].name}</div>
-                    <div className="w-48 ml-auto text-xs text-right truncate text-slate-500">
-                      {faker.products[0].category}
-                    </div>
-                  </a>
-                ))}
+                <div className="mb-2 font-medium">Vehicle</div>
+                
               </div>
             </div>
           </Transition>
@@ -144,37 +111,7 @@ function Main() {
           </Popover.Button>
           <Popover.Panel className="w-[280px] sm:w-[350px] p-5 mt-2">
             <div className="mb-5 font-medium">Notifications</div>
-            {_.take(fakerData, 5).map((faker, fakerKey) => (
-              <div
-                key={fakerKey}
-                className={clsx([
-                  "cursor-pointer relative flex items-center",
-                  { "mt-5": fakerKey },
-                ])}
-              >
-                <div className="relative flex-none w-12 h-12 mr-1 image-fit">
-                  <img
-                    alt="image"
-                    className="rounded-full"
-                    src={faker.photos[0]}
-                  />
-                  <div className="absolute bottom-0 right-0 w-3 h-3 border-2 border-white rounded-full bg-success dark:border-darkmode-600"></div>
-                </div>
-                <div className="ml-2 overflow-hidden">
-                  <div className="flex items-center">
-                    <a href="" className="mr-5 font-medium truncate">
-                      {faker.users[0].name}
-                    </a>
-                    <div className="ml-auto text-xs text-slate-400 whitespace-nowrap">
-                      {faker.times[0]}
-                    </div>
-                  </div>
-                  <div className="w-full truncate text-slate-500 mt-0.5">
-                    {faker.news[0].shortContent}
-                  </div>
-                </div>
-              </div>
-            ))}
+           
           </Popover.Panel>
         </Popover>
         {/* END: Notifications  */}

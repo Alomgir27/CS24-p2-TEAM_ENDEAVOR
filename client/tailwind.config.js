@@ -119,66 +119,6 @@ module.exports = {
           "--color-darkmode-800": "27 37 59",
           "--color-darkmode-900": "15 23 42",
         },
-        // Theme 1 colors
-        ".theme-1": {
-          "--color-primary": toRGB(colors.blue["800"]),
-          "--color-secondary": toRGB(colors.slate["200"]),
-          "--color-success": toRGB(colors.lime["500"]),
-          "--color-info": toRGB(colors.cyan["500"]),
-          "--color-warning": toRGB(colors.yellow["400"]),
-          "--color-pending": toRGB(colors.orange["500"]),
-          "--color-danger": toRGB(colors.red["600"]),
-          "--color-light": toRGB(colors.slate["100"]),
-          "--color-dark": toRGB(colors.slate["800"]),
-          "&.dark": {
-            "--color-primary": toRGB(colors.emerald["800"]),
-          },
-        },
-        // Theme 2 colors
-        ".theme-2": {
-          "--color-primary": toRGB(colors.blue["900"]),
-          "--color-secondary": toRGB(colors.slate["200"]),
-          "--color-success": toRGB(colors.teal["600"]),
-          "--color-info": toRGB(colors.cyan["500"]),
-          "--color-warning": toRGB(colors.amber["500"]),
-          "--color-pending": toRGB(colors.orange["500"]),
-          "--color-danger": toRGB(colors.red["700"]),
-          "--color-light": toRGB(colors.slate["100"]),
-          "--color-dark": toRGB(colors.slate["800"]),
-          "&.dark": {
-            "--color-primary": toRGB(colors.blue["800"]),
-          },
-        },
-        // Theme 3 colors
-        ".theme-3": {
-          "--color-primary": toRGB(colors.cyan["900"]),
-          "--color-secondary": toRGB(colors.slate["200"]),
-          "--color-success": toRGB(colors.teal["600"]),
-          "--color-info": toRGB(colors.cyan["500"]),
-          "--color-warning": toRGB(colors.amber["500"]),
-          "--color-pending": toRGB(colors.amber["600"]),
-          "--color-danger": toRGB(colors.red["700"]),
-          "--color-light": toRGB(colors.slate["100"]),
-          "--color-dark": toRGB(colors.slate["800"]),
-          "&.dark": {
-            "--color-primary": toRGB(colors.cyan["800"]),
-          },
-        },
-        // Theme 4 colors
-        ".theme-4": {
-          "--color-primary": toRGB(colors.indigo["900"]),
-          "--color-secondary": toRGB(colors.slate["200"]),
-          "--color-success": toRGB(colors.emerald["600"]),
-          "--color-info": toRGB(colors.cyan["500"]),
-          "--color-warning": toRGB(colors.yellow["500"]),
-          "--color-pending": toRGB(colors.orange["600"]),
-          "--color-danger": toRGB(colors.red["700"]),
-          "--color-light": toRGB(colors.slate["100"]),
-          "--color-dark": toRGB(colors.slate["800"]),
-          "&.dark": {
-            "--color-primary": toRGB(colors.indigo["700"]),
-          },
-        },
       });
 
       // Animation delay utilities

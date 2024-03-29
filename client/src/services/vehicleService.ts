@@ -182,3 +182,33 @@ export const getLandfill = async (landfillId: string) => {
     return await apiWithToken.get(`landfills/${landfillId}`);
 }
 
+export const deployVehicle = async ({
+    stsId,
+    routeIds,
+    deployTimeRange,
+    totalDistance,
+    totalWaste,
+    totalVehicles,
+    totalTrips,
+    totalFuelCost,
+}: {
+    stsId: string;
+    routeIds: string[];
+    deployTimeRange: string;
+    totalDistance: number;
+    totalWaste: number;
+    totalVehicles: number;
+    totalTrips: number;
+    totalFuelCost: number;
+}) => {
+    return await apiWithToken.post('deploy-vehicle', {
+        stsId,
+        routeIds,
+        deployTimeRange,
+        totalDistance,
+        totalWaste,
+        totalVehicles,
+        totalTrips,
+        totalFuelCost
+    });
+}

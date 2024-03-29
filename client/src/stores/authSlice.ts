@@ -25,6 +25,7 @@ export const authSlice = createSlice({
             state.token = action.payload.token;
             localStorage.setItem("token", action.payload.token);
             localStorage.setItem("user", JSON.stringify(action.payload.user));
+
         },
         logout: (state) => {
             state.isAuthenticated = false;
@@ -32,6 +33,7 @@ export const authSlice = createSlice({
             state.token = null;
             localStorage.removeItem("token");
             localStorage.removeItem("user");
+            // window.location.reload();
         },
     },
 });

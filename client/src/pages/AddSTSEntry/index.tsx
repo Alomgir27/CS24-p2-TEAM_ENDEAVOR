@@ -16,6 +16,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import clsx from 'clsx';
 import { getSTS, addStsEntry } from '../../services/vehicleService';
+import { getSTSEntries } from '../../services/vehicleService';
 import Alert from '../../base-components/Alert';
 import Notification from '../../base-components/Notification';
 import { NotificationElement } from '../../base-components/Notification';
@@ -29,8 +30,8 @@ const Index = () => {
     const schema = yup
         .object({
             volume: yup.number().required(),
-            timeOfArrival: yup.date().required(),
-            timeOfDeparture: yup.date().required(),
+            timeOfArrival: yup.string().required(),
+            timeOfDeparture: yup.string().required(),
             details: yup.string().notRequired(),
         })
         .required();
@@ -52,6 +53,7 @@ const Index = () => {
     const [loading, setLoading] = useState(false);
     const [stsId, setStsId] = useState<string>('');
     const [vehicleId, setVehicleId] = useState<string>('');
+    const [selectedVehicleIds, setSelectedVehicleIds] = useState<string[]>([]);
 
     const [sts, setSts] = useState<any[]>([]);
     const [vehicles, setVehicles] = useState([]);
@@ -77,6 +79,23 @@ const Index = () => {
             }
         };
         fetchSts();
+    }, []);
+
+    const fetchStsEntries = async () => {
+        try {
+            const res = await getSTSEntries();
+            const { stsEntries } = res.data;
+            console.log(stsEntries);
+            let vehicleIds = stsEntries.map((stsEntry: any) => stsEntry.vehicleId._id);
+            console.log(vehicleIds);
+            setSelectedVehicleIds(vehicleIds);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    useEffect(() => {
+        fetchStsEntries();
     }, []);
 
     const getlocation = async (coords: any) => {
@@ -125,6 +144,8 @@ const Index = () => {
                     setVehicleId('');
                 }, 3000);
                 reset();
+                fetchStsEntries();
+
             } else {
                 setMessage('Something went wrong');
                 setType('error');
@@ -189,7 +210,9 @@ const Index = () => {
                     >
                         <option value=''>Select vehicle</option>
                         {vehicles && vehicles?.map((vehicle: any) => (
-                            <option key={vehicle._id} value={vehicle._id}>{vehicle.vehicleNumber}</option>
+                            <option key={vehicle._id} value={vehicle._id}
+                            disabled={selectedVehicleIds.includes(vehicle._id)}
+                            >{vehicle.vehicleNumber}</option>
                         ))}
                         </select>
                 </>
@@ -211,7 +234,7 @@ const Index = () => {
                 <FormLabel>Time of Arrival</FormLabel>
                 <FormInput
                     id='timeOfArrival'
-                    type='datetime-local'
+                    type='time'
                     placeholder='Enter time of arrival'
                     {...register('timeOfArrival')}
                 />
@@ -220,7 +243,7 @@ const Index = () => {
                 <FormLabel>Time of Departure</FormLabel>
                 <FormInput
                     id='timeOfDeparture'
-                    type='datetime-local'
+                    type='time'
                     placeholder='Enter time of departure'
                     {...register('timeOfDeparture')}
                 />

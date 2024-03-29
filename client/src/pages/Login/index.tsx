@@ -66,7 +66,7 @@ function Main() {
       setNotification(null);
       notificationRef.current?.hideToast();
       navigate("/dashboard");
-      window.location.reload();
+      // window.location.reload();
     } catch (error) {
       console.error(error);
       setError(error.response.data.message);

@@ -9,6 +9,10 @@ import { useMemo } from "react";
 interface MainProps extends React.ComponentPropsWithoutRef<"canvas"> {
   width: number;
   height: number;
+  data: any;
+  dataKey: string;
+  data1: any;
+  dataKey1: string;
 }
 
 function Main(props: MainProps) {
@@ -33,24 +37,24 @@ function Main(props: MainProps) {
       ],
       datasets: [
         {
-          label: "Html Template",
+          label: props?.dataKey || "React Template",
           barThickness: 8,
           maxBarThickness: 6,
-          data: [60, 150, 30, 200, 180, 50, 180, 120, 230, 180, 250, 270],
+          data: props?.data?.map((item: any) => item.cost) || [60, 150, 30, 200, 180, 50, 180, 120, 230, 180, 250, 270],
           backgroundColor: colorScheme ? getColor("primary") : "",
         },
         {
-          label: "VueJs Template",
+          label: props?.dataKey1 || "Vue Template",
           barThickness: 8,
           maxBarThickness: 6,
-          data: [50, 135, 40, 180, 190, 60, 150, 90, 250, 170, 240, 250],
+          data: props?.data1?.map((item: any) => item.distance) || [50, 135, 40, 180, 190, 60, 150, 90, 250, 170, 240, 250],
           backgroundColor: darkMode
             ? getColor("darkmode.400")
             : getColor("slate.300"),
         },
       ],
     };
-  }, [colorScheme, darkMode]);
+  }, [colorScheme, darkMode, props.data, props.data1, props.dataKey, props.dataKey1]);
 
   const options: ChartOptions = useMemo(() => {
     return {

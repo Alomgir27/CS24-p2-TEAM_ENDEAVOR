@@ -70,9 +70,10 @@ const index = () => {
             notificationRef.current?.showToast();
             setTimeout(() => {
                 setMessage('');
+                reset();
                 notificationRef.current?.hideToast();
             }, 3000);
-        reset();
+          reset();
         } else {
             setMessage('Something went wrong');
             setType('error');
@@ -152,6 +153,7 @@ const index = () => {
                     <option value='3 ton'>3 ton</option>
                     <option value='5 ton'>5 ton</option>
                     <option value='7 ton'>7 ton</option>
+                    <option value='15 ton'>15 ton</option>
                 </select>
                 <FormHelp type='error'>{errors.capacity?.message as string}</FormHelp>
     

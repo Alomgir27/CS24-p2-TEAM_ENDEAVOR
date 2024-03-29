@@ -1,4 +1,4 @@
-const { Route, StsEntry } = require('../models');
+const { Route, StsEntry, FleetAndVehicleDeployment } = require('../models');
 
 const createOptimizeRoutes = async (req, res) => {
     try {
@@ -16,6 +16,7 @@ const createOptimizeRoutes = async (req, res) => {
 const getRoutes = async (req, res) => {
     try {
         //also populate stsEntryId.stsId and stsEntryId.vehicleId
+        const { _id } = req.user;
         const routes = await Route.find()
             .populate('stsEntryId')
             .populate({
@@ -33,7 +34,11 @@ const getRoutes = async (req, res) => {
                 }
             })
             .populate('landfillId');
-        res.status(200).json({ routes });
+        let filteredRoutes = routes;
+        if (_id) {
+            filteredRoutes = routes.filter(route => route.stsEntryId.stsId.stsManager.includes(_id));
+        }
+        res.status(200).json({ routes: filteredRoutes });
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
@@ -75,8 +80,40 @@ const getRoute = async (req, res) => {
 }
 
 
+const deployVehicle = async (req, res) => {
+    try {
+        const { stsId, routeIds, deployTimeRange, totalDistance, totalWaste, totalVehicles, totalTrips, totalFuelCost } = req.body;
+        if (!stsId || !routeIds || !deployTimeRange || !totalDistance || !totalWaste || !totalVehicles || !totalTrips || !totalFuelCost) return res.status(400).json({ message: 'All fields are required' });
+        // console.log(req.body);
+        const deployment = await FleetAndVehicleDeployment.create({ stsId, routeIds, deployTimeRange, totalDistance, totalWaste, totalVehicles, totalTrips, totalFuelCost });
+        res.status(201).json({ deployment });
+    }
+    catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+}
+
+const getDeployments = async (req, res) => {
+    try {
+        const deployments = await FleetAndVehicleDeployment.find()
+            .populate('stsId')
+            .populate({
+                path: 'stsId',
+                populate: {
+                    path: 'stsManager',
+                    model: 'User'
+                }
+            });
+        res.status(200).json({ deployments });
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+}
+
 module.exports = {
     createOptimizeRoutes,
     getRoutes,
-    getRoute
+    getRoute,
+    deployVehicle,
+    getDeployments
 };

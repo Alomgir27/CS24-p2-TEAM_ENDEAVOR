@@ -13,7 +13,6 @@ import {
     FormCheck,
     FormSwitch,
     FormInline,
-
 } from '../../base-components/Form';
 import Notification from '../../base-components/Notification';
 import { NotificationElement } from '../../base-components/Notification';
@@ -104,7 +103,7 @@ const DhakaMap = () => {
      const mapInstance = L.map('map').setView(dhakaCenter as any, zoomLevel);
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
+        attribution: '&copy; Wastage Management System'
       }).addTo(mapInstance);
 
       setMap(mapInstance as any);
@@ -178,14 +177,9 @@ const DhakaMap = () => {
                 notificationRef.current?.showToast();
                 setTimeout(() => {
                     notificationRef.current?.hideToast();
-                    setStsEntryId(null);
-                    setLandfillId(null);
-                    setNumberOfTrips(1);
-                    setCost(null);
-                    setCostPerKm(null);
-                    setDetails('');
-                    
-                }, 3000);
+                    window.location.reload();
+                }, 1000);
+                fetchStsEntry();
             } catch (error) {
                 console.error(error);
                 setType('error');
@@ -223,7 +217,7 @@ const DhakaMap = () => {
                 {stsEntries.map((stsEntry) => (
                     <option key={stsEntry._id} value={stsEntry._id}
                         disabled={stsEntry.isAllocated}
-                    >Ward {stsEntry.stsId.wardNumber} - Vehicle {stsEntry.vehicleId.vehicleNumber} - {stsEntry.location}</option>
+                    >Ward {stsEntry?.stsId?.wardNumber} - Vehicle {stsEntry?.vehicleId?.vehicleNumber} - {stsEntry?.location}</option>
                 ))}
             </select>
             

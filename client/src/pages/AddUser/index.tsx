@@ -211,7 +211,7 @@ const index = () => {
                   onChange={(e) => setRole(e.target.value)}
                   required
                 >
-                  <option value='Unassigned'>Unassigned</option>
+                  {/* <option value='Unassigned'>Unassigned</option> */}
                   {roles.map((role) => (
                     <option key={role._id} value={role.name}>
                       {role.name}

@@ -9,7 +9,6 @@ const rbacController = require('../controllers/rbacController');
 const vehicleController = require('../controllers/vehicleController');
 const stsController = require('../controllers/stsController');
 const landfillEntryController = require('../controllers/landfillEntryController');
-const oilAllocationController = require('../controllers/oilAllocationController');
 const routeController = require('../controllers/routeController');
 const dashboardController = require('../controllers/dashboardController');
 
@@ -70,16 +69,18 @@ router.post('/sts-entries', isAuthenticated, stsController.addStsEntry);
 router.post('/landfill', isAuthenticated, landfillEntryController.createLandfill);
 router.get('/landfills', isAuthenticated, landfillEntryController.getLandfills);
 router.get('/all-landfills', isAuthenticated, landfillEntryController.getAllLandfills);
+router.get('/landfill-entries', isAuthenticated, landfillEntryController.getLandfillEntries);
 router.post('/landfill-entries', isAuthenticated, landfillEntryController.createLandfillEntry);
 
 
-// Automatic Billing Endpoints
-router.post('/calculate-oil-allocation', isAuthenticated, oilAllocationController.calculateOilAllocation);
 
 // Waste Collection and Transfer Tracking Endpoints
 router.post('/optimize-routes', isAuthenticated, routeController.createOptimizeRoutes);
 router.get('/routes', isAuthenticated, routeController.getRoutes);
 router.get('/route/:routeId', isAuthenticated, routeController.getRoute);
+
+router.post('/deploy-vehicle', isAuthenticated, routeController.deployVehicle);
+router.get('/deployments', isAuthenticated, routeController.getDeployments);
 
 // Dashboard Overview Endpoints
 router.get('/dashboard', isAuthenticated, dashboardController.getDashboard);
