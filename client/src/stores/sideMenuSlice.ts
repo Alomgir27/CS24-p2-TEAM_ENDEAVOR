@@ -3,9 +3,6 @@ import { RootState } from "./store";
 import { icons } from "../base-components/Lucide";
 
 
-
-
-
 export interface Menu {
   icon: keyof typeof icons;
   title: string;
