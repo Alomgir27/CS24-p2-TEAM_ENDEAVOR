@@ -63,6 +63,7 @@ router.post('/sts-entries', isAuthenticated, stsController.addStsEntry);
 router.post('/landfill', isAuthenticated, landfillEntryController.createLandfill);
 router.get('/landfills', isAuthenticated, landfillEntryController.getLandfills);
 router.get('/all-landfills', isAuthenticated, landfillEntryController.getAllLandfills);
+router.get('/landfill-entries', isAuthenticated, landfillEntryController.getLandfillEntries);
 router.post('/landfill-entries', isAuthenticated, landfillEntryController.createLandfillEntry);
 
 
@@ -73,6 +74,9 @@ router.post('/calculate-oil-allocation', isAuthenticated, oilAllocationControlle
 router.post('/optimize-routes', isAuthenticated, routeController.createOptimizeRoutes);
 router.get('/routes', isAuthenticated, routeController.getRoutes);
 router.get('/route/:routeId', isAuthenticated, routeController.getRoute);
+
+router.post('/deploy-vehicle', isAuthenticated, routeController.deployVehicle);
+router.get('/deployments', isAuthenticated, routeController.getDeployments);
 
 // Dashboard Overview Endpoints
 router.get('/dashboard', isAuthenticated, dashboardController.getDashboard);

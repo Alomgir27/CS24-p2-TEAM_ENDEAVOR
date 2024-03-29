@@ -16,8 +16,8 @@ const userSchema = new Schema({
     required: false
   },
   role: {
-        type: String,
-        required: true,
+     type: String,
+     required: true,
   },
     details: {
         type: Schema.Types.Mixed,
@@ -40,7 +40,7 @@ const vehicleSchema = new Schema({
     capacity: {
         type: String,
         required: true,
-        enum: ['3 ton', '5 ton', '7 ton']
+        enum: ['3 ton', '5 ton', '7 ton', '15 ton']
     },
     fuelCostLoaded: {
         type: Number,
@@ -118,11 +118,11 @@ const stsEntrySchema = new Schema({
         required: true
     },
     timeOfArrival: {
-        type: Date,
+        type: Schema.Types.Mixed,
         required: true
     },
     timeOfDeparture: {
-        type: Date,
+        type: Schema.Types.Mixed,
         required: true
     },
     isAllocated: {
@@ -186,11 +186,11 @@ const landfillEntrySchema = new Schema({
         required: true
     },
     timeOfArrival: {
-        type: Date,
+        type: Schema.Types.Mixed,
         required: true
     },
     timeOfDeparture: {
-        type: Date,
+        type: Schema.Types.Mixed,   
         required: true
     },
     details: {
@@ -229,25 +229,60 @@ const oilAllocationSchema = new Schema({
 
 
 const dashboardSchema = new Schema({
-    vehicleId: {
-        type: Schema.Types.ObjectId,
-        ref: 'Vehicle',
+    numOfUsers: {
+        type: Number,
         required: true
     },
-    stsId: {
-        type: Schema.Types.ObjectId,
-        ref: 'STS',
+    numOfVehicles: {
+        type: Number,
         required: true
     },
-    landfill: {
-        type: String,
+    numOfSTS: {
+        type: Number,
         required: true
+    },
+    numOfLandfills: {
+        type: Number,
+        required: true
+    },
+    numOfRoutes: {
+        type: Number,
+        required: true
+    },
+    allLandfillsLocations: {
+        type: Schema.Types.Mixed,
+        required: false
+    },
+    allStsLocations: {
+        type: Schema.Types.Mixed,
+        required: false
+    },
+    allVehicleMovements: {
+        type: Schema.Types.Mixed,
+        required: false
+    },
+    allCostData: {
+        type: Schema.Types.Mixed,
+        required: false
+    },
+    allDistanceData: {
+        type: Schema.Types.Mixed,
+        required: false
+    },
+    allVolumeData: {
+        type: Schema.Types.Mixed,
+        required: false
+    },
+    allTimeData: {
+        type: Schema.Types.Mixed,
+        required: false
     },
     details: {
         type: Schema.Types.Mixed,
         required: false
     }
 }, { timestamps: true });
+    
 
 
 
@@ -280,6 +315,49 @@ const routeSchema = new Schema({
     }
 }, { timestamps: true });
 
+
+
+
+const fleetAndVehicleDeploymentSchema = new Schema({
+    routeIds: {
+        type: [Schema.Types.ObjectId],
+        ref: 'Route',
+        required: true
+    },
+    stsId: {
+        type: Schema.Types.ObjectId,
+        ref: 'STS',
+        required: true
+    },
+    deployTimeRange: {
+        type: String,
+        required: true
+    },
+    totalDistance: {
+        type: Number,
+        required: true
+    },
+    totalWaste: {
+        type: Number,
+        required: true
+    },
+    totalVehicles: {
+        type: Number,
+        required: true
+    },
+    totalTrips: {
+        type: Number,
+        required: true
+    },
+    totalFuelCost: {
+        type: Number,
+        required: true
+    },
+    details: {
+        type: Schema.Types.Mixed,
+        required: false
+    }
+}, { timestamps: true });
 
 
 
@@ -321,8 +399,11 @@ const Role = mongoose.model('Role', roleSchema);
 const Permission = mongoose.model('Permission', permissionSchema);
 const StsEntry = mongoose.model('stsEntry', stsEntrySchema);
 const Landfill = mongoose.model('Landfill', landfillSchema);
+const FleetAndVehicleDeployment = mongoose.model('FleetAndVehicleDeployment', fleetAndVehicleDeploymentSchema);
 
 stsSchema.index({ location: "2dsphere" });
+landfillSchema.index({ location: "2dsphere" });
+
 
 
 module.exports = {
@@ -336,5 +417,6 @@ module.exports = {
     StsEntry,
     Role,
     Permission,
-    Landfill
+    Landfill,
+    FleetAndVehicleDeployment
 };

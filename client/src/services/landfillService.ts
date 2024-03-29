@@ -34,6 +34,10 @@ export const getAllLandfills = async () => {
     return await apiWithToken.get('all-landfills');
 }
 
+export const getLandfillEntries = async () => {
+    return await apiWithToken.get('landfill-entries');
+}
+
 export const getLandfillManagers = async () => {
     return await apiWithToken.get('landfill-managers');
 }

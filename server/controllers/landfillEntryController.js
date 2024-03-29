@@ -15,9 +15,9 @@ const createLandfill = async (req, res) => {
 const getLandfills = async (req, res) => {
     try {
         const { _id } = req.user;
-        //check this _id is present in landfillManager array
         const landfills = await Landfill.find({ landfillManager: { $in: [_id] } }).populate('landfillManager');
         res.status(200).json({ landfills });
+      
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
@@ -43,9 +43,19 @@ const createLandfillEntry = async (req, res) => {
     }
 }
 
+const getLandfillEntries = async (req, res) => {
+    try {
+        const landfillEntries = await LandfillEntry.find().populate('landfill');
+        res.status(200).json({ landfillEntries });
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+}
+
 module.exports = {
     createLandfill,
     getLandfills,
     createLandfillEntry,
-    getAllLandfills
+    getAllLandfills,
+    getLandfillEntries
 };

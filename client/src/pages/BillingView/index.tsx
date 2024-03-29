@@ -7,37 +7,6 @@ import LineChart from "../../components/LineChart";
 import Button from '../../base-components/Button';
 
 
-
-// const routeSchema = new Schema({
-//     stsEntryId: {
-//         type: Schema.Types.ObjectId,
-//         ref: 'StsEntry',
-//         required: true
-//     },
-//     landfillId: {
-//         type: Schema.Types.ObjectId,
-//         ref: 'Landfill',
-//         required: true
-//     },
-//     distance: {
-//         type: Number,
-//         required: true
-//     },
-//     cost: {
-//         type: Number,
-//         required: true
-//     },
-//     numberOfTrips: {
-//         type: Number,
-//         required: true
-//     },
-//     details: {
-//         type: Schema.Types.Mixed,
-//         required: false
-//     }
-// }, { timestamps: true });
-
-
 const Index = () => {
     const [routes, setRoutes] = useState<any[]>([]);
     const [data, setData] = useState<any[]>([]);
@@ -90,12 +59,11 @@ const Index = () => {
                             <th className="border px-4 py-2">Vehicle</th>
                             <th className='border px-4 py-2'>Vehicle Type</th>
                             <th className="border px-4 py-2">Distance</th>
-                            <th className="border px-4 py-2">Weight of Waste</th>
+                            <th className="border px-4 py-2">Waste Volume(tons)</th>
                             <th className="border px-4 py-2">Fuel Cost</th>
                             <th className="border px-4 py-2">Number of Trips</th>
                             <th className="border px-4 py-2">Arrival Time</th>
                             <th className="border px-4 py-2">Departure Time</th>
-                            <th className="border px-4 py-2">Details</th>
                             <th className="border px-4 py-2">Actions</th>
                         </tr>
                     </thead>
@@ -106,13 +74,12 @@ const Index = () => {
                                 <td className="border px-4 py-2">{route?.landfillId?.name}</td>
                                 <td className="border px-4 py-2">{route?.stsEntryId?.vehicleId?.vehicleNumber}</td>
                                 <td className="border px-4 py-2">{route?.stsEntryId?.vehicleId?.type}</td>
-                                <td className="border px-4 py-2">{route?.distance}</td>
+                                <td className="border px-4 py-2">{(route?.distance).toFixed(2)}</td>
                                 <td className="border px-4 py-2">{route?.stsEntryId?.volume}</td>
-                                <td className="border px-4 py-2">{route?.cost}</td>
+                                <td className="border px-4 py-2">{(route?.cost).toFixed(2)}</td>
                                 <td className="border px-4 py-2">{route?.numberOfTrips}</td>
-                                <td className="border px-4 py-2">{new Date(route.stsEntryId?.timeOfArrival).toLocaleString()}</td>
-                                <td className="border px-4 py-2">{new Date(route.stsEntryId?.timeOfDeparture).toLocaleString()}</td>
-                                <td className="border px-4 py-2 truncate w-40">{route?.details}</td>
+                                <td className="border px-4 py-2">{route.stsEntryId?.timeOfArrival}</td>
+                                <td className="border px-4 py-2">{route.stsEntryId?.timeOfDeparture}</td>
                                 <td className="border px-4 py-2">
                                     <Button
                                         onClick={() => navigate(`/billing/${route._id}`)}

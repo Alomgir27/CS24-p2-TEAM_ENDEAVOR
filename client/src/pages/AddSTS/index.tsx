@@ -198,8 +198,6 @@ const index = () => {
                             value={vehicleEntries}
                             onChange={setVehicleEntries}
                             className="w-full bg-stone-50 dark:bg-darkmode-800"
-                            multiple
-                            required
                             placeholder="Select Vehicle Entries"
                         >
                             {vehicles.map((vehicle) => (
@@ -218,7 +216,7 @@ const index = () => {
                         {...register('details')}
                     />
 
-                    <FormHelp type='error'>{errors.details?.message as string}</FormHelp>
+                    <FormHelp>{errors.details?.message as string}</FormHelp>
                     
                 </div>
 

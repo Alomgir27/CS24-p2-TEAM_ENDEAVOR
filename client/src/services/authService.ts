@@ -1,19 +1,12 @@
 import axios from 'axios';
 const API_URL = 'http://localhost:5000/api/auth/';
+import { apiWithToken } from './userService';
 
 const api = axios.create({
     baseURL: API_URL,
     timeout: 10000
 });
 
-const apiWithToken = axios.create({
-    baseURL: API_URL,
-    timeout: 10000,
-    headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `${localStorage.getItem('token')}`
-    },
-});
 
 export const register = async ({ username, email, password }: { username: string; email: string; password: string }) => {
     return await api.post('create', {

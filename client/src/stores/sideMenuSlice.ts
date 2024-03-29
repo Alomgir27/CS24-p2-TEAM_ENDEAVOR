@@ -81,7 +81,7 @@ const initialState: SideMenuState = {
     {
       pathname: '/sts/add',
       title: 'Add STS',
-      icon: 'Truck',
+      icon: 'Grid',
     },
     {
       pathname: '/sts/add-entry',
@@ -91,7 +91,7 @@ const initialState: SideMenuState = {
     {
       pathname: 'landfill/add',
       title: 'Add Landfill',
-      icon: 'Recycle',
+      icon: 'MapPin',
     },
     {
       pathname: '/landfill/add-entry',
@@ -107,6 +107,11 @@ const initialState: SideMenuState = {
       pathname: '/billing',
       title: 'Billing',
       icon: 'DollarSign',
+    },
+    {
+      pathname: 'fleet/optimize',
+      title: 'Fleet Optimize',
+      icon: 'Framer',
     },
     {
       icon: "ShoppingBag",

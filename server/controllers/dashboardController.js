@@ -1,4 +1,6 @@
-const { Dashboard } = require('../models');
+const {
+    Dashboard
+} = require('../models');
 
 const getDashboard = async (req, res) => {
     try {

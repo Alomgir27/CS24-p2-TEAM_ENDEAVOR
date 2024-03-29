@@ -27,8 +27,8 @@ const Index = () => {
     const schema = yup
         .object({
             volume: yup.number().required(),
-            timeOfArrival: yup.date().required(),
-            timeOfDeparture: yup.date().required(),
+            timeOfArrival: yup.string().required(),
+            timeOfDeparture: yup.string().required(),
             details: yup.string().notRequired(),
         })
         .required();
@@ -62,7 +62,8 @@ const Index = () => {
                         _id: landfill._id,
                         name: landfill.name,
                         location: await getlocation(landfill.gpsCoordinates.coordinates),
-                        gpsCoordinates: landfill.gpsCoordinates.coordinates
+                        gpsCoordinates: landfill.gpsCoordinates.coordinates,
+                        capacity: landfill.capacity,
                     }
                 });
                 setLandfills(await Promise.all(landfillData));
@@ -142,11 +143,11 @@ const Index = () => {
                     ))}
                 </select>
 
-                <FormLabel className='mt-5'>Volume</FormLabel>
+                <FormLabel className='mt-5'>Volume {landfillId ? `(${landfills.find((landfill) => landfill._id === landfillId)?.capacity} tons)` : ''}</FormLabel>
                 <FormInput
                     id='volume'
                     type='number'
-                    placeholder='Enter volume in tons'
+                    placeholder='Enter Capacity in tons'
                     {...register('volume')}
                 />
                 <FormHelp>{errors.volume?.message as string}</FormHelp>
@@ -154,7 +155,7 @@ const Index = () => {
                 <FormLabel>Time of Arrival</FormLabel>
                 <FormInput
                     id='timeOfArrival'
-                    type='datetime-local'
+                    type='time'
                     placeholder='Enter time of arrival'
                     {...register('timeOfArrival')}
                 />
@@ -163,7 +164,7 @@ const Index = () => {
                 <FormLabel>Time of Departure</FormLabel>
                 <FormInput
                     id='timeOfDeparture'
-                    type='datetime-local'
+                    type='time'
                     placeholder='Enter time of departure'
                     {...register('timeOfDeparture')}
                 />

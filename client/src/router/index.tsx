@@ -91,6 +91,7 @@ import AddLandFillEntry from '../pages/AddLandFillEntry';
 import OptimizeRouteViewAndSelect from '../pages/OptimizeRouteViewAndSelect';
 import BillingView from '../pages/BillingView';
 import BillingPrint from '../pages/BillingPrint';
+import FleetOptimizeViewAndDeploy from "../pages/FleetOptimizeViewAndDeploy";
 
 //do basic imports
 import { useEffect } from "react";
@@ -351,6 +352,10 @@ function Router() {
         {
           path: "billing/:id",
           element: <BillingPrint />,
+        },
+        {
+          path: "fleet/optimize",
+          element: <FleetOptimizeViewAndDeploy />,
         },
         {
           path: "regular-table",
