@@ -71,6 +71,7 @@ router.get('/landfills', isAuthenticated, landfillEntryController.getLandfills);
 router.get('/all-landfills', isAuthenticated, landfillEntryController.getAllLandfills);
 router.get('/landfill-entries', isAuthenticated, landfillEntryController.getLandfillEntries);
 router.post('/landfill-entries', isAuthenticated, landfillEntryController.createLandfillEntry);
+router.get('/landfill-details', isAuthenticated, landfillEntryController.getLandfillDetails);
 
 
 

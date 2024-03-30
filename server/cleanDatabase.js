@@ -6,7 +6,6 @@ const {
   STS,
   StsEntry,
   LandfillEntry,
-  OilAllocation,
   Dashboard,
   Route,
   Role,
@@ -33,9 +32,6 @@ const clean = async () => {
     .catch(err => console.error(err));
   await LandfillEntry.deleteMany()
     .then(() => console.log('LandfillEntry collection cleared'))
-    .catch(err => console.error(err));
-  await OilAllocation.deleteMany()
-    .then(() => console.log('OilAllocation collection cleared'))
     .catch(err => console.error(err));
   await Dashboard.deleteMany()
     .then(() => console.log('Dashboard collection cleared'))

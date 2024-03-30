@@ -1,4 +1,4 @@
-const { LandfillEntry, Landfill } = require('../models');
+const { LandfillEntry, Landfill, FleetAndVehicleDeployment } = require('../models');
 
 const createLandfill = async (req, res) => {
     try {
@@ -52,10 +52,34 @@ const getLandfillEntries = async (req, res) => {
     }
 }
 
+const getLandfillDetails = async (req, res) => {
+    try {
+        const fleetAndVehicleDeployment = await FleetAndVehicleDeployment.find()
+            .populate('stsId')
+            .populate('routeIds')
+            .populate({
+                path: 'routeIds',
+                populate: {
+                    path: 'landfillId',
+                    model: 'Landfill'
+                },
+                populate: {
+                    path: 'stsId',
+                    model: 'STS'
+                }
+            });
+        res.status(200).json({ fleetAndVehicleDeployment });
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+}
+
+
 module.exports = {
     createLandfill,
     getLandfills,
     createLandfillEntry,
     getAllLandfills,
-    getLandfillEntries
+    getLandfillEntries,
+    getLandfillDetails
 };

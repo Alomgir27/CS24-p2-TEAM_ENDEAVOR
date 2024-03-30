@@ -31,20 +31,16 @@ const getDashboard = async (req, res) => {
              { $group: { _id: null, totalCost: { $sum: "$totalFuelCost" } } }
          ]);
  
-         console.log("STS Entry Count:", stsEntryCount);
-         console.log("Total Volume at STS:", stsTotalVolume[0].totalVolume);
-         console.log("Landfill Entry Count:", landfillEntryCount);
-         console.log("Total Volume at Landfill:", landfillTotalVolume[0].totalVolume);
-         console.log("Daily Fuel Cost:", dailyFuelCost[0].totalCost);
+         
         
         const fleetAndVehicleDeployment = await FleetAndVehicleDeployment.find();
         const data = {
             dashboard,
             stsEntryCount,
-            stsTotalVolume: stsTotalVolume[0].totalVolume,
+            stsTotalVolume: stsTotalVolume.length > 0 ? stsTotalVolume[0].totalVolume : 0,
             landfillEntryCount,
-            landfillTotalVolume: landfillTotalVolume[0].totalVolume,
-            dailyFuelCost: dailyFuelCost[0].totalCost,
+            landfillTotalVolume: landfillTotalVolume.length > 0 ? landfillTotalVolume[0].totalVolume : 0,
+            dailyFuelCost: dailyFuelCost.length > 0 ? dailyFuelCost[0].totalCost : 0,
             fleetAndVehicleDeployment
         };
         res.status(200).json(data);
