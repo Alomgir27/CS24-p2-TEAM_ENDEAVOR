@@ -35,7 +35,7 @@ const getDashboard = async (req, res) => {
          console.log("Total Volume at STS:", stsTotalVolume[0].totalVolume);
          console.log("Landfill Entry Count:", landfillEntryCount);
          console.log("Total Volume at Landfill:", landfillTotalVolume[0].totalVolume);
-        console.log("Daily Fuel Cost:", dailyFuelCost[0].totalCost);
+         console.log("Daily Fuel Cost:", dailyFuelCost[0].totalCost);
         
         const fleetAndVehicleDeployment = await FleetAndVehicleDeployment.find();
         const data = {

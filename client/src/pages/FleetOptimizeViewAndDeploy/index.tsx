@@ -87,10 +87,15 @@ const FleetOptimizeViewAndDeploy = () => {
                 // 3. The distance from STS to Landfill should be considered
                 // constant as the paths are pre-selected.
 
-                // sort by fuel costPerTonOfWaste
+                // sort by 
+                //first priority: minimum distance from STS to Landfill
+                //second priority: minimum cost per ton of waste
                 selectedRoutes.sort((a, b) => {
                     const costPerTonOfWasteA = parseFloat(a.cost) / parseFloat(a.stsEntryId.volume);
                     const costPerTonOfWasteB = parseFloat(b.cost) / parseFloat(b.stsEntryId.volume);
+                    if (costPerTonOfWasteA === costPerTonOfWasteB) {
+                        return a.distance - b.distance;
+                    }
                     return costPerTonOfWasteA - costPerTonOfWasteB;
                 });
 
