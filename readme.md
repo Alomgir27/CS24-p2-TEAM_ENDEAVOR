@@ -78,19 +78,7 @@ graph LR;
     Database --> Response;
     Response --> Frontend_API;
 ```
-
-### 3. Frontend Flow Diagram
-```mermaid
-graph LR;
-    Frontend --> API;
-    API --> Routes;
-    Routes --> Middleware;
-    Middleware --> Controllers;
-    Controllers --> Models;
-    Models --> Database;
-    Database --> Response;
-    Response --> Frontend;
-```
+```sh
                                     +-------------------------+                                 
                                     |       Frontend/API      |                                 
                                     +-------------------------+                                 
@@ -123,4 +111,18 @@ graph LR;
                                     |       Response          |                                 
                                     +-------------------------+                                 
 
+```
+
+
+### 3. Frontend Flow Diagram
+```mermaid
+graph LR;
+    Frontend --> API;
+    API --> Routes;
+    Routes --> Middleware;
+    Middleware --> Controllers;
+    Controllers --> Models;
+    Models --> Database;
+    Database --> Response;
+    Response --> Frontend;
 ```
