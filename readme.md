@@ -4,14 +4,6 @@ Welcome to EcoSync, a Waste Management Application designed for Dhaka city. This
 
 ## Installation
 
-To run the frontend, navigate to the `client` directory:
-
-```bash
-cd client
-npm install
-npm run dev
-```
-
 To run the backend, navigate to the `server` directory:
 
 ```bash
@@ -21,6 +13,16 @@ npm start
 # or
 npm run dev
 ```
+
+To run the frontend, navigate to the `client` directory:
+
+```bash
+cd client
+npm install
+npm run dev
+```
+
+
 
 ## Database Management
 
@@ -48,6 +50,10 @@ TOKEN_SECRET=*your token secret*
 EMAIL=*your email*
 PASSWORD=*your password*
 ```
+
+## System admin Email & Password
+Email : `admin@gmail.com`
+Password : `password`
 
 ## About
 
