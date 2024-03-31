@@ -69,6 +69,7 @@ For any inquiries, please contact team Endeavor at `teamendeavorcodesamurai@gmai
 
 ### 2. End to End Activity Diagram
 ```mermaid
+%%{width: 800px; height: 600px}%%
 graph TD;
     A[Start] --> B[User Requests];
     B --> C{Authentication};
