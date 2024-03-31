@@ -36,7 +36,7 @@ const getRoutes = async (req, res) => {
             .populate('landfillId');
         let filteredRoutes = routes;
         if (_id) {
-            filteredRoutes = routes.filter(route => route.stsEntryId.stsId.stsManager.includes(_id));
+            filteredRoutes = routes.filter(route => route?.stsEntryId?.stsId?.stsManager?.includes(_id));
         }
         res.status(200).json({ routes: filteredRoutes });
     } catch (err) {
