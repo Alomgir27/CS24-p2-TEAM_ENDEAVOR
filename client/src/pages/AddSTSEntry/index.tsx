@@ -105,8 +105,9 @@ const Index = () => {
                 longitude: coords[0]
             }
         }
-        const res = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${position.coords.latitude}&lon=${position.coords.longitude}`)
-        return res?.data?.display_name || '';
+        // const res = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${position.coords.latitude}&lon=${position.coords.longitude}`)
+        // return res?.data?.display_name || '';
+        return `Lat: ${position.coords.latitude}, Lng: ${position.coords.longitude}`
 
             
     }

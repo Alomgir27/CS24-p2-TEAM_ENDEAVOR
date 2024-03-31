@@ -105,7 +105,7 @@ const FleetOptimizeViewAndDeploy = () => {
                 let totalVolume = 0;
                 const selectedRoutesIds: string[] = [];
                 for (const route of selectedRoutes) {
-                    totalVolume += parseFloat(route.stsEntryId.volume);
+                    totalVolume += parseFloat(route.stsEntryId.volume) * parseFloat(route.numberOfTrips);
                     if (totalVolume <= parseFloat(selectedSts.capacity)) {
                         route.selected = true;
                         selectedRoutesIds.push(route._id);
