@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const cron = require('node-cron');
 const app = express();
+const axios = require('axios');
 require('dotenv').config();
 
 // Middlewares
@@ -79,6 +80,11 @@ cron.schedule('*/5 * * * *', async () => {
     }
 });
 
+
+
+
+        
+    
 // Routes
 app.use('/api', require('./routes'));
 

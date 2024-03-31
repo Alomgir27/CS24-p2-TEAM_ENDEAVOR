@@ -57,6 +57,42 @@ For any inquiries, please contact team Endeavor at `teamendeavorcodesamurai@gmai
 
 
  
-## Diagrams and Flowcharts
+## 1. Diagrams and Flowcharts
 ### Entity Relationship Diagram
 ![Flowchart](server/drawSQL-image.png)
+
+### 2. Backend Flow Diagram
+ ```mermaid
+                                    +-------------------------+                                 
+                                    |       Frontend/API      |                                 
+                                    +-------------------------+                                 
+                                                |                                               
+                                                |                                               
+                                    +-------------------------+                                 
+                                    |         Routes          |                                 
+                                    +-------------------------+                                 
+                                                |                                               
+                                                |                                               
+                                    +-------------------------+                                 
+                                    |      Middleware         |                                 
+                                    |     (isAuthenticated)   |                                 
+                                    +-------------------------+                                 
+                                                |                                               
+                    +----------------------------------------------------+                       
+                    |                           |                        |                       
+                    v                           v                        v                       
+      +-------------------------+  +-------------------------+  +-------------------------+   
+      |      Controllers       |  |        Models           |  |       Database          |   
+      |     (e.g., Auth,       |  |     (e.g., User,         |  |                         |   
+      |     User, Profile,     |  |      Vehicle, STS,       |  |                         |   
+      |     RBAC, Vehicle,     |  |      LandfillEntry,      |  |     MongoDB Atlas       |   
+      |     STS, Landfill,     |  |      Dashboard, Route)   |  |                         |   
+      |     Dashboard)         |  |                         |  |                         |   
+      +-------------------------+  +-------------------------+  +-------------------------+   
+                                                |                                               
+                                                |                                               
+                                    +-------------------------+                                 
+                                    |       Response          |                                 
+                                    +-------------------------+                                 
+
+```

@@ -1,10 +1,19 @@
 const { LandfillEntry, Landfill, FleetAndVehicleDeployment } = require('../models');
+const axios = require('axios');
 
 const createLandfill = async (req, res) => {
     try {
         const { name, capacity, operationalTimespan, gpsCoordinates, landfillManager, details } = req.body;
         if (!name || !capacity || !operationalTimespan || !gpsCoordinates) return res.status(400).json({ message: 'All fields are required' });
-        const landfill = await Landfill.create({ name, capacity, operationalTimespan, gpsCoordinates: { type: 'Point', coordinates: gpsCoordinates }, landfillManager, details });
+        // let position = { coords: { latitude: gpsCoordinates[1], longitude: gpsCoordinates[0] } };
+        // let location = 'Unknown';
+        // try {
+        //     const res = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${position.coords.latitude}&lon=${position.coords.longitude}`);
+        //     location = res.data.display_name || 'Unknown';
+        // } catch (err) {
+        //     console.log(err);
+        // }
+        const landfill = await Landfill.create({ name, capacity, operationalTimespan, gpsCoordinates: { type: 'Point', coordinates: gpsCoordinates }, landfillManager, details, location });
         res.status(201).json({ landfill });
     } catch (err) {
         res.status(400).json({ message: err.message });

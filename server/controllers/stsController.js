@@ -1,9 +1,19 @@
 const { STS, StsEntry, User, Vehicle } = require('../models');
+const axios = require('axios');
 
 const createSTS = async (req, res) => {
     try {
         const { wardNumber, capacity, gpsCoordinates, stsManager, vehicleEntries, details } = req.body;
         if (!wardNumber || !capacity || !gpsCoordinates || !stsManager) return res.status(400).json({ message: 'All fields are required' });
+        // let position = { coords: { latitude: gpsCoordinates[1], longitude: gpsCoordinates[0] } };
+        // let location = 'Unknown';
+        // try {
+        //    const res = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${position.coords.latitude}&lon=${position.coords.longitude}`);
+        //     location = res.data.display_name || 'Unknown';
+        // } catch (err) {
+        //     console.log(err);
+        // }
+
         const sts = await STS.create({ wardNumber, capacity, gpsCoordinates: { type: 'Point', coordinates: gpsCoordinates }, stsManager, vehicleEntries, details });
         //update vehicle isAllocated field to true
         if (vehicleEntries.length > 0) {

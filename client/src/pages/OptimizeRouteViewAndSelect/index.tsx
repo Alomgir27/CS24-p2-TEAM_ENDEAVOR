@@ -44,6 +44,7 @@ const DhakaMap = () => {
 
 
     const fetchStsEntry = async () => {
+        setLoading(true);
         try {
             const res = await getSTSEntries();
             const { stsEntries } = res.data;
@@ -55,7 +56,7 @@ const DhakaMap = () => {
                 }
             });
             setStsEntries(await Promise.all(stsEntriesData));
-               
+            setLoading(false);
         } catch (error) {
             console.error(error);
         }
@@ -92,8 +93,9 @@ const DhakaMap = () => {
                 longitude: coords[0]
             }
         }
-        const res = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${position.coords.latitude}&lon=${position.coords.longitude}`)
-        return res?.data?.display_name || '';
+        // const res = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${position.coords.latitude}&lon=${position.coords.longitude}`);
+        // return res?.data?.display_name || '';
+        return `${position.coords.latitude}, ${position.coords.longitude}`;
     }
 
   useEffect(() => {
@@ -240,6 +242,7 @@ const DhakaMap = () => {
     return (
         <>
             <h1 className='text-2xl font-bold mb-4'>Optimize Route</h1>
+
             <h2 className='mb-4'>Select STS Entry</h2>
             <select onChange={(e) => {
                 const stsEntry = stsEntries.find((stsEntry) => stsEntry._id === e.target.value);
@@ -249,8 +252,9 @@ const DhakaMap = () => {
                 }
             }}
                 className='mb-4 w-full border border-gray-300 rounded-md p-2'
+                value={stsEntryId}
             >
-                <option value="">Select STS Entry</option>
+                <option value="">{stsEntries.length > 0 ? 'Select STS Entry' : loading ? 'Loading...' : 'No STS Entry'}</option>
                 {stsEntries.map((stsEntry) => (
                     <option key={stsEntry._id} value={stsEntry._id}
                         disabled={stsEntry.isAllocated}
@@ -287,6 +291,8 @@ const DhakaMap = () => {
             <h2 className='mb-4'>Select Landfill</h2>
             <select onChange={handleLandfillChange}
                 className='mb-4 w-full border border-gray-300 rounded-md p-2'
+                value={landfillId}
+
             >
                 <option value="">Select Landfill</option>
                 {landfills.map((landfill) => (
@@ -307,12 +313,12 @@ const DhakaMap = () => {
                     </tr>
                 </thead>
                 <tbody className='overflow-y-scroll h-40 text-center'>
-                    {distanceAndLocation.map((landfill) => (
-                        <tr key={landfill.landfillId}>
-                            <td>{landfill.landfillId === landfillId ? 'Yes' : 'No'}</td>
-                            <td>{landfill.landfillName}</td>
-                            <td>{landfill.landfillLocation.split(',').slice(0, 2).join(',')}</td>
-                            <td>{(landfill.distance).toFixed(2)} km</td>
+                    {distanceAndLocation?.map((landfill) => (
+                        <tr key={landfill?.landfillId}>
+                            <td>{landfill?.landfillId === landfillId ? 'Yes' : 'No'}</td>
+                            <td>{landfill?.landfillName}</td>
+                            <td>{landfill?.landfillLocation.split(',').slice(0, 2).join(',')}</td>
+                            <td>{(landfill?.distance).toFixed(2)} km</td>
                         </tr>
                     ))}
                 </tbody>

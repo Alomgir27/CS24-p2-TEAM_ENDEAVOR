@@ -84,6 +84,10 @@ const stsSchema = new Schema({
             required: true
         }
     },
+    location: {
+        type: String,
+        required: false
+    },
     stsManager: {
         type: [Schema.Types.ObjectId],
         ref: 'User',
@@ -162,6 +166,10 @@ const landfillSchema = new Schema({
             type: [Number], // [longitude, latitude]
             required: true
         }
+    },
+    location: {
+        type: String,
+        required: false
     },
     landfillManager: {
         type: [Schema.Types.ObjectId],
@@ -374,8 +382,8 @@ const StsEntry = mongoose.model('stsEntry', stsEntrySchema);
 const Landfill = mongoose.model('Landfill', landfillSchema);
 const FleetAndVehicleDeployment = mongoose.model('FleetAndVehicleDeployment', fleetAndVehicleDeploymentSchema);
 
-stsSchema.index({ location: "2dsphere" });
-landfillSchema.index({ location: "2dsphere" });
+stsSchema.index({ gpsCoordinates: "2dsphere" });
+landfillSchema.index({ gpsCoordinates: "2dsphere" });
 
 
 
