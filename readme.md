@@ -78,7 +78,7 @@ graph LR;
     Database --> Response;
     Response --> Frontend_API;
 ```
-```
+```sh
                                     +-------------------------+                                 
                                     |       Frontend/API      |                                 
                                     +-------------------------+                                 
@@ -97,14 +97,14 @@ graph LR;
                     +----------------------------------------------------+                       
                     |                           |                        |                       
                     v                           v                        v                       
-      +-------------------------+  +-------------------------+  +-------------------------+   
-      |      Controllers       |  |        Models           |  |       Database          |   
-      |     (e.g., Auth,       |  |     (e.g., User,         |  |                         |   
-      |     User, Profile,     |  |      Vehicle, STS,       |  |                         |   
-      |     RBAC, Vehicle,     |  |      LandfillEntry,      |  |     MongoDB Atlas       |   
-      |     STS, Landfill,     |  |      Dashboard, Route)   |  |                         |   
-      |     Dashboard)         |  |                         |  |                         |   
-      +-------------------------+  +-------------------------+  +-------------------------+   
+      +-------------------------+  +--------------------------+  +-------------------------+   
+      |      Controllers        |  |        Models            |  |       Database          |   
+      |     (e.g., Auth,        |  |     (e.g., User,         |  |                         |   
+      |     User, Profile,      |  |      Vehicle, STS,       |  |                         |   
+      |     RBAC, Vehicle,      |  |      LandfillEntry,      |  |     MongoDB Atlas       |   
+      |     STS, Landfill,      |  |      Dashboard, Route)   |  |                         |   
+      |     Dashboard)          |  |                          |  |                         |   
+      +-------------------------+  +--------------------------+   +-------------------------+   
                                                 |                                               
                                                 |                                               
                                     +-------------------------+                                 
