@@ -29,8 +29,8 @@ const DhakaMap = () => {
     const [landfills, setLandfills] = useState<any[]>([]);
     const [stsLocation, setStsLocation] = useState<any[]>([]);
     const [landfillLocation, setLandfillLocation] = useState<any[]>([]);
-    const [stsEntryId, setStsEntryId] = useState<string | null>(null);
-    const [landfillId, setLandfillId] = useState<string | null>(null);
+    const [stsEntryId, setStsEntryId] = useState<string>('');
+    const [landfillId, setLandfillId] = useState<string>('');
     const [numberOfTrips, setNumberOfTrips] = useState<number | null>(1);
     const [cost, setCost] = useState<number | null>(0);
     const [costPerKm, setCostPerKm] = useState<number | null>(0);
@@ -39,6 +39,7 @@ const DhakaMap = () => {
     const [message, setMessage] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
     const [details, setDetails] = useState<string>('');
+    const [distanceAndLocation, setDistanceAndLocation] = useState<any[]>([]);
     
 
 
@@ -98,7 +99,7 @@ const DhakaMap = () => {
   useEffect(() => {
     if (!map) {
       const dhakaCenter = [23.8103, 90.4125];
-      const zoomLevel = 12;
+      const zoomLevel = 11;
 
      const mapInstance = L.map('map').setView(dhakaCenter as any, zoomLevel);
 
@@ -140,6 +141,34 @@ const DhakaMap = () => {
             });
         }
     }, [routeControl]);
+
+    useEffect(() => {
+        if (stsEntryId) {
+            const stsEntry = stsEntries.find((stsEntry) => stsEntry._id === stsEntryId);
+            //get distance between STS location and landfills location one by one
+            let distanceAndLocation: any[] = [];
+            landfills.forEach((landfill) => {
+                const place1 = stsEntry.stsId.gpsCoordinates.coordinates;
+                const place2 = landfill.gpsCoordinates;
+                const distance = L.latLng(place1[1], place1[0]).distanceTo(L.latLng(place2[1], place2[0])) / 1000;
+                distanceAndLocation.push({
+                    landfillId: landfill._id,
+                    landfillName: landfill.name,
+                    landfillLocation: landfill.location,
+                    distance
+                });
+            }
+            );
+            //sort by distance
+            distanceAndLocation.sort((a, b) => a.distance - b.distance);
+            setDistanceAndLocation(distanceAndLocation);
+            if(distanceAndLocation.length > 0){
+                setLandfillId(distanceAndLocation[0].landfillId);
+                setLandfillLocation(landfills.find((landfill) => landfill._id === distanceAndLocation[0].landfillId).gpsCoordinates);
+            }
+        }
+    }
+    , [stsEntryId]);
 
     
 
@@ -193,6 +222,14 @@ const DhakaMap = () => {
             }
         }
     }
+
+    const handleLandfillChange = (e: any) => {
+        const landfill = landfills.find((landfill) => landfill._id === e.target.value);
+        if (landfill) {
+            setLandfillLocation(landfill.gpsCoordinates);
+            setLandfillId(landfill._id);
+        }
+    }
            
     
     
@@ -217,26 +254,72 @@ const DhakaMap = () => {
                 {stsEntries.map((stsEntry) => (
                     <option key={stsEntry._id} value={stsEntry._id}
                         disabled={stsEntry.isAllocated}
-                    >Ward {stsEntry?.stsId?.wardNumber} - Vehicle {stsEntry?.vehicleId?.vehicleNumber} - {stsEntry?.location}</option>
+                    >Ward {stsEntry?.stsId?.wardNumber} - Vehicle {stsEntry?.vehicleId?.vehicleNumber} - {stsEntry?.location?.split(',').slice(0, 2).join(',')}{stsEntry?.isAllocated ? ' - Allocated' : ''}</option>
                 ))}
             </select>
+
+            {/* table view for select */}
+
+            <table className='table w-full mb-4'>
+                <thead>
+                    <tr className='bg-gray-100'>
+                        <th>Ward Number</th>
+                        <th>Vehicle Number</th>
+                        <th>Location</th>
+                        <th>Volume</th>
+                        <th>Allocated</th>
+                    </tr>
+                </thead>
+                <tbody className='overflow-y-scroll h-40 text-center'>
+                    {stsEntries?.map((stsEntry) => (
+                        <tr key={stsEntry._id}>
+                            <td>Ward {stsEntry?.stsId?.wardNumber}</td>
+                            <td>{stsEntry?.vehicleId?.vehicleNumber}</td>
+                            <td>{stsEntry?.location.split(',').slice(0, 2).join(',')}</td>
+                            <td>{stsEntry?.volume}</td>
+                            <td>{stsEntry?.isAllocated ? 'Yes' : 'No'}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
             
                 
             <h2 className='mb-4'>Select Landfill</h2>
-            <select onChange={(e) => {
-                const landfill = landfills.find((landfill) => landfill._id === e.target.value);
-                if (landfill) {
-                    setLandfillLocation(landfill.gpsCoordinates);
-                    setLandfillId(landfill._id);
-                }
-            }}
+            <select onChange={handleLandfillChange}
                 className='mb-4 w-full border border-gray-300 rounded-md p-2'
             >
                 <option value="">Select Landfill</option>
                 {landfills.map((landfill) => (
-                    <option key={landfill._id} value={landfill._id}>{landfill.name}</option>
+                    <option key={landfill._id} value={landfill._id}>{landfill.name} - {landfill.location?.split(',').slice(0, 2).join(',')}</option>
                 ))}
             </select>
+
+           
+
+            {/* table view for select */}
+            <table className='table w-full'>
+                <thead>
+                    <tr>
+                        <th>Selected</th>
+                        <th>Landfill Name</th>
+                        <th>Location</th>
+                        <th>Distance</th>
+                    </tr>
+                </thead>
+                <tbody className='overflow-y-scroll h-40 text-center'>
+                    {distanceAndLocation.map((landfill) => (
+                        <tr key={landfill.landfillId}>
+                            <td>{landfill.landfillId === landfillId ? 'Yes' : 'No'}</td>
+                            <td>{landfill.landfillName}</td>
+                            <td>{landfill.landfillLocation.split(',').slice(0, 2).join(',')}</td>
+                            <td>{(landfill.distance).toFixed(2)} km</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+
+
+            
 
             <FormLabel>Number of Trips</FormLabel>
             <FormInput

@@ -68,12 +68,12 @@ const index = () => {
             setMessage('Vehicle created successfully');
             setType('success');
             notificationRef.current?.showToast();
-            setTimeout(() => {
-                setMessage('');
-                reset();
-                notificationRef.current?.hideToast();
-            }, 3000);
           reset();
+          setTimeout(() => {
+            window.location.reload();
+          }
+          , 1000);
+           
         } else {
             setMessage('Something went wrong');
             setType('error');

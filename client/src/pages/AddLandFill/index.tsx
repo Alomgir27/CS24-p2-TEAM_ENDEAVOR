@@ -86,7 +86,8 @@ const Index = () => {
             setGpsCoordinate([23.8103, 90.4125]);
             setTimeout(() => {
                 notificationRef.current?.hideToast();
-            }, 3000);
+                window.location.reload();
+            }, 1000);
         } catch (error) {
             setType('error');
             setMessage(error.message);
@@ -117,13 +118,15 @@ const Index = () => {
 
                 <div className="mb-4 w-full">
                   <FormLabel className="mb-2">Landfill Manager</FormLabel>
-                
                     <TomSelect
                         id="landfillManager"
                         value={landfillManager}
                         onChange={setLandfillManager}
                         className="w-full bg-stone-50 dark:bg-darkmode-800"
                         placeholder="Select Landfill Manager"
+                        multiple
+                        required    
+
                     >
                         {landfillManagers.map((manager) => (
                             <option key={manager._id} value={manager._id}>

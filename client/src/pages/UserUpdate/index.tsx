@@ -142,7 +142,6 @@ function Main() {
                                 {role.name}
                             </option>
                         ))}
-                        <option value="Unassigned">Unassigned</option>
                     </FormSelect>
                 ) : (
                     <FormInput

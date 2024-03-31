@@ -478,7 +478,7 @@ function Main() {
                     </Menu.Item>
                   </Menu.Items>
                 </Menu>
-                <div className="-mb-1 text-sm font-medium 2xl:text-base">
+                <div className="-mb-1 text-sm font-medium 2xl:text-base h-6 2xl:h-7">
                       Hi {user?.username},
                       
                 </div>
@@ -553,10 +553,10 @@ function Main() {
               </div>
               <div className="col-span-12 row-start-2 px-10 py-6 -mx-5 border-t border-black border-dashed md:row-start-auto md:col-span-4 border-opacity-10 md:border-t-0 md:border-l md:border-r sm:px-28 md:px-5">
                 <div className="mt-6">
-                  <ReportBarChart1 height={400} data={dashboardData?.dashboard?.length && dashboardData?.dashboard[0]?.allCostData} dataKey="cost" data1={dashboardData?.dashboard?.length && dashboardData?.dashboard[0]?.allDistanceData} dataKey1="distance" />
+                  <ReportBarChart1 height={500} data={dashboardData?.dashboard?.length && dashboardData?.dashboard[0]?.allCostData} dataKey="cost" data1={dashboardData?.dashboard?.length && dashboardData?.dashboard[0]?.allDistanceData} dataKey1="distance" />
                 </div>
               </div>
-              <Tab.Group className="col-span-12 py-6 pl-4 -ml-4 border-t border-l border-black border-dashed sm:col-span-6 md:col-span-4 border-opacity-10 sm:border-t-0 md:border-l-0 md:ml-0 md:pl-0">
+              <Tab.Group className="col-span-12 py-6 pl-4 -ml-4 border-t border-l border-black border-dashed sm:col-span-6 md:col-span-4 border-opacity-10 sm:border-t-0 md:border-l-0 md:ml-0 md:pl-0 h-56">
                 
                 <Tab.Panels className="mt-6">
                   <Tab.Panel>
