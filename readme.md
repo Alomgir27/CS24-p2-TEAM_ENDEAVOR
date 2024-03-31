@@ -111,8 +111,55 @@ graph TD;
     U --> A6[Waste Collection Statistics];
     U --> B6[Fuel Cost Statistics];
     U --> C6[Real-time Monitoring];
-    A[End];
+    U --> D6[Route Optimization Statistics];
+    U --> E6[Fleet Optimization Statistics];
+    U --> F6[Landfill Entry Statistics];
+    U --> G6[STS Entry Statistics];
+    U --> H6[User Activity Statistics];
+    U --> I6[Vehicle Activity Statistics];
+    U --> J6[Dashboard Customization];
+    A1 --> A7[Add System Admin];
+    A1 --> B7[Edit System Admin];
+    A1 --> C7[Delete System Admin];
+    B1 --> A8[Add STS Manager];
+    B1 --> B8[Edit STS Manager];
+    B1 --> C8[Delete STS Manager];
+    C1 --> A9[Add Landfill Manager];
+    C1 --> B9[Edit Landfill Manager];
+    C1 --> C9[Delete Landfill Manager];
+    D1 --> A10[Add Unassigned User];
+    D1 --> B10[Edit Unassigned User];
+    D1 --> C10[Delete Unassigned User];
+    A2 --> A11[Add Vehicle];
+    A2 --> B11[Edit Vehicle];
+    A2 --> C11[Delete Vehicle];
+    B2 --> A12[Create STS];
+    B2 --> B12[Edit STS];
+    B2 --> C12[Delete STS];
+    C2 --> A13[Assign STS Managers];
+    C2 --> B13[Edit STS Managers];
+    C2 --> C13[Delete STS Managers];
+    D2 --> A14[Assign Trucks to STS];
+    D2 --> B14[Edit Trucks Assigned to STS];
+    D2 --> C14[Delete Trucks Assigned to STS];
+    E2 --> A15[Add STS Vehicle Entry];
+    E2 --> B15[Edit STS Vehicle Entry];
+    E2 --> C15[Delete STS Vehicle Entry];
+    F2 --> A16[Create Landfill Sites];
+    F2 --> B16[Edit Landfill Sites];
+    F2 --> C16[Delete Landfill Sites];
+    G2 --> A17[Assign Landfill Managers];
+    G2 --> B17[Edit Landfill Managers];
+    G2 --> C17[Delete Landfill Managers];
+    H2 --> A18[Add Landfill Vehicle Entry];
+    H2 --> B18[Edit Landfill Vehicle Entry];
+    H2 --> C18[Delete Landfill Vehicle Entry];
+    A3 --> A19[Calculate Fuel Allocation];
+    A3 --> B19[Edit Fuel Allocation];
+    A3 --> C19[Delete Fuel Allocation];
+    A[EcoSync] --> T[End];
 ```
+
 
 
 
