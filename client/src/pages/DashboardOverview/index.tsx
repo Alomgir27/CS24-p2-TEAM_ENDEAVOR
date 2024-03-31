@@ -433,69 +433,69 @@ function Main() {
       <div className="col-span-12 2xl:col-span-12">
         <div className="grid grid-cols-12 gap-6">
 
-            {/* start from here */}
-         <div className="relative col-span-12 mt-6">
-          <div className="grid grid-cols-12 gap-6">
-          <div className="z-20 col-span-12 xl:col-span-9 2xl:col-span-12">
-            <div className="mt-6 -mb-6 intro-y">
-              <Alert
-                variant="primary"
-                dismissible
-                className="flex items-center mb-6 box dark:border-darkmode-600"
-              >
-                {({ dismiss }) => (
+          {/* start from here */}
+          <div className="relative col-span-12 mt-6">
+            <div className="grid grid-cols-12 gap-6">
+              <div className="z-20 col-span-12 xl:col-span-12 2xl:col-span-12">
+                <div className="mt-6 -mb-6 intro-y">
+                  <Alert
+                    variant="primary"
+                    dismissible
+                    className="flex items-center mb-6 box dark:border-darkmode-600"
+                  >
+                    {({ dismiss }) => (
                       <>
-                    <marquee>
-                        Cleanliness starts with you, be the solution, not the pollution.  Report any illegal dumping activities to the authorities.  Let's keep our environment clean and safe.
-                    </marquee>
-                    <Alert.DismissButton
-                      className="text-white"
-                      onClick={dismiss}
-                    >
-                      <Lucide icon="X" className="w-4 h-4" />
-                    </Alert.DismissButton>
-                  </>
-                )}
-              </Alert>
-            </div>
-            <div className="grid grid-cols-12 mb-3 mt-14 sm:gap-10 intro-y">
-              <div className="relative col-span-12 py-6 text-center sm:col-span-6 md:col-span-4 sm:pl-5 md:pl-0 lg:pl-5 sm:text-left">
-                <Menu className="absolute pt-0.5 2xl:pt-0 mt-5 2xl:mt-6 top-0 right-0">
-                  <Menu.Button as="a" className="block" href="#">
-                    <Lucide
-                      icon="MoreVertical"
-                      className="w-5 h-5 text-slate-500"
-                    />
-                  </Menu.Button>
-                  <Menu.Items className="w-40">
-                    <Menu.Item>
-                      <Lucide icon="FileText" className="w-4 h-4 mr-2" />
-                      Monthly Report
-                    </Menu.Item>
-                    <Menu.Item>
-                      <Lucide icon="FileText" className="w-4 h-4 mr-2" />
-                      Annual Report
-                    </Menu.Item>
-                  </Menu.Items>
-                </Menu>
-                <div className="-mb-1 text-sm font-medium 2xl:text-base h-6 2xl:h-7">
-                      Hi {user?.username},
-                      
+                        <marquee>
+                          Cleanliness starts with you, be the solution, not the pollution.  Report any illegal dumping activities to the authorities.  Let's keep our environment clean and safe.
+                        </marquee>
+                        <Alert.DismissButton
+                          className="text-white"
+                          onClick={dismiss}
+                        >
+                          <Lucide icon="X" className="w-4 h-4" />
+                        </Alert.DismissButton>
+                      </>
+                    )}
+                  </Alert>
                 </div>
-                <div className="flex items-center justify-center text-base leading-3 2xl:text-lg sm:justify-start text-slate-600 dark:text-slate-300 mt-14 2xl:mt-24">
+                <div className="grid grid-cols-12 mb-3 mt-14 sm:gap-10 intro-y">
+                  <div className="relative col-span-12 py-6 text-center sm:col-span-6 md:col-span-4 sm:pl-5 md:pl-0 lg:pl-5 sm:text-left">
+                    <Menu className="absolute pt-0.5 2xl:pt-0 mt-5 2xl:mt-6 top-0 right-0">
+                      <Menu.Button as="a" className="block" href="#">
+                        <Lucide
+                          icon="MoreVertical"
+                          className="w-5 h-5 text-slate-500"
+                        />
+                      </Menu.Button>
+                      <Menu.Items className="w-40">
+                        <Menu.Item>
+                          <Lucide icon="FileText" className="w-4 h-4 mr-2" />
+                          Monthly Report
+                        </Menu.Item>
+                        <Menu.Item>
+                          <Lucide icon="FileText" className="w-4 h-4 mr-2" />
+                          Annual Report
+                        </Menu.Item>
+                      </Menu.Items>
+                    </Menu>
+                    <div className="-mb-1 text-sm font-medium 2xl:text-base h-6 2xl:h-7">
+                      Hi {user?.username},
+
+                    </div>
+                    <div className="flex items-center justify-center text-base leading-3 2xl:text-lg sm:justify-start text-slate-600 dark:text-slate-300 mt-14 2xl:mt-24">
                       <span className="font-medium">Good {new Date().getHours() < 12 ? "Morning" : new Date().getHours() < 18 ? "Afternoon" : "Evening"},</span> it's a
                       brand new day!
-                  <Tippy
-                    as="div"
-                    content={`This is a dashboard overview page. You can view the summary of your business here.`}
-                  >
-                    <Lucide
-                      icon="AlertCircle"
-                      className="w-5 h-5 ml-1.5 mt-0.5"
-                    />
-                  </Tippy>
-                </div>
-                <div className="mt-5 mb-3 2xl:flex">
+                      <Tippy
+                        as="div"
+                        content={`This is a dashboard overview page. You can view the summary of your business here.`}
+                      >
+                        <Lucide
+                          icon="AlertCircle"
+                          className="w-5 h-5 ml-1.5 mt-0.5"
+                        />
+                      </Tippy>
+                    </div>
+                    <div className="mt-5 mb-3 2xl:flex">
                       <div className="flex items-center justify-center sm:justify-start">
                         <Lucide
                           icon="MapPin"
@@ -514,64 +514,64 @@ function Main() {
                           {showTime?.toLocaleTimeString()}
                         </span>
                       </div>
-                </div>
-                <div className="mt-6 -mb-1 2xl:text-base text-slate-600 dark:text-slate-300">
-                  Today total fuel cost is{" "}
-                  <a
-                    href=""
-                    className="underline decoration-dotted underline-offset-4 text-primary dark:text-slate-400"
-                  >
-                    {dashboardData?.dailyFuelCost} BDT
-                  </a>
-                </div>
-                <Menu className="mt-14 2xl:mt-24 w-44 2xl:w-52">
-                  <Menu.Button
-                    as={Button}
-                    variant="primary"
-                    rounded
-                    className="relative justify-start w-full px-4"
-                  >
-                    Download Reports
-                    <span className="absolute top-0 bottom-0 right-0 flex items-center justify-center w-8 h-8 my-auto ml-auto mr-1">
-                      <Lucide icon="ChevronDown" className="w-4 h-4" />
-                    </span>
-                  </Menu.Button>
-                  <Menu.Items
-                    placement="bottom-start"
-                    className="w-44 2xl:w-52"
-                  >
-                    <Menu.Item>
-                      <Lucide icon="FileText" className="w-4 h-4 mr-2" />
-                      Monthly Report
-                    </Menu.Item>
-                    <Menu.Item>
-                      <Lucide icon="FileText" className="w-4 h-4 mr-2" />
-                      Annual Report
-                    </Menu.Item>
-                  </Menu.Items>
-                </Menu>
-              </div>
-              <div className="col-span-12 row-start-2 px-10 py-6 -mx-5 border-t border-black border-dashed md:row-start-auto md:col-span-4 border-opacity-10 md:border-t-0 md:border-l md:border-r sm:px-28 md:px-5">
-                <div className="mt-6">
-                  <ReportBarChart1 height={500} data={dashboardData?.dashboard?.length && dashboardData?.dashboard[0]?.allCostData} dataKey="cost" data1={dashboardData?.dashboard?.length && dashboardData?.dashboard[0]?.allDistanceData} dataKey1="distance" />
-                </div>
-              </div>
-              <Tab.Group className="col-span-12 py-6 pl-4 -ml-4 border-t border-l border-black border-dashed sm:col-span-6 md:col-span-4 border-opacity-10 sm:border-t-0 md:border-l-0 md:ml-0 md:pl-0 h-56">
-                
-                <Tab.Panels className="mt-6">
-                  <Tab.Panel>
-                    <div className="relative mt-8">
-                      <ReportDonutChart2 height={215} />
-                      <div className="absolute top-0 left-0 flex flex-col items-center justify-center w-full h-full">
-                        <div className="text-xl font-medium 2xl:text-2xl">
-                          {dashboardData?.dashboard?.length && dashboardData?.dashboard[0]?.numOfUsers}
-                        </div>
-                        <div className="text-slate-500 mt-0.5">
-                          Total Users
-                        </div>
-                      </div>
                     </div>
-                    <div className="w-10/12 mx-auto mt-8 2xl:w-2/3">
+                    <div className="mt-6 -mb-1 2xl:text-base text-slate-600 dark:text-slate-300">
+                      Today total fuel cost is{" "}
+                      <a
+                        href=""
+                        className="underline decoration-dotted underline-offset-4 text-primary dark:text-slate-400"
+                      >
+                        {dashboardData?.dailyFuelCost} BDT
+                      </a>
+                    </div>
+                    <Menu className="mt-14 2xl:mt-24 w-44 2xl:w-52">
+                      <Menu.Button
+                        as={Button}
+                        variant="primary"
+                        rounded
+                        className="relative justify-start w-full px-4"
+                      >
+                        Download Reports
+                        <span className="absolute top-0 bottom-0 right-0 flex items-center justify-center w-8 h-8 my-auto ml-auto mr-1">
+                          <Lucide icon="ChevronDown" className="w-4 h-4" />
+                        </span>
+                      </Menu.Button>
+                      <Menu.Items
+                        placement="bottom-start"
+                        className="w-44 2xl:w-52"
+                      >
+                        <Menu.Item>
+                          <Lucide icon="FileText" className="w-4 h-4 mr-2" />
+                          Monthly Report
+                        </Menu.Item>
+                        <Menu.Item>
+                          <Lucide icon="FileText" className="w-4 h-4 mr-2" />
+                          Annual Report
+                        </Menu.Item>
+                      </Menu.Items>
+                    </Menu>
+                  </div>
+                  <div className="col-span-12 row-start-2 px-10 py-6 -mx-5 border-t border-black border-dashed md:row-start-auto md:col-span-4 border-opacity-10 md:border-t-0 md:border-l md:border-r sm:px-28 md:px-5">
+                    <div className="mt-6">
+                      <ReportBarChart1 height={500} data={dashboardData?.dashboard?.length && dashboardData?.dashboard[0]?.allCostData} dataKey="cost" data1={dashboardData?.dashboard?.length && dashboardData?.dashboard[0]?.allDistanceData} dataKey1="distance" />
+                    </div>
+                  </div>
+                  <Tab.Group className="col-span-12 py-6 pl-4 -ml-4 border-t border-l border-black border-dashed sm:col-span-6 md:col-span-4 border-opacity-10 sm:border-t-0 md:border-l-0 md:ml-0 md:pl-0 h-56">
+
+                    <Tab.Panels className="mt-6">
+                      <Tab.Panel>
+                        <div className="relative mt-8">
+                          <ReportDonutChart2 height={215} />
+                          <div className="absolute top-0 left-0 flex flex-col items-center justify-center w-full h-full">
+                            <div className="text-xl font-medium 2xl:text-2xl">
+                              {dashboardData?.dashboard?.length && dashboardData?.dashboard[0]?.numOfUsers}
+                            </div>
+                            <div className="text-slate-500 mt-0.5">
+                              Total Users
+                            </div>
+                          </div>
+                        </div>
+                        <div className="w-10/12 mx-auto mt-8 2xl:w-2/3">
                           <div className="flex items-center">
                             <Lucide icon="User" className="w-6 h-6 text-primary" />
                             <div className="ml-2">
@@ -615,19 +615,19 @@ function Main() {
                                 {dashboardData?.dashboard?.length && dashboardData?.dashboard[0]?.numOfRoutes}
                               </div>
                               <div className="text-slate-500">Total Routes</div>
-                            </div>  
+                            </div>
                           </div>
                         </div>
-                  </Tab.Panel>
-                </Tab.Panels>
-              </Tab.Group>
+                      </Tab.Panel>
+                    </Tab.Panels>
+                  </Tab.Group>
+                </div>
+              </div>
             </div>
           </div>
-           </div>
-          </div>
 
-         
-          
+
+
 
 
           {/* BEGIN: General Report */}
@@ -826,11 +826,11 @@ function Main() {
 
             </div>
           </div>
-          
+
 
 
           {/* BEGIN: Sales Report */}
-          <div className="col-span-12 mt-8 lg:col-span-6">              
+          <div className="col-span-12 mt-8 lg:col-span-6">
             <div className="p-5 mt-12 intro-y box sm:mt-5">
               <div className="flex flex-col md:flex-row md:items-center">
                 <div className="flex">
@@ -855,9 +855,9 @@ function Main() {
             </div>
           </div>
 
-        
-          
-      
+
+
+
           {/* BEGIN: Official Store */}
           <div className="col-span-12 mt-6 xl:col-span-6">
             <div className="p-5 mt-12 intro-y box sm:mt-5">
@@ -874,7 +874,7 @@ function Main() {
                           landfill.gpsCoordinates.coordinates[0],
                         ]}
                         key={landfill._id}
-                        
+
                       >
                         <Popup>
                           <div className="text-base font-medium">
@@ -888,10 +888,10 @@ function Main() {
                     )
                   )}
               </MapContainer>
-              
+
             </div>
           </div>
-          
+
           <div className="col-span-12 mt-8 lg:col-span-12">
             <div className="p-5 mt-12 intro-y box sm:mt-5">
               <div className="flex flex-col md:flex-row md:items-center">
@@ -903,9 +903,9 @@ function Main() {
                     <div className="mt-0.5 text-slate-500">This Month</div>
                   </div>
                   <div className="w-px h-12 mx-4 border border-r border-dashed border-slate-200 dark:border-darkmode-300 xl:mx-5"></div>
-                 
+
                 </div>
-               
+
               </div>
               <div
                 className={clsx([
@@ -1028,7 +1028,7 @@ function Main() {
               </div>
             </div>
           </div>
-        
+
           <div className="col-span-12 mt-8">
             <div className="items-center block h-10 intro-y">
               <h2 className="text-lg font-medium truncate">Vehicle Movements</h2>
@@ -1104,4 +1104,3 @@ function Main() {
 }
 
 export default Main;
-    

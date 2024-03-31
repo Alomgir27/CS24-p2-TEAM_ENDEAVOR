@@ -59,13 +59,13 @@ const initiateResetPassword = async (req, res) => {
         });
         if (!user) return res.status(400).json({ message: 'User not found' })
 
-        const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, { expiresIn: '5m' });
         const encodedToken = Buffer.from(token).toString('base64');
         const mailOptions = {
             from: process.env.EMAIL,
             to: email,
             subject: 'Password Reset',
-            text: `Click on the link to reset your password: http://localhost:3000/reset-password/${encodedToken}. This link will expire in 1 hour.`
+            text: `Click on the link to reset your password: http://localhost:3000/reset-password/${encodedToken}. This link will expire in 5 minutes.`
         };
         transporter.sendMail(mailOptions, (err, info) => {
             if (err) {
