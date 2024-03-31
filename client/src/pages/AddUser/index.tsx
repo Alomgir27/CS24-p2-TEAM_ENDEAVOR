@@ -162,6 +162,24 @@ const index = () => {
                 )}
               </div>
               <div className='mt-3'>
+                <FormLabel htmlFor='role'>Role</FormLabel>
+                <FormSelect
+                  id='role'
+                  aria-label='.form-select-lg example'
+                  className='sm:mt-2 sm:mr-2'
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                  required
+                >
+                  {roles.map((role) => (
+                    <option key={role._id} value={role.name}>
+                      {role.name}
+                    </option>
+                  ))}
+                  
+                </FormSelect>
+              </div>
+              <div className='mt-3'>
                 <FormLabel htmlFor='password'>Password</FormLabel>
                 <FormInput
                   id='password'
@@ -182,7 +200,7 @@ const index = () => {
               </div>
 
               <div className='mt-3'>
-                <FormLabel htmlFor='confirm-password'>Password</FormLabel>
+                <FormLabel htmlFor='confirm-password'>Confirm Password</FormLabel>
                 <FormInput
                   id='confirm-password'
                   type='password'
@@ -201,25 +219,7 @@ const index = () => {
                 )}
               </div>
 
-              <div className='mt-3'>
-                <FormLabel htmlFor='role'>Password</FormLabel>
-                <FormSelect
-                  id='role'
-                  aria-label='.form-select-lg example'
-                  className='sm:mt-2 sm:mr-2'
-                  value={role}
-                  onChange={(e) => setRole(e.target.value)}
-                  required
-                >
-                  {/* <option value='Unassigned'>Unassigned</option> */}
-                  {roles.map((role) => (
-                    <option key={role._id} value={role.name}>
-                      {role.name}
-                    </option>
-                  ))}
-                  
-                </FormSelect>
-              </div>
+              
 
               <div className='mt-5 flex'>
                 <Button variant='primary' type='submit' disabled={loading}>

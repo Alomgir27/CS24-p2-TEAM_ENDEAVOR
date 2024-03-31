@@ -147,25 +147,25 @@ function Main() {
             <Table.Tbody>
               <Table.Tr>
                 <Table.Td className="border-b dark:border-darkmode-400">
-                  {route.distance}
+                  {route?.distance}
                 </Table.Td>
                 <Table.Td className="w-32 text-right border-b dark:border-darkmode-400">
-                  {route.cost}
+                  {route?.cost}
                     </Table.Td>
                     <Table.Td className="w-32 text-right border-b dark:border-darkmode-400">
                       {route.stsEntryId?.volume}
                     </Table.Td>
                 <Table.Td className="w-32 text-right border-b dark:border-darkmode-400">
-                  {route.numberOfTrips}
+                  {route?.numberOfTrips}
                 </Table.Td>
                 <Table.Td className="w-32 font-medium text-right border-b dark:border-darkmode-400">
-                  {route.stsEntryId?.timeOfArrival}
+                  {route?.stsEntryId?.timeOfArrival}
                 </Table.Td>
                 <Table.Td className="w-32 font-medium text-right border-b dark:border-darkmode-400">
-                  {route.stsEntryId?.timeOfDeparture}
+                  {route?.stsEntryId?.timeOfDeparture}
                 </Table.Td>
                 <Table.Td className="w-32 font-medium text-right border-b dark:border-darkmode-400">
-                  {route.details}
+                  {route?.details}
                 </Table.Td>
               </Table.Tr>
             </Table.Tbody>
@@ -176,14 +176,14 @@ function Main() {
         <div className="mt-10 text-center sm:text-left sm:mt-0">
           <div className="text-base text-slate-500">Bank Transfer</div>
           <div className="mt-2 text-lg font-medium text-primary">
-            {route.landfillId?.landfillManager[0].username}
+            {route.landfillId?.landfillManager?.length > 0 ? route.landfillId?.landfillManager[0].username : ""}
           </div>
-          <div className="mt-1">{route.landfillId?.landfillManager[0].email}</div>
+          <div className="mt-1">{route.landfillId?.landfillManager?.length > 0 ? route.landfillId?.landfillManager[0].email : ""}</div>
         </div>
         <div className="text-center sm:text-right sm:ml-auto">
           <div className="text-base text-slate-500">Total Amount</div>
           <div className="mt-2 text-xl font-medium text-primary">
-            {route.cost}
+            {route?.cost}
           </div>
           <div className="mt-1">Paid</div>
         </div>

@@ -60,6 +60,7 @@ function TomSelect(props: TomSelectProps) {
       };
     }
 
+
     return options;
   }, [props.options]);
 

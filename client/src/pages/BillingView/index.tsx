@@ -42,7 +42,7 @@ const Index = () => {
     return (
         <div className="container mx-auto px-4 py-4">
             <div className="flex justify-between items-center">
-                <h1 className="text-2xl font-bold">Routes</h1>
+                <h1 className="text-2xl font-bold">Routes And Vehicle Billing</h1>
                 <button
                     onClick={() => navigate('/route/optimize')}
                     className="bg-blue-500 text-white px-4 py-2 rounded-md"
@@ -78,8 +78,8 @@ const Index = () => {
                                 <td className="border px-4 py-2">{route?.stsEntryId?.volume}</td>
                                 <td className="border px-4 py-2">{(route?.cost).toFixed(2)}</td>
                                 <td className="border px-4 py-2">{route?.numberOfTrips}</td>
-                                <td className="border px-4 py-2">{route.stsEntryId?.timeOfArrival}</td>
-                                <td className="border px-4 py-2">{route.stsEntryId?.timeOfDeparture}</td>
+                                <td className="border px-4 py-2">{route?.stsEntryId?.timeOfArrival}</td>
+                                <td className="border px-4 py-2">{route?.stsEntryId?.timeOfDeparture}</td>
                                 <td className="border px-4 py-2">
                                     <Button
                                         onClick={() => navigate(`/billing/${route._id}`)}

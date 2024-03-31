@@ -270,7 +270,7 @@ const FleetOptimizeViewAndDeploy = () => {
     return (
         <>
             <div className="container mx-auto p-4">
-                <h1 className="text-2xl font-bold text-center">Fleet Optimization View and Deploy</h1>
+                <h1 className="text-2xl font-bold text-center">Fleet Optimization View and Deploy Vehicle</h1>
                 <div className="grid grid-cols-2 gap-4 mt-4">
                     <div>
                         <label htmlFor="sts" className="block font-semibold">Select STS</label>
@@ -318,7 +318,7 @@ const FleetOptimizeViewAndDeploy = () => {
                                 <th>Total Waste</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y">
+                        <tbody className="divide-y text-center">
                             {selectedRoutes.map((route) => (
                                 <tr key={route._id}>
                                     <td className="flex items-center">
@@ -332,10 +332,10 @@ const FleetOptimizeViewAndDeploy = () => {
                                         />
                                         <label htmlFor={route._id} className="ml-2">{route.landfillId.name + ' - ' + route?.stsEntryId?.vehicleId?.vehicleNumber + ' - ' + route?.stsEntryId?.volume + ' ton'}</label>
                                     </td>
-                                    <td className="text-center">{route.distance} km</td>
-                                    <td className="text-center">{route.cost} BDT</td>
-                                    <td className="text-center">{route.numberOfTrips}</td>
-                                    <td className="text-center">{route.totalWaste} ton</td>
+                                    <td className="text-center">{route?.distance} km</td>
+                                    <td className="text-center">{route?.cost} BDT</td>
+                                    <td className="text-center">{route?.numberOfTrips}</td>
+                                    <td className="text-center">{route?.totalWaste} ton</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -349,7 +349,8 @@ const FleetOptimizeViewAndDeploy = () => {
                     Your selected STS is {selectedStsId ? sts.find((sts) => sts._id === selectedStsId)?.wardNumber : ''} and selected routes are {selectedRouteIds.map((id) => routes.find((route) => route._id === id)?.landfillId.name).join(', ')}
                 </div>
                 <div className="mt-4">
-                    Capacity of STS: {selectedStsId ? sts.find((sts) => sts._id === selectedStsId)?.capacity : ''} ton
+                    Capacity of STS: <span className='text-primary font-bold text-lg'>
+                        {selectedStsId ? sts.find((sts) => sts._id === selectedStsId)?.capacity + ' tons': ''}  </span>
                 </div>
 
                 <div className="mt-4">
@@ -364,7 +365,7 @@ const FleetOptimizeViewAndDeploy = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr className="text-center">
                                 <td>{totalDistance} km</td>
                                 <td>{totalWaste} ton</td>
                                 <td>{totalVehicles}</td>
@@ -374,6 +375,19 @@ const FleetOptimizeViewAndDeploy = () => {
                         </tbody>
                     </table>
                 </div>
+
+
+                {totalWaste && totalWaste > parseFloat(sts.find((sts) => sts._id === selectedStsId)?.capacity) ? (
+                    <div className="mt-4">
+                        <span className="text-green-500">Selected routes exceed STS capacity</span>
+                    </div>
+                ) : null}
+
+                {totalWaste && totalWaste <= parseFloat(sts.find((sts) => sts._id === selectedStsId)?.capacity) ? (
+                    <div className="mt-4">
+                        <span className="text-red-500">Selected routes are not enough to carry all STS waste within one day. For better optimization, please add and select more routes.</span>
+                    </div>
+                ) : null}
 
 
                 <div className="mt-4">

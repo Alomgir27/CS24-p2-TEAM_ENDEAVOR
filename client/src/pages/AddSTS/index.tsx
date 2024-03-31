@@ -99,7 +99,8 @@ const index = () => {
                     setGpsCoordinate([23.8103, 90.4125]);
                     setStsManager([]);
                     setVehicleEntries([]);
-                }, 3000);
+                    window.location.reload();
+                }, 1000);
             } else {
                 setMessage('Something went wrong');
                 setType('error');
@@ -199,8 +200,10 @@ const index = () => {
                             onChange={setVehicleEntries}
                             className="w-full bg-stone-50 dark:bg-darkmode-800"
                             placeholder="Select Vehicle Entries"
+                            multiple
+                            required
                         >
-                            {vehicles.map((vehicle) => (
+                            {vehicles.filter(vehicle => !vehicle.isAllocated).map((vehicle) => (
                                 <option key={vehicle._id} value={vehicle._id} disabled={vehicle.isAllocated}>
                                     {vehicle.vehicleNumber}
                                 </option>
