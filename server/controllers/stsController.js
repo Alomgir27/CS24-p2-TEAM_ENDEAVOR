@@ -31,8 +31,14 @@ const createSTS = async (req, res) => {
 const getSTS = async (req, res) => {
     try {
         const { _id } = req.user;
-        const sts = await STS.find({ stsManager: { $in: [_id] } }).populate('stsManager').populate('vehicleEntries');
-        res.status(200).json({ sts });
+        const { role } = req.user;
+        if (role === 'System Admin') {
+            const sts = await STS.find({}).populate('stsManager').populate('vehicleEntries');
+            res.status(200).json({ sts });
+        } else {
+            const sts = await STS.find({ stsManager: { $in: [_id] } }).populate('stsManager').populate('vehicleEntries');
+            res.status(200).json({ sts });
+        }
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
@@ -42,11 +48,20 @@ const getSTS = async (req, res) => {
 const getStsEntries = async (req, res) => {
     try {
         const { _id } = req.user;
-        //this _id is stsManager id
-        const sts = await STS.find({ stsManager: { $in: [_id] } }).populate('stsManager').populate('vehicleEntries');
-        const stsIds = sts.map(sts => sts._id);
-        const stsEntries = await StsEntry.find({ stsId: { $in: stsIds } }).populate('stsId').populate('vehicleId');
-        res.status(200).json({ stsEntries });
+        //this _id is stsManager id or role is System Admin
+        const user = await User.findById(_id);
+        if (!user) return res.status(400).json({ message: 'User not found' });
+        if (user?.role === 'System Admin') {
+            const sts = await STS.find({}).populate('stsManager').populate('vehicleEntries');
+            const stsIds = sts.map(sts => sts._id);
+            const stsEntries = await StsEntry.find({ stsId: { $in: stsIds } }).populate('stsId').populate('vehicleId');
+            return res.status(200).json({ stsEntries });
+        } else {
+            const sts = await STS.find({ stsManager: { $in: [_id] } }).populate('stsManager').populate('vehicleEntries');
+            const stsIds = sts.map(sts => sts._id);
+            const stsEntries = await StsEntry.find({ stsId: { $in: stsIds } }).populate('stsId').populate('vehicleId');
+            res.status(200).json({ stsEntries });
+        }
     } catch (err) {
         res.status(400).json({ message: err.message });
     }

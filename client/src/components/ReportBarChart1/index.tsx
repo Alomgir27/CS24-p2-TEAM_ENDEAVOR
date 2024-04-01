@@ -47,7 +47,7 @@ function Main(props: MainProps) {
           label: props?.dataKey1 || "Vue Template",
           barThickness: 8,
           maxBarThickness: 6,
-          data: props?.data1?.map((item: any) => item.distance) || [50, 135, 40, 180, 190, 60, 150, 90, 250, 170, 240, 250],
+          data: props?.data1?.map((item: any) => item.distance * 10000) || [50, 135, 40, 180, 190, 60, 150, 90, 250, 170, 240, 250], //here 10000 is used to make the data more visible
           backgroundColor: darkMode
             ? getColor("darkmode.400")
             : getColor("slate.300"),

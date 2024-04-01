@@ -1,4 +1,4 @@
-const { LandfillEntry, Landfill, FleetAndVehicleDeployment } = require('../models');
+const { LandfillEntry, Landfill, FleetAndVehicleDeployment, User } = require('../models');
 const axios = require('axios');
 
 const createLandfill = async (req, res) => {
@@ -13,7 +13,7 @@ const createLandfill = async (req, res) => {
         // } catch (err) {
         //     console.log(err);
         // }
-        const landfill = await Landfill.create({ name, capacity, operationalTimespan, gpsCoordinates: { type: 'Point', coordinates: gpsCoordinates }, landfillManager, details, location });
+        const landfill = await Landfill.create({ name, capacity, operationalTimespan, gpsCoordinates: { type: 'Point', coordinates: gpsCoordinates }, landfillManager, details });
         res.status(201).json({ landfill });
     } catch (err) {
         res.status(400).json({ message: err.message });
@@ -24,8 +24,16 @@ const createLandfill = async (req, res) => {
 const getLandfills = async (req, res) => {
     try {
         const { _id } = req.user;
-        const landfills = await Landfill.find({ landfillManager: { $in: [_id] } }).populate('landfillManager');
-        res.status(200).json({ landfills });
+        if (!_id) return res.status(400).json({ message: 'User ID is required' });
+        const user = await User.findById(_id);
+        if (!user) return res.status(400).json({ message: 'User not found' });
+        if (user.role === 'System Admin') {
+            const landfills = await Landfill.find().populate('landfillManager');
+            res.status(200).json({ landfills });
+        } else {
+            const landfills = await Landfill.find({ landfillManager: { $in: [_id] } }).populate('landfillManager');
+            res.status(200).json({ landfills });
+        }
       
     } catch (err) {
         res.status(400).json({ message: err.message });

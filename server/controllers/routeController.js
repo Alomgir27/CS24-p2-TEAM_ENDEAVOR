@@ -35,7 +35,11 @@ const getRoutes = async (req, res) => {
             })
             .populate('landfillId');
         let filteredRoutes = routes;
-        if (_id) {
+        const { role } = req.user;
+        if (role === 'System Admin') {
+            filteredRoutes = routes;
+        }
+        else {
             filteredRoutes = routes.filter(route => route?.stsEntryId?.stsId?.stsManager?.includes(_id));
         }
         res.status(200).json({ routes: filteredRoutes });
