@@ -66,7 +66,7 @@ For any inquiries, please contact team Endeavor at `teamendeavorcodesamurai@gmai
 
 ## 1. Diagrams and Flowcharts
 ### Entity Relationship Diagram
-![Flowchart](server/drawSQL-image.png)
+![Flowchart](server/Entity_Relationship_diagram.png)
 
 
 ### 2. End to End Activity Diagram
@@ -145,23 +145,33 @@ graph LR;
                                     |      Middleware         |                                 
                                     |     (isAuthenticated)   |                                 
                                     +-------------------------+                                 
-                                                |                                               
-                    +----------------------------------------------------+                       
-                    |                           |                        |                       
-                    v                           v                        v                       
-      +-------------------------+  +--------------------------+  +-------------------------+   
-      |      Controllers        |  |        Models            |  |       Database          |   
-      |     (e.g., Auth,        |  |     (e.g., User,         |  |                         |   
-      |     User, Profile,      |  |      Vehicle, STS,       |  |                         |   
-      |     RBAC, Vehicle,      |  |      LandfillEntry,      |  |     MongoDB Atlas       |   
-      |     STS, Landfill,      |  |      Dashboard, Route)   |  |                         |   
-      |     Dashboard)          |  |                          |  |                         |   
-      +-------------------------+  +--------------------------+  +-------------------------+   
-                                                |                                               
-                                                |                                               
-                                    +-------------------------+                                 
-                                    |       Response          |                                 
-                                    +-------------------------+                                 
+                                                /
+                                              /
+                                            /  
+                                          /
+                        +-------------------------+           +--------------------------+ 
+                        |     Controllers         |           |      Models              |
+                        |     (e.g., Auth,        |           |      (e.g., User,        |
+                        |     User, Profile,      |  -- -- >  |      Vehicle, STS,       |
+                        |     RBAC, Vehicle,      |           |      LandfillEntry,      |
+                        |     STS, Landfill,      |           |      Dashboard, Route)   |
+                        |     Dashboard)          |           |                          |
+                        +-------------------------+           +--------------------------+
+                                                                        /
+                                                                      /
+                                                                    /
+                                                                  /
+                                                    +-------------------------+   
+                                                    |       Database          | 
+                                                    |     (MongoDB Atlas)     |  
+                                                    +-------------------------+   
+                                                            /                                           
+                                                          /
+                                                        /                                  
+                                        +-------------------------+                                 
+                                        |       Response          |                                 
+                                        +-------------------------+           
+
 
 ```
 
