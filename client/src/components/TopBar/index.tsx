@@ -31,10 +31,10 @@ function Main() {
       <div className="h-[67px] z-[51] flex items-center relative border-b border-slate-200">
         {/* BEGIN: Breadcrumb */}
         <Breadcrumb className="hidden mr-auto -intro-x sm:flex">
-          <Breadcrumb.Link to="/">Application</Breadcrumb.Link>
-          <Breadcrumb.Link to="/" active={true}>
+          {/* <Breadcrumb.Link to="/">Application</Breadcrumb.Link> */}
+          {/* <Breadcrumb.Link to="/" active={true}>
             Dashboard
-          </Breadcrumb.Link>
+          </Breadcrumb.Link> */}
         </Breadcrumb>
         {/* END: Breadcrumb */}
         {/* BEGIN: Search */}
@@ -67,33 +67,30 @@ function Main() {
           >
             <div className="absolute right-0 z-10 mt-[3px]">
               <div className="w-[450px] p-5 box">
-                <div className="mb-2 font-medium">Pages</div>
+                {/* <div className="mb-2 font-medium">Pages</div> */}
                 <div className="mb-5">
-                  <a href="" className="flex items-center">
-                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-success/20 dark:bg-success/10 text-success">
-                      <Lucide icon="Inbox" className="w-4 h-4" />
-                    </div>
-                    <div className="ml-3">Mail Server</div>
-                  </a>
-                  <a href="" className="flex items-center mt-2">
-                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-pending/10 text-pending">
-                      <Lucide icon="Users" className="w-4 h-4" />
-                    </div>
-                    <div className="ml-3">Users & Permissions</div>
-                  </a>
-                  <a href="" className="flex items-center mt-2">
+                  <a href="/billing" className="flex items-center mt-2">
                     <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 dark:bg-primary/20 text-primary/80">
                       <Lucide icon="CreditCard" className="w-4 h-4" />
                     </div>
                     <div className="ml-3">Billing</div>
                   </a>
+                  <a href="/users" className="flex items-center mt-2">
+                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 dark:bg-primary/20 text-primary/80">
+                      <Lucide icon="Users" className="w-4 h-4" />
+                    </div>
+                    <div className="ml-3">Profile</div>
+                  </a>
+                  {/*vehicles*/}
+                  <a href="/vehicles" className="flex items-center mt-2">
+                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 dark:bg-primary/20 text-primary/80">
+                      <Lucide icon="Truck" className="w-4 h-4" />
+                    </div>
+                    <div className="ml-3">Vehicles</div>
+                  </a>
                 </div>
-                <div className="mb-2 font-medium">Users</div>
-                <div className="mb-5">
-               
-                </div>
-                <div className="mb-2 font-medium">Vehicle</div>
-                
+
+
               </div>
             </div>
           </Transition>
@@ -111,7 +108,7 @@ function Main() {
           </Popover.Button>
           <Popover.Panel className="w-[280px] sm:w-[350px] p-5 mt-2">
             <div className="mb-5 font-medium">Notifications</div>
-           
+
           </Popover.Panel>
         </Popover>
         {/* END: Notifications  */}
@@ -133,11 +130,11 @@ function Main() {
             <Menu.Item className="hover:bg-white/5" onClick={() => navigate(`/profile/${user._id}`)}>
               <Lucide icon="User" className="w-4 h-4 mr-2" /> Profile
             </Menu.Item>
-          {user?.role === "System Admin" && (
-            <Menu.Item className="hover:bg-white/5" onClick={() => navigate("/users/add")}>
-              <Lucide icon="Edit" className="w-4 h-4 mr-2" /> Add Account
-            </Menu.Item>
-          )}
+            {user?.role === "System Admin" && (
+              <Menu.Item className="hover:bg-white/5" onClick={() => navigate("/users/add")}>
+                <Lucide icon="Edit" className="w-4 h-4 mr-2" /> Add Account
+              </Menu.Item>
+            )}
             <Menu.Item className="hover:bg-white/5" onClick={() => navigate("/change-password")}>
               <Lucide icon="Lock" className="w-4 h-4 mr-2" /> Change Password
             </Menu.Item>
