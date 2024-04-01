@@ -130,7 +130,7 @@ graph LR;
     Database --> Response;
     Response --> Frontend_API;
 ```
-```sh
+```
                                     +-------------------------+                                 
                                     |       Frontend/API      |                                 
                                     +-------------------------+                                 
