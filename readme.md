@@ -66,7 +66,8 @@ For any inquiries, please contact team Endeavor at `teamendeavorcodesamurai@gmai
 
 ## 1. Diagrams and Flowcharts
 ### Entity Relationship Diagram
-![Flowchart](server/Entity_Relationship_diagram.png)
+
+![Flowchart](./server/Entity_Relationship_Diagram.png)
 
 
 ### 2. End to End Activity Diagram
